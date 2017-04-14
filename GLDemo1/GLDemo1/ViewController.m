@@ -50,14 +50,21 @@
     };
     
     GLuint buffer;
-    glGenBuffers(1, &buffer);
+    glGenBuffers(1, &buffer); // 创建顶点缓存对象
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(squareVertexData), squareVertexData, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(squareVertexData), squareVertexData, GL_STATIC_DRAW);  // 顶点数据复制到缓存的内存中
+    // GL_STATIC_DRAW  数据几乎不会改变
+    // GL_DYNAMIC_DRAW  数据会被改变很多
+    // GL_STREAM_DRAW  数据每次绘制时都会改变
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);//ding dain shu ju huan cun
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLfloat *)NULL + 0);
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLfloat *)NULL + 3);
+    
+    
+
+
 }
 
 
@@ -74,11 +81,12 @@
     self.mEffect.texture2d0.name = textureInfo.name;
     
     
+//    glCreateShader(GL_VERTEX_SHADER);
     
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    glClearColor(0.3f, 1.6f, 1.0f, 1.0f);
+    glClearColor(0.1f, 0.9f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     //启动着色器
