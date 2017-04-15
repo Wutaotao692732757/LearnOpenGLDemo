@@ -15,6 +15,9 @@
 		6E19D2A41EA0CBB500804F57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E19D2A21EA0CBB500804F57 /* LaunchScreen.storyboard */; };
 		6E19D2AF1EA0CBB500804F57 /* hello___Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E19D2AE1EA0CBB500804F57 /* hello___Tests.m */; };
 		6E19D2BA1EA0CBB500804F57 /* hello___UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E19D2B91EA0CBB500804F57 /* hello___UITests.m */; };
+		6E19D2C81EA0D8C300804F57 /* for_test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E19D2C71EA0D8C300804F57 /* for_test.jpg */; };
+		6E19D2CA1EA10AB700804F57 /* shaderv.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 6E19D2C91EA10AB700804F57 /* shaderv.vsh */; };
+		6E19D2CC1EA10AD600804F57 /* shaderf.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 6E19D2CB1EA10AD600804F57 /* shaderf.fsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		6E19D2B51EA0CBB500804F57 /* hello三角形UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "hello三角形UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E19D2B91EA0CBB500804F57 /* hello___UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "hello___UITests.m"; sourceTree = "<group>"; };
 		6E19D2BB1EA0CBB500804F57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E19D2C71EA0D8C300804F57 /* for_test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = for_test.jpg; sourceTree = "<group>"; };
+		6E19D2C91EA10AB700804F57 /* shaderv.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shaderv.vsh; sourceTree = "<group>"; };
+		6E19D2CB1EA10AD600804F57 /* shaderf.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shaderf.fsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +107,13 @@
 		6E19D2931EA0CBB500804F57 /* hello三角形 */ = {
 			isa = PBXGroup;
 			children = (
+				6E19D2C71EA0D8C300804F57 /* for_test.jpg */,
 				6E19D2971EA0CBB500804F57 /* AppDelegate.h */,
 				6E19D2981EA0CBB500804F57 /* AppDelegate.m */,
 				6E19D29A1EA0CBB500804F57 /* ViewController.h */,
 				6E19D29B1EA0CBB500804F57 /* ViewController.m */,
+				6E19D2C91EA10AB700804F57 /* shaderv.vsh */,
+				6E19D2CB1EA10AD600804F57 /* shaderf.fsh */,
 				6E19D29D1EA0CBB500804F57 /* Main.storyboard */,
 				6E19D2A01EA0CBB500804F57 /* Assets.xcassets */,
 				6E19D2A21EA0CBB500804F57 /* LaunchScreen.storyboard */,
@@ -249,7 +258,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E19D2CA1EA10AB700804F57 /* shaderv.vsh in Resources */,
 				6E19D2A41EA0CBB500804F57 /* LaunchScreen.storyboard in Resources */,
+				6E19D2C81EA0D8C300804F57 /* for_test.jpg in Resources */,
+				6E19D2CC1EA10AD600804F57 /* shaderf.fsh in Resources */,
 				6E19D2A11EA0CBB500804F57 /* Assets.xcassets in Resources */,
 				6E19D29F1EA0CBB500804F57 /* Main.storyboard in Resources */,
 			);
@@ -516,6 +528,7 @@
 				6E19D2C01EA0CBB500804F57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E19D2C11EA0CBB500804F57 /* Build configuration list for PBXNativeTarget "hello三角形Tests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +537,7 @@
 				6E19D2C31EA0CBB500804F57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E19D2C41EA0CBB500804F57 /* Build configuration list for PBXNativeTarget "hello三角形UITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +546,7 @@
 				6E19D2C61EA0CBB500804F57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
