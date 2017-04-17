@@ -15,6 +15,10 @@
 		6EE5940D1EA1FD1F001FB82F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EE5940B1EA1FD1F001FB82F /* LaunchScreen.storyboard */; };
 		6EE594181EA1FD20001FB82F /* demo2_____Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE594171EA1FD20001FB82F /* demo2_____Tests.m */; };
 		6EE594231EA1FD20001FB82F /* demo2_____UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE594221EA1FD20001FB82F /* demo2_____UITests.m */; };
+		6EE594311EA1FD44001FB82F /* for_test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6EE594301EA1FD44001FB82F /* for_test.jpg */; };
+		6EE594341EA1FD8A001FB82F /* LearnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE594331EA1FD8A001FB82F /* LearnView.m */; };
+		6EE594371EA2146E001FB82F /* shaderv.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 6EE594351EA2146E001FB82F /* shaderv.vsh */; };
+		6EE594381EA2146E001FB82F /* shaderf.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 6EE594361EA2146E001FB82F /* shaderf.fsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,11 @@
 		6EE5941E1EA1FD20001FB82F /* demo2-旋转图像UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "demo2-旋转图像UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EE594221EA1FD20001FB82F /* demo2_____UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "demo2_____UITests.m"; sourceTree = "<group>"; };
 		6EE594241EA1FD20001FB82F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EE594301EA1FD44001FB82F /* for_test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = for_test.jpg; sourceTree = "<group>"; };
+		6EE594321EA1FD8A001FB82F /* LearnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LearnView.h; sourceTree = "<group>"; };
+		6EE594331EA1FD8A001FB82F /* LearnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LearnView.m; sourceTree = "<group>"; };
+		6EE594351EA2146E001FB82F /* shaderv.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shaderv.vsh; sourceTree = "<group>"; };
+		6EE594361EA2146E001FB82F /* shaderf.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shaderf.fsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +110,15 @@
 		6EE593FC1EA1FD1F001FB82F /* demo2-旋转图像 */ = {
 			isa = PBXGroup;
 			children = (
+				6EE594351EA2146E001FB82F /* shaderv.vsh */,
+				6EE594361EA2146E001FB82F /* shaderf.fsh */,
+				6EE594301EA1FD44001FB82F /* for_test.jpg */,
 				6EE594001EA1FD1F001FB82F /* AppDelegate.h */,
 				6EE594011EA1FD1F001FB82F /* AppDelegate.m */,
 				6EE594031EA1FD1F001FB82F /* ViewController.h */,
 				6EE594041EA1FD1F001FB82F /* ViewController.m */,
+				6EE594321EA1FD8A001FB82F /* LearnView.h */,
+				6EE594331EA1FD8A001FB82F /* LearnView.m */,
 				6EE594061EA1FD1F001FB82F /* Main.storyboard */,
 				6EE594091EA1FD1F001FB82F /* Assets.xcassets */,
 				6EE5940B1EA1FD1F001FB82F /* LaunchScreen.storyboard */,
@@ -249,7 +263,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EE594371EA2146E001FB82F /* shaderv.vsh in Resources */,
 				6EE5940D1EA1FD1F001FB82F /* LaunchScreen.storyboard in Resources */,
+				6EE594311EA1FD44001FB82F /* for_test.jpg in Resources */,
+				6EE594381EA2146E001FB82F /* shaderf.fsh in Resources */,
 				6EE5940A1EA1FD1F001FB82F /* Assets.xcassets in Resources */,
 				6EE594081EA1FD1F001FB82F /* Main.storyboard in Resources */,
 			);
@@ -279,6 +296,7 @@
 				6EE594051EA1FD1F001FB82F /* ViewController.m in Sources */,
 				6EE594021EA1FD1F001FB82F /* AppDelegate.m in Sources */,
 				6EE593FF1EA1FD1F001FB82F /* main.m in Sources */,
+				6EE594341EA1FD8A001FB82F /* LearnView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
