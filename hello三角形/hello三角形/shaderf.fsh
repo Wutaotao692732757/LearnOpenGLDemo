@@ -1,9 +1,8 @@
-varying lowp vec2 varyTextCoord;
+#version 330 core
 
-uniform sampler2D colorMap;
-
+out vec4 color;
 
 void main()
 {
-    gl_FragColor = texture2D(colorMap, varyTextCoord);
+    color = vec4(1.0f, 0.5f, 0.2f, 1.0f);
 }

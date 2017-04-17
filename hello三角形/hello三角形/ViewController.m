@@ -12,27 +12,20 @@
 @interface ViewController ()
 
 @property(nonatomic,strong) EAGLContext *mContext;
-@property(nonatomic,strong) GLKBaseEffect *mEffect;
 
 @end
 
 @implementation ViewController
-
-
-
-
-
-
-
+   GLuint shaderProgram;
+  GLuint VBO;
+GLfloat vertices[] = {
+    -0.5, -0.5, 0.0f,
+    0.5f, -0.5f, 0.0f,
+    0.0f, 0.5f, 0.0f
+};
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupConfig];
-    [self uploadVertexArray];
-    [self uploadTexture];
-    
-}
-
--(void)setupConfig {
+ 
     
     self.mContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     GLKView *view = (GLKView *)self.view;
@@ -40,98 +33,100 @@
     view.drawableColorFormat = GLKViewDrawableColorFormatRGBA8888;
     [EAGLContext setCurrentContext:self.mContext];
     
-}
-
--(void)uploadVertexArray{
-    GLfloat squareVertexData[] = {
-        
-        0.8, -0.5, 0.0f,  1.0f, 0.0f,
-        0.5, 0.5, -0.0f,  1.0f, 1.0f,
-        -0.8, 0.5, 0.0f,  0.0f, 1.0f,
-        
-        0.8, -0.5, 0.0f,  1.0f, 0.0f,
-        -0.8, 0.5, 0.0f,  0.0f, 1.0f,
-        -0.5, -0.5, 0.0f, 0.0f, 0.0f,
-        
-    };
-    
-    GLuint buffer;
-    glGenBuffers(1, &buffer); // 创建顶点缓存对象
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(squareVertexData), squareVertexData, GL_STATIC_DRAW);  // 顶点数据复制到缓存的内存中
-    // GL_STATIC_DRAW  数据几乎不会改变
-    // GL_DYNAMIC_DRAW  数据会被改变很多
-    // GL_STREAM_DRAW  数据每次绘制时都会改变
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);//ding dain shu ju huan cun
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLfloat *)NULL + 0);
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLfloat *)NULL + 3);
-    
-    
-    
+ 
+    [self creatShader];
     
 }
 
 
 
--(void)uploadTexture{
+-(void)creatShader{
     
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"for_test" ofType:@"jpg"];
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:@(1),GLKTextureLoaderOriginBottomLeft, nil];
+    //初始化顶点坐标
+  
+    // 创建顶点缓存对象
+  
+    glGenBuffers(1, &VBO);
+    //绑定缓存
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    //配置当前绑定的缓存
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
-    GLKTextureInfo *textureInfo = [GLKTextureLoader textureWithContentsOfFile:filePath options:options error:nil];
+    //创建顶点着色器
+    GLuint vertexShader;
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
     
-//    self.mEffect = [[GLKBaseEffect alloc]init];
-//    self.mEffect.texture2d0.enabled = GL_TRUE;
-//    self.mEffect.texture2d0.name = textureInfo.name;
+    //读取文件路径
+    NSString* vertFile = [[NSBundle mainBundle] pathForResource:@"shaderv" ofType:@"vsh"];
+    
+    NSString* Vcontent = [NSString stringWithContentsOfFile:vertFile encoding:NSUTF8StringEncoding error:nil];
+    const GLchar* vertextsource = (GLchar *)[Vcontent UTF8String];
     
     
-    //    glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertextsource, NULL);
+    glCompileShader(vertexShader);
     
-}
-
--(GLuint)loadShaders:(NSString *)vert frag:(NSString *)frag{
+    //片段着色器路径
+    NSString* fragFile = [[NSBundle mainBundle] pathForResource:@"shaderf" ofType:@"fsh"];
+    NSString* Fcontent = [NSString stringWithContentsOfFile:fragFile encoding:NSUTF8StringEncoding error:nil];
+    const GLchar* fragmentsource = (GLchar *)[Fcontent UTF8String];
     
-    GLuint verShader, fragShader;
+    
+    // 片段着色器
+    GLuint fragmentShader;
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentsource, NULL);
+    glCompileShader(fragmentShader);
     
     //着色器程序
-    GLuint program = glCreateProgram();
-    //1.compile
-    [self compileShader:&verShader type:GL_VERTEX_SHADER file:vert];//顶点着色器
-    [self compileShader:&fragShader type:GL_FRAGMENT_SHADER file:frag];//片段着色器
-    //2.attach
-    glAttachShader(program, verShader);
-    glAttachShader(program, fragShader);
-    //3. 释放不需要的shader
-    glDeleteShader(verShader);
-    glDeleteShader(fragShader);
-    return program;
+ 
+    shaderProgram = glCreateProgram();
+    
+    //用着色器添加到程序对象上
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+    //激活这个程序
+    glUseProgram(shaderProgram);
+    
+    //删除着色器对象
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+    
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), (GLvoid*)0);
+        glEnableVertexAttribArray(0);
+    
+    //复制顶点数组到缓冲中供OpenGL使用
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    //设置顶点属性指针
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+    //当我们渲染一个物体时要使用着色器程序
+    glUseProgram(shaderProgram);
 }
 
--(void)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file{
+
+
+-(void)glkView:(GLKView *)view drawInRect:(CGRect)rect{
     
-    NSString *content = [NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil];
     
-    const GLchar * source = (GLchar *)[content UTF8String];
     
-    *shader = glCreateShader(type);
     
-    glShaderSource(*shader, 1, &source, NULL);
-    glCompileShader(*shader);
+//    glClearColor(0.1f, 0.3f, 0.1f, 1.0f);
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    
+      // 怎么绘制呢?和windows 平台不一样...
+    
+ 
+    
+    
 }
 
 
 
 
-- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    glClearColor(0.1f, 0.9f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    //启动着色器
-    [self.mEffect prepareToDraw];
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-}
 
 
 @end
