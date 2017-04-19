@@ -241,18 +241,10 @@
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, fw, fh, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    
     free(spriteData);
-    
-    
     
     return 0;
 }
-
-
-
-
- 
 
 @end
 
