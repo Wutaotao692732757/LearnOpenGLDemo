@@ -7,23 +7,21 @@
 //
 
 #import "ViewController.h"
+#import "LearnView.h"
+
 
 @interface ViewController ()
-
+@property (nonatomic,strong) LearnView *myView;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.myView = (LearnView *)self.view;
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 @end

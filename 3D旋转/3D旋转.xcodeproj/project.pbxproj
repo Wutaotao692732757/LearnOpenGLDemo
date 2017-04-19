@@ -15,6 +15,11 @@
 		6E4D3ADC1EA7117F005C81B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E4D3ADA1EA7117F005C81B3 /* LaunchScreen.storyboard */; };
 		6E4D3AE71EA7117F005C81B3 /* _D__Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4D3AE61EA7117F005C81B3 /* _D__Tests.m */; };
 		6E4D3AF21EA7117F005C81B3 /* _D__UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4D3AF11EA7117F005C81B3 /* _D__UITests.m */; };
+		6E4D3B061EA7127A005C81B3 /* GLESMath.c in Sources */ = {isa = PBXBuildFile; fileRef = 6E4D3B001EA7127A005C81B3 /* GLESMath.c */; };
+		6E4D3B071EA7127A005C81B3 /* GLESUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4D3B031EA7127A005C81B3 /* GLESUtils.m */; };
+		6E4D3B0A1EA712A4005C81B3 /* LearnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4D3B091EA712A4005C81B3 /* LearnView.m */; };
+		6E4D3B0D1EA74A8A005C81B3 /* shaderv.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6E4D3B0B1EA74A8A005C81B3 /* shaderv.glsl */; };
+		6E4D3B0E1EA74A8A005C81B3 /* shaderf.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6E4D3B0C1EA74A8A005C81B3 /* shaderf.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +56,16 @@
 		6E4D3AED1EA7117F005C81B3 /* 3D旋转UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "3D旋转UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E4D3AF11EA7117F005C81B3 /* _D__UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _D__UITests.m; sourceTree = "<group>"; };
 		6E4D3AF31EA7117F005C81B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E4D3B001EA7127A005C81B3 /* GLESMath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = GLESMath.c; sourceTree = "<group>"; };
+		6E4D3B011EA7127A005C81B3 /* GLESMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLESMath.h; sourceTree = "<group>"; };
+		6E4D3B021EA7127A005C81B3 /* GLESUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLESUtils.h; sourceTree = "<group>"; };
+		6E4D3B031EA7127A005C81B3 /* GLESUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLESUtils.m; sourceTree = "<group>"; };
+		6E4D3B041EA7127A005C81B3 /* Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quaternion.h; sourceTree = "<group>"; };
+		6E4D3B051EA7127A005C81B3 /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
+		6E4D3B081EA712A4005C81B3 /* LearnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LearnView.h; sourceTree = "<group>"; };
+		6E4D3B091EA712A4005C81B3 /* LearnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LearnView.m; sourceTree = "<group>"; };
+		6E4D3B0B1EA74A8A005C81B3 /* shaderv.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shaderv.glsl; sourceTree = "<group>"; };
+		6E4D3B0C1EA74A8A005C81B3 /* shaderf.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shaderf.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +116,15 @@
 		6E4D3ACB1EA7117F005C81B3 /* 3D旋转 */ = {
 			isa = PBXGroup;
 			children = (
+				6E4D3AFF1EA711EB005C81B3 /* Utils */,
 				6E4D3ACF1EA7117F005C81B3 /* AppDelegate.h */,
 				6E4D3AD01EA7117F005C81B3 /* AppDelegate.m */,
 				6E4D3AD21EA7117F005C81B3 /* ViewController.h */,
 				6E4D3AD31EA7117F005C81B3 /* ViewController.m */,
+				6E4D3B081EA712A4005C81B3 /* LearnView.h */,
+				6E4D3B091EA712A4005C81B3 /* LearnView.m */,
+				6E4D3B0B1EA74A8A005C81B3 /* shaderv.glsl */,
+				6E4D3B0C1EA74A8A005C81B3 /* shaderf.glsl */,
 				6E4D3AD51EA7117F005C81B3 /* Main.storyboard */,
 				6E4D3AD81EA7117F005C81B3 /* Assets.xcassets */,
 				6E4D3ADA1EA7117F005C81B3 /* LaunchScreen.storyboard */,
@@ -138,6 +158,19 @@
 				6E4D3AF31EA7117F005C81B3 /* Info.plist */,
 			);
 			path = "3D旋转UITests";
+			sourceTree = "<group>";
+		};
+		6E4D3AFF1EA711EB005C81B3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6E4D3B001EA7127A005C81B3 /* GLESMath.c */,
+				6E4D3B011EA7127A005C81B3 /* GLESMath.h */,
+				6E4D3B021EA7127A005C81B3 /* GLESUtils.h */,
+				6E4D3B031EA7127A005C81B3 /* GLESUtils.m */,
+				6E4D3B041EA7127A005C81B3 /* Quaternion.h */,
+				6E4D3B051EA7127A005C81B3 /* Vector.h */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,8 +283,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E4D3ADC1EA7117F005C81B3 /* LaunchScreen.storyboard in Resources */,
+				6E4D3B0D1EA74A8A005C81B3 /* shaderv.glsl in Resources */,
 				6E4D3AD91EA7117F005C81B3 /* Assets.xcassets in Resources */,
 				6E4D3AD71EA7117F005C81B3 /* Main.storyboard in Resources */,
+				6E4D3B0E1EA74A8A005C81B3 /* shaderf.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,9 +311,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E4D3B061EA7127A005C81B3 /* GLESMath.c in Sources */,
 				6E4D3AD41EA7117F005C81B3 /* ViewController.m in Sources */,
+				6E4D3B071EA7127A005C81B3 /* GLESUtils.m in Sources */,
 				6E4D3AD11EA7117F005C81B3 /* AppDelegate.m in Sources */,
 				6E4D3ACE1EA7117F005C81B3 /* main.m in Sources */,
+				6E4D3B0A1EA712A4005C81B3 /* LearnView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +554,7 @@
 				6E4D3AF81EA7117F005C81B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E4D3AF91EA7117F005C81B3 /* Build configuration list for PBXNativeTarget "3D旋转Tests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +563,7 @@
 				6E4D3AFB1EA7117F005C81B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E4D3AFC1EA7117F005C81B3 /* Build configuration list for PBXNativeTarget "3D旋转UITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +572,7 @@
 				6E4D3AFE1EA7117F005C81B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
