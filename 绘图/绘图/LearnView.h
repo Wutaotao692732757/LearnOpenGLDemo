@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  LearnView.h
 //  绘图
 //
 //  Created by wutaotao on 2017/4/19.
@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <OpenGLES/ES2/gl.h>
 
-@interface ViewController : UIViewController
-
+@interface LearnView : UIView
 
 @end
-
