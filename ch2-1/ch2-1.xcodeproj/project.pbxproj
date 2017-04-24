@@ -15,6 +15,7 @@
 		6E7E0FDA1EAD9957005ECD6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7E0FD81EAD9957005ECD6C /* LaunchScreen.storyboard */; };
 		6E7E0FE51EAD9957005ECD6C /* ch2_1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E0FE41EAD9957005ECD6C /* ch2_1Tests.m */; };
 		6E7E0FF01EAD9957005ECD6C /* ch2_1UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E0FEF1EAD9957005ECD6C /* ch2_1UITests.m */; };
+		6E7E0FFE1EADB0A7005ECD6C /* leaves.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6E7E0FFD1EADB0A7005ECD6C /* leaves.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		6E7E0FEB1EAD9957005ECD6C /* ch2-1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ch2-1UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7E0FEF1EAD9957005ECD6C /* ch2_1UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ch2_1UITests.m; sourceTree = "<group>"; };
 		6E7E0FF11EAD9957005ECD6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E7E0FFD1EADB0A7005ECD6C /* leaves.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = leaves.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		6E7E0FC91EAD9957005ECD6C /* ch2-1 */ = {
 			isa = PBXGroup;
 			children = (
+				6E7E0FFD1EADB0A7005ECD6C /* leaves.gif */,
 				6E7E0FCD1EAD9957005ECD6C /* AppDelegate.h */,
 				6E7E0FCE1EAD9957005ECD6C /* AppDelegate.m */,
 				6E7E0FD01EAD9957005ECD6C /* ViewController.h */,
@@ -251,6 +254,7 @@
 			files = (
 				6E7E0FDA1EAD9957005ECD6C /* LaunchScreen.storyboard in Resources */,
 				6E7E0FD71EAD9957005ECD6C /* Assets.xcassets in Resources */,
+				6E7E0FFE1EADB0A7005ECD6C /* leaves.gif in Resources */,
 				6E7E0FD51EAD9957005ECD6C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,6 +520,7 @@
 				6E7E0FF61EAD9957005ECD6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E7E0FF71EAD9957005ECD6C /* Build configuration list for PBXNativeTarget "ch2-1Tests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +529,7 @@
 				6E7E0FF91EAD9957005ECD6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E7E0FFA1EAD9957005ECD6C /* Build configuration list for PBXNativeTarget "ch2-1UITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +538,7 @@
 				6E7E0FFC1EAD9957005ECD6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

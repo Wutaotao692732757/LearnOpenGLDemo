@@ -18,6 +18,7 @@
 //存储每个顶点信息
 typedef struct {
     GLKVector3 positionCoords;
+    GLKVector2 textureCoords;
 } SceneVertex;
 
 
@@ -25,17 +26,12 @@ typedef struct {
 
 //定义顶点坐标
   SceneVertex vertices[] = {
-    -0.5f, 0.0f, 0.0f,
-    0.5f, 0.0f, 0.0f,
-    0.0f, 0.5f, 0.0f,
+      {{-0.5f, -0.5f, 0.0f},{0.0f,0.0f}},
+     {{ 0.5f,  -0.5f, 0.0f},{1.0f,0.0f}},
+     {{ -0.5f,  0.5f, 0.0f},{0.0f,1.0f}},
 };
 
-static const SceneVertex vertices2[] =
-{
-    {{-0.5f,  0.5f, 0.0}},  // upper left corner
-    {{-0.5f, -0.5f, 0.0}}, // lower left corner
-    {{ 0.5f, -0.5f, 0.0}} // lower right corner
-};
+
 
 
 - (void)viewDidLoad {
@@ -47,16 +43,23 @@ static const SceneVertex vertices2[] =
 
     self.baseEffect=[[GLKBaseEffect alloc]init];
     self.baseEffect.useConstantColor=GL_TRUE;// 内部一样颜色
-    self.baseEffect.constantColor=GLKVector4Make(0.2f, 0.1f, 0.6f, 1.0f);
+    self.baseEffect.constantColor=GLKVector4Make(1.0f, 1.0f, 1.0f, 1.0f);
     
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    
+ 
     glGenBuffers(1, &vertextBufferID);
     glBindBuffer(GL_ARRAY_BUFFER, vertextBufferID);
     
     //申请空间
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    CGImageRef imageRef = [[UIImage imageNamed:@"leaves.gif"] CGImage];
+    
+    GLKTextureInfo *textureInfo = [GLKTextureLoader textureWithCGImage:imageRef options:nil error:NULL];
+    
+    self.baseEffect.texture2d0.name = textureInfo.name;
+    self.baseEffect.texture2d0.target = textureInfo.target;
+    
 }
 
 NSInteger count = 0;
@@ -72,19 +75,16 @@ NSInteger count = 0;
     
     //启用顶点值
     glEnableVertexAttribArray(GLKVertexAttribPosition);
-    if (count%2==0) {
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+  
         //拷贝空间
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
         
-    }else{
-        //拷贝空间
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-        
-        
-    }
+ 
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(SceneVertex), NULL);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 3, GL_FLOAT, GL_FALSE, sizeof(SceneVertex),NULL + offsetof(SceneVertex, textureCoords) );
     
-    glDrawArrays(GL_LINE_LOOP, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
     
     
 }
