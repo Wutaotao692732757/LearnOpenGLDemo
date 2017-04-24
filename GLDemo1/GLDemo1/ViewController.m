@@ -39,8 +39,8 @@
 -(void)uploadVertexArray{
     GLfloat squareVertexData[] = {
         
-         0.5, 0.0,  0.0f,
-        -0.5, 0.0,  0.0f,
+         0.8, 0.0,  0.0f,
+        -0.9, 0.0,  0.0f,
          0.0, 0.5,  0.0f,
  
     };
@@ -80,7 +80,7 @@
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    glClearColor(0.1f, 0.9f, 0.1f, 1.0f);
+    glClearColor(0.1f, 0.2f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     //启动着色器
