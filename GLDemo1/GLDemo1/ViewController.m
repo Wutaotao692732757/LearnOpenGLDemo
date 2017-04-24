@@ -39,11 +39,10 @@
 -(void)uploadVertexArray{
     GLfloat squareVertexData[] = {
         
-        0.5, -0.5, 0.2f,
-        0.5, 0.1, -0.0f,
-        -0.5, 0.5, 0.3f,
-        
-        
+         0.5, 0.0,  0.0f,
+        -0.5, 0.0,  0.0f,
+         0.0, 0.5,  0.0f,
+ 
     };
     
     GLuint buffer;
@@ -56,10 +55,8 @@
     // 开启渲染使用缓存数据
     glEnableVertexAttribArray(GLKVertexAttribPosition);//ding dain shu ju huan cun
  // 需要访问缓存数据的类型和所有需要访问的数据的内存偏移值
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLfloat *)NULL + 0);
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLfloat *)NULL + 3);
-    
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLfloat *)NULL + 0);
+   
 
 }
 
@@ -88,7 +85,7 @@
     
     //启动着色器
     [self.mEffect prepareToDraw];
-    glDrawArrays(GL_LINES, 0, 3);
+    glDrawArrays(GL_LINE_LOOP, 0, 3);
 }
 
 
