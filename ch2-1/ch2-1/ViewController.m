@@ -77,7 +77,7 @@ NSInteger count = 0;
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
   
-        //拷贝空间
+     //拷贝空间
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
         
  
