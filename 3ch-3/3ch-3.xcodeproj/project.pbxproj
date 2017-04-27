@@ -15,6 +15,7 @@
 		6ECB470F1EB043D600A779F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6ECB470D1EB043D600A779F4 /* LaunchScreen.storyboard */; };
 		6ECB471A1EB043D600A779F4 /* _ch_3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ECB47191EB043D600A779F4 /* _ch_3Tests.m */; };
 		6ECB47251EB043D600A779F4 /* _ch_3UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ECB47241EB043D600A779F4 /* _ch_3UITests.m */; };
+		6ECB47331EB0442C00A779F4 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ECB47321EB0442C00A779F4 /* grid.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		6ECB47201EB043D600A779F4 /* 3ch-3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "3ch-3UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ECB47241EB043D600A779F4 /* _ch_3UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _ch_3UITests.m; sourceTree = "<group>"; };
 		6ECB47261EB043D600A779F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6ECB47321EB0442C00A779F4 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		6ECB46FE1EB043D600A779F4 /* 3ch-3 */ = {
 			isa = PBXGroup;
 			children = (
+				6ECB47321EB0442C00A779F4 /* grid.png */,
 				6ECB47021EB043D600A779F4 /* AppDelegate.h */,
 				6ECB47031EB043D600A779F4 /* AppDelegate.m */,
 				6ECB47051EB043D600A779F4 /* ViewController.h */,
@@ -250,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ECB470F1EB043D600A779F4 /* LaunchScreen.storyboard in Resources */,
+				6ECB47331EB0442C00A779F4 /* grid.png in Resources */,
 				6ECB470C1EB043D600A779F4 /* Assets.xcassets in Resources */,
 				6ECB470A1EB043D600A779F4 /* Main.storyboard in Resources */,
 			);
@@ -518,6 +522,7 @@
 				6ECB472B1EB043D600A779F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6ECB472C1EB043D600A779F4 /* Build configuration list for PBXNativeTarget "3ch-3Tests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +531,7 @@
 				6ECB472E1EB043D600A779F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6ECB472F1EB043D600A779F4 /* Build configuration list for PBXNativeTarget "3ch-3UITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +540,7 @@
 				6ECB47311EB043D600A779F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
