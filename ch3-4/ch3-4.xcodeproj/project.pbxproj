@@ -15,6 +15,8 @@
 		6E54C7371EB2C9F900A56D35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E54C7351EB2C9F900A56D35 /* LaunchScreen.storyboard */; };
 		6E54C7421EB2C9F900A56D35 /* ch3_4Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E54C7411EB2C9F900A56D35 /* ch3_4Tests.m */; };
 		6E54C74D1EB2C9F900A56D35 /* ch3_4UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E54C74C1EB2C9F900A56D35 /* ch3_4UITests.m */; };
+		6E54C75E1EB3397D00A56D35 /* beetle.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E54C75C1EB3397D00A56D35 /* beetle.png */; };
+		6E54C75F1EB3397D00A56D35 /* leaves.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6E54C75D1EB3397D00A56D35 /* leaves.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		6E54C7481EB2C9F900A56D35 /* ch3-4UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ch3-4UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E54C74C1EB2C9F900A56D35 /* ch3_4UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ch3_4UITests.m; sourceTree = "<group>"; };
 		6E54C74E1EB2C9F900A56D35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E54C75C1EB3397D00A56D35 /* beetle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beetle.png; sourceTree = "<group>"; };
+		6E54C75D1EB3397D00A56D35 /* leaves.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = leaves.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 		6E54C7271EB2C9F900A56D35 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6E54C75C1EB3397D00A56D35 /* beetle.png */,
+				6E54C75D1EB3397D00A56D35 /* leaves.gif */,
 				6E54C7281EB2C9F900A56D35 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -250,7 +256,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E54C7371EB2C9F900A56D35 /* LaunchScreen.storyboard in Resources */,
+				6E54C75F1EB3397D00A56D35 /* leaves.gif in Resources */,
 				6E54C7341EB2C9F900A56D35 /* Assets.xcassets in Resources */,
+				6E54C75E1EB3397D00A56D35 /* beetle.png in Resources */,
 				6E54C7321EB2C9F900A56D35 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,6 +526,7 @@
 				6E54C7531EB2C9F900A56D35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E54C7541EB2C9F900A56D35 /* Build configuration list for PBXNativeTarget "ch3-4Tests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +535,7 @@
 				6E54C7561EB2C9F900A56D35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E54C7571EB2C9F900A56D35 /* Build configuration list for PBXNativeTarget "ch3-4UITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +544,7 @@
 				6E54C7591EB2C9F900A56D35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
