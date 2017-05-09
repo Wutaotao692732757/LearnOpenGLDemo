@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E0AFB021EC14FAC00CBB073 /* AGLKContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0AFB011EC14FAC00CBB073 /* AGLKContext.m */; };
+		6E0AFB051EC14FB700CBB073 /* AGLKVertexAttribArrayBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0AFB041EC14FB700CBB073 /* AGLKVertexAttribArrayBuffer.m */; };
+		6E0AFB071EC14FD400CBB073 /* Earth512x256.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E0AFB061EC14FD400CBB073 /* Earth512x256.jpg */; };
 		6E8E13371EBC50D700D04BE8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8E13361EBC50D700D04BE8 /* main.m */; };
 		6E8E133A1EBC50D700D04BE8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8E13391EBC50D700D04BE8 /* AppDelegate.m */; };
 		6E8E133D1EBC50D700D04BE8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8E133C1EBC50D700D04BE8 /* ViewController.m */; };
@@ -35,6 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E0AFAFF1EC14F5000CBB073 /* sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sphere.h; sourceTree = "<group>"; };
+		6E0AFB001EC14FAC00CBB073 /* AGLKContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLKContext.h; sourceTree = "<group>"; };
+		6E0AFB011EC14FAC00CBB073 /* AGLKContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLKContext.m; sourceTree = "<group>"; };
+		6E0AFB031EC14FB700CBB073 /* AGLKVertexAttribArrayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLKVertexAttribArrayBuffer.h; sourceTree = "<group>"; };
+		6E0AFB041EC14FB700CBB073 /* AGLKVertexAttribArrayBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLKVertexAttribArrayBuffer.m; sourceTree = "<group>"; };
+		6E0AFB061EC14FD400CBB073 /* Earth512x256.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Earth512x256.jpg; sourceTree = "<group>"; };
 		6E8E13321EBC50D700D04BE8 /* ch5-1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ch5-1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E8E13361EBC50D700D04BE8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6E8E13381EBC50D700D04BE8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -101,8 +110,14 @@
 		6E8E13341EBC50D700D04BE8 /* ch5-1 */ = {
 			isa = PBXGroup;
 			children = (
+				6E0AFB061EC14FD400CBB073 /* Earth512x256.jpg */,
+				6E0AFAFF1EC14F5000CBB073 /* sphere.h */,
+				6E0AFB001EC14FAC00CBB073 /* AGLKContext.h */,
+				6E0AFB011EC14FAC00CBB073 /* AGLKContext.m */,
 				6E8E13381EBC50D700D04BE8 /* AppDelegate.h */,
 				6E8E13391EBC50D700D04BE8 /* AppDelegate.m */,
+				6E0AFB031EC14FB700CBB073 /* AGLKVertexAttribArrayBuffer.h */,
+				6E0AFB041EC14FB700CBB073 /* AGLKVertexAttribArrayBuffer.m */,
 				6E8E133B1EBC50D700D04BE8 /* ViewController.h */,
 				6E8E133C1EBC50D700D04BE8 /* ViewController.m */,
 				6E8E133E1EBC50D700D04BE8 /* Main.storyboard */,
@@ -249,6 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E0AFB071EC14FD400CBB073 /* Earth512x256.jpg in Resources */,
 				6E8E13451EBC50D700D04BE8 /* LaunchScreen.storyboard in Resources */,
 				6E8E13421EBC50D700D04BE8 /* Assets.xcassets in Resources */,
 				6E8E13401EBC50D700D04BE8 /* Main.storyboard in Resources */,
@@ -276,7 +292,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E0AFB021EC14FAC00CBB073 /* AGLKContext.m in Sources */,
 				6E8E133D1EBC50D700D04BE8 /* ViewController.m in Sources */,
+				6E0AFB051EC14FB700CBB073 /* AGLKVertexAttribArrayBuffer.m in Sources */,
 				6E8E133A1EBC50D700D04BE8 /* AppDelegate.m in Sources */,
 				6E8E13371EBC50D700D04BE8 /* main.m in Sources */,
 			);
@@ -518,6 +536,7 @@
 				6E8E13611EBC50D700D04BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E8E13621EBC50D700D04BE8 /* Build configuration list for PBXNativeTarget "ch5-1Tests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +545,7 @@
 				6E8E13641EBC50D700D04BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E8E13651EBC50D700D04BE8 /* Build configuration list for PBXNativeTarget "ch5-1UITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +554,7 @@
 				6E8E13671EBC50D700D04BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
