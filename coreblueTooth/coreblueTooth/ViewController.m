@@ -84,7 +84,7 @@
     
     //设置扫描到设备的委托
   __block ViewController   * weakself = self;
-  __block BabyBluetooth * weakbaby = baby ;
+//  __block BabyBluetooth * weakbaby = baby ;
     [baby setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
         if(![weakself.peripheralArr containsObject:peripheral]){
          
@@ -112,11 +112,23 @@
 //        
 //    }];
     //设置读取characteristics的委托
-    [baby setBlockOnReadValueForCharacteristicAtChannel:@"FFF0" block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
-        NSLog(@"特征的名字characteristic name:%@ value is:%@",characteristics,characteristics.value);
-     
-        
+//    [baby setBlockOnReadValueForCharacteristicAtChannel:@"FFF0" block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+//        
+//            weakself.characteristic = characteristics;
+//            NSString *str = [[NSString alloc]initWithData:characteristics.value encoding:NSUTF8StringEncoding];
+//            weakself.infoLabel.text = str;
+//         NSLog(@"特征的名字characteristic name:%@ value is:%@",characteristics,characteristics.value);
+//        
+//    }];
+    
+    [baby setBlockOnReadValueForCharacteristicAtChannel:@"FFF0" block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+        weakself.characteristic = characteristic;
+        NSString *str = [[NSString alloc]initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+        weakself.infoLabel.text = str;
+        NSLog(@"特征的名字characteristic name:%@ value is:%@",characteristic,characteristic.value);
     }];
+    
+    
 //    //设置发现characteristics的descriptors的委托
 //    [baby setBlockOnDiscoverDescriptorsForCharacteristicAtChannel:@"FFF0" block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
 //        NSLog(@"===characteristic name:%@",characteristic.service.UUID);
@@ -153,10 +165,13 @@
 //    }];
     
     //.......
+    
+    [baby setBlockOnDidUpdateNotificationStateForCharacteristicAtChannel:<#(NSString *)#> block:<#^(CBCharacteristic *characteristic, NSError *error)block#>];
+    
 }
 - (IBAction)sendBtnDidClicked:(id)sender {
     
-// [self.currPeripheral writeValue:[[NSData alloc] ins] forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
+ [self.currPeripheral writeValue:[_infoLabel.text dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
     
 }
 

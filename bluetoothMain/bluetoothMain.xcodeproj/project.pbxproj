@@ -431,6 +431,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = VQ5GJ97852;
 				INFOPLIST_FILE = bluetoothMain/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = s.bluetoothMain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -443,6 +444,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = VQ5GJ97852;
 				INFOPLIST_FILE = bluetoothMain/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = s.bluetoothMain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -518,6 +520,7 @@
 				6E2C98C01EC452EF003CA5FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E2C98C11EC452EF003CA5FD /* Build configuration list for PBXNativeTarget "bluetoothMainTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +529,7 @@
 				6E2C98C31EC452EF003CA5FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E2C98C41EC452EF003CA5FD /* Build configuration list for PBXNativeTarget "bluetoothMainUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +538,7 @@
 				6E2C98C61EC452EF003CA5FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

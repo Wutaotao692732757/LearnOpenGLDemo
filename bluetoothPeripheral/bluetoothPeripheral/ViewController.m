@@ -32,8 +32,9 @@
     //配置s1的3个characteristic
 //    makeCharacteristicToService(s1, @"FFF1", @"r", @"hello1");//读
 //    makeCharacteristicToService(s1, @"FFF2", @"w", @"hello2");//写
-    makeCharacteristicToService(s1, genUUID(), @"rw", _getedinfoLabel.text);//可读写,uuid自动生成
-    
+    makeCharacteristicToService(s1, genUUID(), @"rw", @"hello3");//可读写,uuid自动生成
+//    NSData *data = [_getedinfoLabel.text dataUsingEncoding:NSUTF8StringEncoding];
+//    makeStaticCharacteristicToService(s1, genUUID(), @"hello3", data);
 //    makeCharacteristicToService(s1, @"FFF4", nil, @"hello4");//默认读写字段
 //    makeCharacteristicToService(s1, @"FFF5", @"n", @"hello5");//notify字段
 //    //配置第一个服务s2
@@ -69,8 +70,9 @@
     }];
     
     [baby peripheralModelBlockOnDidReceiveWriteRequests:^(CBPeripheralManager *peripheral, NSArray *requests) {
-//        weakself.getedinfoLabel.text=
-        
+//        NSData *data =
+        weakself.getedinfoLabel.text=@"写了数据";
+        NSLog(@"写了数据");
     }];
     
     
