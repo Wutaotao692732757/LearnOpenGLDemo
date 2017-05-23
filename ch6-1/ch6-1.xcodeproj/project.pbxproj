@@ -15,6 +15,10 @@
 		6E441EE21ECFF0D500355E62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E441EE01ECFF0D500355E62 /* LaunchScreen.storyboard */; };
 		6E441EED1ECFF0D500355E62 /* ch6_1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E441EEC1ECFF0D500355E62 /* ch6_1Tests.m */; };
 		6E441EF81ECFF0D500355E62 /* ch6_1UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E441EF71ECFF0D500355E62 /* ch6_1UITests.m */; };
+		6E53B17A1ED3DC4700A35987 /* SceneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E53B1791ED3DC4700A35987 /* SceneModel.m */; };
+		6E53B17D1ED3DCA300A35987 /* SceneCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E53B17C1ED3DCA300A35987 /* SceneCarModel.m */; };
+		6E53B1801ED3DDEA00A35987 /* SceneRinkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E53B17F1ED3DDEA00A35987 /* SceneRinkModel.m */; };
+		6E53B1831ED3DF0800A35987 /* SceneCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E53B1821ED3DF0800A35987 /* SceneCar.m */; };
 		6EB69F171ED26D780083C3C2 /* AGLKContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB69F161ED26D780083C3C2 /* AGLKContext.m */; };
 		6EB69F1A1ED26D8B0083C3C2 /* AGLKVertexAttribArrayBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB69F191ED26D8B0083C3C2 /* AGLKVertexAttribArrayBuffer.m */; };
 		6EB69F1F1ED26F470083C3C2 /* SceneMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB69F1E1ED26F470083C3C2 /* SceneMesh.m */; };
@@ -54,6 +58,14 @@
 		6E441EF31ECFF0D500355E62 /* ch6-1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ch6-1UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E441EF71ECFF0D500355E62 /* ch6_1UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ch6_1UITests.m; sourceTree = "<group>"; };
 		6E441EF91ECFF0D500355E62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E53B1781ED3DC4700A35987 /* SceneModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneModel.h; sourceTree = "<group>"; };
+		6E53B1791ED3DC4700A35987 /* SceneModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneModel.m; sourceTree = "<group>"; };
+		6E53B17B1ED3DCA300A35987 /* SceneCarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneCarModel.h; sourceTree = "<group>"; };
+		6E53B17C1ED3DCA300A35987 /* SceneCarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneCarModel.m; sourceTree = "<group>"; };
+		6E53B17E1ED3DDEA00A35987 /* SceneRinkModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneRinkModel.h; sourceTree = "<group>"; };
+		6E53B17F1ED3DDEA00A35987 /* SceneRinkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneRinkModel.m; sourceTree = "<group>"; };
+		6E53B1811ED3DF0800A35987 /* SceneCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneCar.h; sourceTree = "<group>"; };
+		6E53B1821ED3DF0800A35987 /* SceneCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneCar.m; sourceTree = "<group>"; };
 		6EB69F151ED26D780083C3C2 /* AGLKContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLKContext.h; sourceTree = "<group>"; };
 		6EB69F161ED26D780083C3C2 /* AGLKContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLKContext.m; sourceTree = "<group>"; };
 		6EB69F181ED26D8B0083C3C2 /* AGLKVertexAttribArrayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLKVertexAttribArrayBuffer.h; sourceTree = "<group>"; };
@@ -118,6 +130,14 @@
 				6EB69F191ED26D8B0083C3C2 /* AGLKVertexAttribArrayBuffer.m */,
 				6EB69F1D1ED26F470083C3C2 /* SceneMesh.h */,
 				6EB69F1E1ED26F470083C3C2 /* SceneMesh.m */,
+				6E53B1781ED3DC4700A35987 /* SceneModel.h */,
+				6E53B1791ED3DC4700A35987 /* SceneModel.m */,
+				6E53B17B1ED3DCA300A35987 /* SceneCarModel.h */,
+				6E53B17C1ED3DCA300A35987 /* SceneCarModel.m */,
+				6E53B17E1ED3DDEA00A35987 /* SceneRinkModel.h */,
+				6E53B17F1ED3DDEA00A35987 /* SceneRinkModel.m */,
+				6E53B1811ED3DF0800A35987 /* SceneCar.h */,
+				6E53B1821ED3DF0800A35987 /* SceneCar.m */,
 				6EB69F1B1ED26F020083C3C2 /* bumperCar.h */,
 				6EB69F1C1ED26F020083C3C2 /* bumperRink.h */,
 				6E441ED51ECFF0D500355E62 /* AppDelegate.h */,
@@ -296,11 +316,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EB69F171ED26D780083C3C2 /* AGLKContext.m in Sources */,
+				6E53B1831ED3DF0800A35987 /* SceneCar.m in Sources */,
 				6E441EDA1ECFF0D500355E62 /* ViewController.m in Sources */,
+				6E53B17A1ED3DC4700A35987 /* SceneModel.m in Sources */,
+				6E53B1801ED3DDEA00A35987 /* SceneRinkModel.m in Sources */,
 				6EB69F1A1ED26D8B0083C3C2 /* AGLKVertexAttribArrayBuffer.m in Sources */,
 				6E441ED71ECFF0D500355E62 /* AppDelegate.m in Sources */,
 				6E441ED41ECFF0D500355E62 /* main.m in Sources */,
 				6EB69F1F1ED26F470083C3C2 /* SceneMesh.m in Sources */,
+				6E53B17D1ED3DCA300A35987 /* SceneCarModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

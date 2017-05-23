@@ -80,14 +80,45 @@
 {
     if (nil == self.vertexAttributeBuffer && 0 < [self.vertexData length]) {
         
-        self.vertexAttributeBuffer = [[AGLKVertexAttribArrayBuffer alloc]initWithAttribStride:sizeof(SceneMeshVertex) numberOfVertices:[self.vertexData length] / sizeof(SceneMeshVertex) bytes:[self.vertexData bytes] usage:GL_STATIC_DRAW];
+        self.vertexAttributeBuffer = [[AGLKVertexAttribArrayBuffer alloc] initWithAttribStride:sizeof(SceneMeshVertex) numberOfVertices:([self.vertexData length] / sizeof(SceneMeshVertex)) bytes:[self.vertexData bytes] usage:GL_STATIC_DRAW];
         
-        
+        self.vertexData = nil;
     }
     
+    if (0 == _indexbufferID && 0 < [self.indexData length]) {
+        
+        glGenBuffers(1, &_indexbufferID);
+        NSAssert(0 != self.indexbufferID, @"Failed to generate element array buffer");
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.indexbufferID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, [self.indexData length], [self.indexData bytes], GL_STATIC_DRAW);
+        self.indexData = nil;
+    }
     
+    [self.vertexAttributeBuffer prepareToDrawWithAttrib:GLKVertexAttribPosition numberOfCoordinates:3 attribOffset:offsetof(SceneMeshVertex, position) shouldEnable:YES];
     
+    [self.vertexAttributeBuffer prepareToDrawWithAttrib:GLKVertexAttribNormal numberOfCoordinates:3 attribOffset:offsetof(SceneMeshVertex, normal) shouldEnable:YES];
     
+    [self.vertexAttributeBuffer prepareToDrawWithAttrib:GLKVertexAttribTexCoord0 numberOfCoordinates:2 attribOffset:offsetof(SceneMeshVertex, texCoords0) shouldEnable:YES];
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexbufferID);
+}
+
+-(void)drawunidexedWithMode:(GLenum)mode startVertexindex:(GLint)first
+           numberOfVertices:(GLsizei)count{
+    
+    [self.vertexAttributeBuffer drawArrayWithMode:mode startVertexIndex:first numberOfVertices:count];
+    
+}
+
+- (void)makeDynamicAndupdateWithVertices:(const SceneMeshVertex *)someVerts numberOfVertices:(size_t)count{
+    
+    if (nil == self.vertexAttributeBuffer) {
+        
+        self.vertexAttributeBuffer = [[AGLKVertexAttribArrayBuffer alloc]initWithAttribStride:sizeof(SceneMeshVertex) numberOfVertices:count bytes:someVerts usage:GL_DYNAMIC_DRAW];
+    }else{
+
+        [self.vertexAttributeBuffer reinitWithAttribStride:sizeof(SceneMeshVertex) numberOfVertices:count bytes:someVerts];
+    }
     
     
 }
