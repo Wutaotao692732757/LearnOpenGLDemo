@@ -148,17 +148,53 @@
 
 -(void)drawWithBaseEffect:(GLKBaseEffect *)anEffect
 {
+    GLKMatrix4 savedModelviewMatrix = anEffect.transform.modelviewMatrix;
+    GLKVector4 savedDiffuseColor = anEffect.material.diffuseColor;
+    GLKVector4 savedAmbientColor = anEffect.material.ambientColor;
+    
+    anEffect.transform.modelviewMatrix = GLKMatrix4Translate(savedModelviewMatrix, _position.x, _position.y, _position.z);
+    anEffect.transform.modelviewMatrix = GLKMatrix4Rotate(anEffect.transform.modelviewMatrix, self.yawRadians, 0.0, 1.0, 0.0);
+    anEffect.material.diffuseColor = self.color;
+    anEffect.material.ambientColor = self.color;
+    
+    [anEffect prepareToDraw];
+    [_model draw];
+    
+    anEffect.transform.modelviewMatrix = savedModelviewMatrix;
+    anEffect.material.diffuseColor = savedDiffuseColor;
+    anEffect.material.ambientColor = savedAmbientColor;
     
 }
 
 @end
 
 
+GLfloat SceneScalarFastLowPassFilter(NSTimeInterval elapsed, GLfloat target, GLfloat current){
+   
+    return current + (50.0 * elapsed *(target - current));
+}
 
 
+GLfloat SceneScalarSlowLowPassFilter(NSTimeInterval elapsed, GLfloat target, GLfloat current){
+    return current + (4.0 * elapsed * (target - current));
+}
 
+GLKVector3 SceneVector3FastLowPassFilter(NSTimeInterval elapsed, GLKVector3 target, GLKVector3 current){
+    
+    return GLKVector3Make(
+        SceneScalarFastLowPassFilter(elapsed, target.x, current.x),
+        SceneScalarFastLowPassFilter(elapsed, target.y, current.y),
+        SceneScalarFastLowPassFilter(elapsed, target.z, current.z));
+}
 
-
+GLKVector3 SceneVector3SlowLowPassFilter(NSTimeInterval elapsed, GLKVector3 target, GLKVector3 current){
+    
+    return GLKVector3Make(
+        SceneScalarFastLowPassFilter(elapsed, target.x, current.x),
+        SceneScalarFastLowPassFilter(elapsed, target.y, current.y),
+        SceneScalarFastLowPassFilter(elapsed, target.z, current.z));
+    
+}
 
 
 
