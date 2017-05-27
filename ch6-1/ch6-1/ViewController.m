@@ -101,15 +101,73 @@ static const int SceneNumberOfPOVAnimationSeconds = 2.0;
     if (0 < self.pointOfViewAnimationCountdown) {
         
         self.pointOfViewAnimationCountdown -= self.timeSinceLastUpdate;
+        self.eyePosition = SceneVector3SlowLowPassFilter(self.timeSinceLastUpdate, self.targetEyePosition, self.eyePosition);
         
+        self.lookAtPositioon = SceneVector3SlowLowPassFilter(self.timeSinceLastUpdate, self.targetLookAtPosition, self.lookAtPositioon)
+        ;
+    }else{
         
+        self.eyePosition = SceneVector3FastLowPassFilter(self.timeSinceLastUpdate, self.targetEyePosition, self.eyePosition);
         
+        self.lookAtPositioon = SceneVector3FastLowPassFilter(self.timeSinceLastUpdate, self.targetLookAtPosition, self.lookAtPositioon);
         
     }
+    [cars makeObjectsPerformSelector:@selector(updateWithController:) withObject:self];
     
+    [self updatePointOfView];
+}
+
+-(void)glkView:(GLKView *)view drawInRect:(CGRect)rect
+{
+    self.baseEffect.light0.diffuseColor = GLKVector4Make(1.0f, 1.0f, 1.0f, 1.0f);
+    
+    [((AGLKContext *)view.context) clear:GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT];
+    
+    const GLfloat aspectRatio = (GLfloat)view.drawableWidth / (GLfloat)view.drawableHeight;
+    
+    self.baseEffect.transform.projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(35.0f), aspectRatio, 0.1f, 25.0f);
+    
+    self.baseEffect.transform.modelviewMatrix = GLKMatrix4MakeLookAt(self.eyePosition.x, self.eyePosition.y, self.eyePosition.z, self.lookAtPositioon.x, self.lookAtPositioon.y, self.lookAtPositioon.z, 0, 1, 0);
+    [self.baseEffect prepareToDraw];
+    [self.rinkModel draw];
+    
+    [cars makeObjectsPerformSelector:@selector(drawWithBaseEffect:) withObject:self.baseEffect];
+}
+
+-(void)dealloc
+{
+//    [super dealloc];
+    GLKView *view = (GLKView *)self.view;
+    [AGLKContext setCurrentContext:view.context];
+    
+    ((GLKView *)self.view).context = nil;
+    [EAGLContext setCurrentContext:nil];
+    
+    _baseEffect = nil;
+    cars = nil;
+    _carModel = nil;
+    _rinkModel = nil;
+    
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return (toInterfaceOrientation!=UIInterfaceOrientationPortraitUpsideDown && toInterfaceOrientation != UIInterfaceOrientationPortrait);
+}
+
+-(NSArray *)cars{
+    return cars;
+}
+
+- (IBAction)swithchmode:(UISwitch *)sender {
+    
+    self.shouldUseFirstPersonPOV = [sender isOn];
+    
+    _pointOfViewAnimationCountdown = SceneNumberOfPOVAnimationSeconds;
     
     
 }
+
 
 
 

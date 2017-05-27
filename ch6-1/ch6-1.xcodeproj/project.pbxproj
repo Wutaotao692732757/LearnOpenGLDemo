@@ -42,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E07EBF11ED90AFF00D3140D /* bumperCar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bumperCar.h; sourceTree = "<group>"; };
+		6E07EBF21ED90AFF00D3140D /* bumperRink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bumperRink.h; sourceTree = "<group>"; };
 		6E441ECF1ECFF0D500355E62 /* ch6-1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ch6-1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E441ED31ECFF0D500355E62 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6E441ED51ECFF0D500355E62 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -124,6 +126,8 @@
 		6E441ED11ECFF0D500355E62 /* ch6-1 */ = {
 			isa = PBXGroup;
 			children = (
+				6E07EBF11ED90AFF00D3140D /* bumperCar.h */,
+				6E07EBF21ED90AFF00D3140D /* bumperRink.h */,
 				6EB69F151ED26D780083C3C2 /* AGLKContext.h */,
 				6EB69F161ED26D780083C3C2 /* AGLKContext.m */,
 				6EB69F181ED26D8B0083C3C2 /* AGLKVertexAttribArrayBuffer.h */,
