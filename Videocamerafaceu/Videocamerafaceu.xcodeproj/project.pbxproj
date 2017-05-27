@@ -179,6 +179,7 @@
 		6E07F0251ED92A5200D3140D /* GPUImagePicture+TextureSubimage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E07EF7F1ED92A5200D3140D /* GPUImagePicture+TextureSubimage.m */; };
 		6E07F0261ED92A5200D3140D /* GPUImagePicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E07EF811ED92A5200D3140D /* GPUImagePicture.m */; };
 		6E07F0271ED92A5200D3140D /* GPUImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E07EF831ED92A5200D3140D /* GPUImageView.m */; };
+		6E07F0291ED9502200D3140D /* cap.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E07F0281ED9502200D3140D /* cap.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -545,6 +546,7 @@
 		6E07EF811ED92A5200D3140D /* GPUImagePicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImagePicture.m; sourceTree = "<group>"; };
 		6E07EF821ED92A5200D3140D /* GPUImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageView.h; sourceTree = "<group>"; };
 		6E07EF831ED92A5200D3140D /* GPUImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageView.m; sourceTree = "<group>"; };
+		6E07F0281ED9502200D3140D /* cap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cap.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -604,6 +606,7 @@
 				6E07EE0D1ED92A4100D3140D /* Assets.xcassets */,
 				6E07EE0F1ED92A4100D3140D /* LaunchScreen.storyboard */,
 				6E07EE121ED92A4100D3140D /* Info.plist */,
+				6E07F0281ED9502200D3140D /* cap.jpg */,
 				6E07EE011ED92A4100D3140D /* Supporting Files */,
 			);
 			path = Videocamerafaceu;
@@ -1123,6 +1126,7 @@
 			files = (
 				6E07EE111ED92A4100D3140D /* LaunchScreen.storyboard in Resources */,
 				6E07EE0E1ED92A4100D3140D /* Assets.xcassets in Resources */,
+				6E07F0291ED9502200D3140D /* cap.jpg in Resources */,
 				6E07EE0C1ED92A4100D3140D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1467,6 +1471,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = VQ5GJ97852;
 				INFOPLIST_FILE = Videocamerafaceu/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = s.Videocamerafaceu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1479,6 +1484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = VQ5GJ97852;
 				INFOPLIST_FILE = Videocamerafaceu/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = s.Videocamerafaceu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
