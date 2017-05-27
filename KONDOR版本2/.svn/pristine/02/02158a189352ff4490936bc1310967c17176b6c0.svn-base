@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DINOffc-Medi.ttf">
+            <string>DINOffc-Medi</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="setting" rowHeight="71" id="KGk-i7-Jjw" customClass="settingControllerCell">
+            <rect key="frame" x="0.0" y="0.0" width="339" height="71"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="339" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EX_App_SETTINGSG_1" translatesAutoresizingMaskIntoConstraints="NO" id="ZGD-X7-COW">
+                        <rect key="frame" x="307" y="27" width="14" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="mxn-Ok-BvQ"/>
+                            <constraint firstAttribute="width" constant="14" id="xhD-g4-Q14"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqH-uc-hs6">
+                        <rect key="frame" x="28" y="24" width="43" height="22"/>
+                        <fontDescription key="fontDescription" name="DINOffc-Medi" family="DIN Offc" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZm-Kg-dhk">
+                        <rect key="frame" x="259" y="26" width="38" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" red="0.5607843137254902" green="0.5607843137254902" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="ZGD-X7-COW" firstAttribute="leading" secondItem="fZm-Kg-dhk" secondAttribute="trailing" constant="10" id="5VC-L9-f6I"/>
+                    <constraint firstItem="JqH-uc-hs6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="FrZ-wI-6PL"/>
+                    <constraint firstItem="ZGD-X7-COW" firstAttribute="centerY" secondItem="JqH-uc-hs6" secondAttribute="centerY" id="Np6-Ed-VQQ"/>
+                    <constraint firstItem="fZm-Kg-dhk" firstAttribute="centerY" secondItem="ZGD-X7-COW" secondAttribute="centerY" id="RL2-Jn-sSG"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ZGD-X7-COW" secondAttribute="trailing" constant="10" id="VtW-3O-JfX"/>
+                    <constraint firstItem="JqH-uc-hs6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Zfy-vh-JD5"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="infoLabel" destination="fZm-Kg-dhk" id="SGE-PQ-Diu"/>
+                <outlet property="namelabel" destination="JqH-uc-hs6" id="8ZO-K5-jPX"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="65.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="EX_App_SETTINGSG_1" width="16" height="16"/>
+    </resources>
+</document>

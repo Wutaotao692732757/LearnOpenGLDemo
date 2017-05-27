@@ -1,0 +1,35 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "530d8037-0ef9-a746-a173-c5ecd497cb89++376",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "530d8037-0ef9-a746-a173-c5ecd497cb89++638" : {
+
+    },
+    "530d8037-0ef9-a746-a173-c5ecd497cb89++376" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "530d8037-0ef9-a746-a173-c5ecd497cb89++638" : 9223372036854775807,
+    "530d8037-0ef9-a746-a173-c5ecd497cb89++376" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1460F33E-3472-42AA-917D-BE454C4DF137",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "530d8037-0ef9-a746-a173-c5ecd497cb89++638" : "AEE_ZONE\/",
+    "530d8037-0ef9-a746-a173-c5ecd497cb89++376" : "KONDOR%E7%89%88%E6%9C%ACSVN\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "EX_appIOS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "EX_appIOS.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.0.116\/svn\/DSPRoot",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "530d8037-0ef9-a746-a173-c5ecd497cb89++376"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.0.116\/svn\/DSPRoot",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "530d8037-0ef9-a746-a173-c5ecd497cb89++638"
+    }
+  ]
+}

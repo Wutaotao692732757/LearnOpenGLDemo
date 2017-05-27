@@ -1,0 +1,1394 @@
+//
+//  KondorViewVC.m
+//  EX_appIOS
+//
+//  Created by mac_w on 2016/11/8.
+//  Copyright © 2016年 aee. All rights reserved.
+//
+
+#import "KondorViewVC.h"
+#import "KondorSectionHeaderView.h"
+#import "KondorCollectionCell.h"
+#import "bigSizeImageView.h"
+#import "UIImage+WaterMark.h"
+#import "cameraPhotoVC.h"
+#import "KondorCollectionView.h"
+#import "CameraTool.h"
+#import <AVFoundation/AVFoundation.h>
+#import "UIImage+WaterMark.h"
+#import "KondonPhotoModel.h"
+#import <SystemConfiguration/CaptiveNetwork.h>
+#import "Reachability.h"
+#import "chooseDeviceView.h"
+#import "SizeModel.h"
+#import "KondorSession.h"
+
+
+#define sanbox  NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]
+
+
+
+@interface KondorViewVC ()<UICollectionViewDelegate,UICollectionViewDataSource,cellselectedDelegate,NSURLSessionDownloadDelegate,chooseViewDelegate>
+
+@property(nonatomic,strong) UICollectionView *photoCollection;
+
+
+//总体的HeaderView
+@property(nonatomic,strong) UIView *headerView;
+//月份信息
+@property(nonatomic,strong) NSMutableArray *dataArr;
+
+//分享按钮
+@property(nonatomic,strong) UIButton *sharedButton;
+//删除按钮
+@property(nonatomic,strong) UIButton *deleteButton;
+
+//选中的照片数组
+@property (nonatomic,strong) NSMutableArray *selectedArr;
+//大图浏览器
+@property (nonatomic,strong) bigSizeImageView *bigImgView;
+
+//切换相机或APP相册按钮
+@property (nonatomic,strong)UIButton *changeModelbtn;
+//相机的状态
+@property (nonatomic,assign) BOOL cammerornot;
+
+@property (nonatomic,strong)KondorViewVC *camerVc;
+//cell的重用
+@property (nonatomic, strong) NSMutableDictionary *cellDic;
+
+@property(nonatomic,strong) NSMutableArray* localFileArr;
+
+//提示视图
+@property(nonatomic,strong) UIImageView *tipsView;
+
+@property(nonatomic,strong) NSURLSessionDownloadTask *task;
+
+@property(nonatomic,strong)KondonPhotoModel *selectedmodel;
+//Location按钮
+@property(nonatomic,strong)UIButton *locationBtn;
+//titleView
+@property(nonatomic,strong)UILabel *titleLabel;
+
+//选择视图
+@property(nonatomic,strong)chooseDeviceView *choseView;
+
+//蒙版视图
+@property(nonatomic,strong) UIImageView *maskView;
+
+@property(nonatomic,strong)NSMutableArray *sizeModelArr;
+
+//progressView
+@property(nonatomic,strong)UIView *progressArrView;
+//progressView的数组
+@property(nonatomic,strong)NSMutableArray *progressArr;
+
+@end
+
+@implementation KondorViewVC
+
+//下载按钮点击事件
+double totalSize;
+NSInteger totalItem;
+double totalrecived;
+
+//刷新的次数
+NSInteger resfreshTimes;
+//删除错误个数
+NSInteger deleteErrorItem;
+//当前操作的项
+KondonPhotoModel *deletingItem;
+//将成功项目添加入的数组
+NSMutableArray * successArr;
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    self.view.backgroundColor=[UIColor grayColor];
+    _titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
+    _titleLabel.text=@"  DEVICE  LIBRARY  ";
+    _titleLabel.font=[UIFont fontWithName:@"DINOffc-Medi" size:20];
+    _titleLabel.textColor=[UIColor whiteColor];
+    _titleLabel.textAlignment=NSTextAlignmentCenter;
+   
+    self.navigationItem.titleView=_titleLabel;
+//    self.navigationItem.titleView.backgroundColor=RandomColor;
+    
+    if ([[CameraTool shareTool] isConnecting]==NO) {
+        
+        [[CameraTool shareTool] connectingOperate];
+    }
+        [self loadDateFromNetOrApp];
+  
+}
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    
+    // 按相册的月份来分
+    return self.dataArr.count;
+}
+
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    NSMutableArray *mothArr=self.dataArr[section];
+    return mothArr.count;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    CGFloat height =44;
+    return CGSizeMake(ScreenW, height);
+}
+
+-( UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    KondorSectionHeaderView  *headerView;
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        
+        headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+        headerView.backgroundColor=[UIColor colorWithRed:180/255.0 green:180/255.0 blue:180/255.0 alpha:1];
+        NSMutableArray *mothArr=self.dataArr[indexPath.section];
+        KondonPhotoModel *model=mothArr[0];
+        headerView.tips=[NSString stringWithFormat:@"%@",model.timeString];
+    }
+    
+    return headerView;
+    
+}
+
+- ( UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    // 每次先从字典中根据IndexPath取出唯一标识符
+    NSString *identifier = [_cellDic objectForKey:[NSString stringWithFormat:@"%zd-%zd-%zd", indexPath.row,indexPath.section,resfreshTimes]];
+    // 如果取出的唯一标示符不存在，则初始化唯一标示符，并将其存入字典中，对应唯一标示符注册Cell
+    if (identifier == nil) {
+        identifier = [NSString stringWithFormat:@"%@%@", @"Viewer", [NSString stringWithFormat:@"%zd-%zd-%zd", indexPath.row,indexPath.section,resfreshTimes]];
+        [_cellDic setValue:identifier forKey:[NSString stringWithFormat:@"%zd-%zd-%zd", indexPath.row,indexPath.section,resfreshTimes]];
+        // 注册Cell
+        [_photoCollection registerClass:[KondorCollectionCell class] forCellWithReuseIdentifier:identifier];
+    }
+    
+    
+    KondorCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        
+        cell.backgroundColor=[UIColor colorWithRed:143/255.0 green:143/255.0 blue:142/255.0 alpha:1];
+
+    if(cell.model==nil){
+        NSMutableArray *modelArr=self.dataArr[indexPath.section];
+        cell.model=modelArr[indexPath.row];
+        
+        cell.delegate=self;
+    }
+    
+    
+     return cell;
+}
+#pragma mark -- cell单击点击方法
+//代理方法
+-(void)cellDidSelected{
+    
+    [_selectedArr removeAllObjects];
+    
+    for (int i=0; i<_dataArr.count; i++) {
+        
+         NSMutableArray *sectionArr=_dataArr[i];
+        for (int j=0; j<sectionArr.count; j++) {
+            
+        NSIndexPath *index = [NSIndexPath indexPathForItem:j inSection:i];
+//            NSIndexPath *index=[NSIndexPath indexPathForRow:j inSection:i];
+            
+            KondorCollectionCell *cell = (KondorCollectionCell *)[self.photoCollection cellForItemAtIndexPath:index];
+            
+            if (cell.hasSelected==YES) {
+                [cell addSubview:cell.MYmaskView];
+                [self.selectedArr addObject:index];
+                
+            }
+        }
+   
+    }
+    
+    if (self.selectedArr.count>0) {
+        [self.sharedButton setEnabled:YES];
+        [self.sharedButton setEnabled:YES];
+        [self.sharedButton setHidden:NO];
+        [self.deleteButton setHidden:NO];
+    }else{
+        
+        [self.sharedButton setHidden:YES];
+        [self.deleteButton setHidden:YES];
+    }
+ 
+}
+#pragma mark -- 双击方法
+//双击点击事件方法--换一种展现方式
+-(void)doubletapDidClicked{
+    
+    [_selectedArr removeAllObjects];
+    
+
+    UIImage *selectedImage;
+    for (int i=0; i<_dataArr.count; i++) {
+        
+        NSMutableArray *sectionArr=_dataArr[i];
+        for (int j=0; j<sectionArr.count; j++) {
+            
+            NSIndexPath *index=[NSIndexPath indexPathForRow:j inSection:i];
+            
+            KondorCollectionCell *cell = (KondorCollectionCell *)[self.photoCollection cellForItemAtIndexPath:index];
+          
+            if (cell.hasdoubleSelected==YES) {
+                selectedImage=cell.photoImg.image;
+                [self.selectedArr addObject:index];
+                cell.hasdoubleSelected=NO;
+                
+            }
+        }
+        
+    }
+    
+    
+    [_photoCollection removeFromSuperview];
+    [self.view addSubview:self.bigImgView];
+    
+    NSIndexPath *index=self.selectedArr[0];
+   
+    NSMutableArray *sectionArr=_dataArr[index.section];
+    KondonPhotoModel *model=sectionArr[index.row];
+    
+   self.bigImgView.tipsLabel.text= [NSString stringWithFormat:@" %@ ",model.timeString];
+    self.bigImgView.selectedmodel=model;
+    
+    UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(getBackToSmallscrollerView)];
+    [tap setNumberOfTapsRequired:2];
+    
+    [self.bigImgView.bigImage addGestureRecognizer:tap];
+    
+    self.bigImgView.bottonScrollerView.modelArr=sectionArr;
+    
+    
+//    if (100*index.row<mostWidth-ScreenW) {
+//        [_bigImgView.bottonScrollerView setContentOffset:CGPointMake(100*index.row, 0)];
+//    }else{
+//        [_bigImgView.bottonScrollerView setContentOffset:CGPointMake(mostWidth-ScreenW, 0)];
+//    }
+
+    
+   
+     if (self.selectedArr.count>0) {
+        [self.sharedButton setHidden:NO];
+        [self.deleteButton setHidden:NO];
+    }else{
+        [self.sharedButton setHidden:YES];
+        [self.deleteButton setHidden:YES];
+    }
+ 
+}
+
+//大图界面双击返回小图界面
+-(void)getBackToSmallscrollerView{
+    [_bigImgView removePlayerLayer];
+    
+    [_bigImgView removeFromSuperview];
+    [self.view addSubview:_photoCollection];
+    [self.view addSubview:_headerView];
+    
+}
+
+
+#pragma mark ---- 网络或者APP获取文件路径
+
+-(void)loadDateFromNetOrApp{
+    [_dataArr removeAllObjects];
+    [_selectedArr removeAllObjects];
+    [_localFileArr removeAllObjects];
+    [_photoCollection removeFromSuperview];
+    _photoCollection=nil;
+    
+    if (_loadDataFormNet==YES) {
+        
+        _changeModelbtn.enabled=NO;
+        
+//        if ([[CameraTool shareTool] currentImage]) {
+////            [[CameraTool shareTool] needReConnect]=
+//        }
+
+       
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestreadDCIM_PathSuccess:) name:@"requestreadDCIM_PathSuccess" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getAllFilePath:) name:@"readPlistSuccess" object:nil];
+        [SVProgressHUD show];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           
+            if([[CameraTool shareTool] isConnecting]){
+                
+                [[CameraTool shareTool] readDCIM_Path];
+            }else{
+                [SVProgressHUD dismiss];
+                [SVProgressHUD showErrorWithStatus:@"LOST CONNECTION"];
+            }
+            
+        });
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteFileCompletion:) name:@"deleFileCompletion" object:nil];
+        
+        
+    }else{  // 从沙盒中获取图片
+        
+       
+        [_dataArr removeAllObjects];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSArray  *arr = [fileManager contentsOfDirectoryAtPath:sanbox error:nil];
+        //  NSLog(@"arr %@",arr);
+        for (int i = 0; i < arr.count; i++) {
+            
+            
+            NSLog(@"%@",arr[i]);
+            if ([arr[i] hasSuffix:@"mp4"] || [arr[i] hasSuffix:@"MP4"]||[arr[i] hasSuffix:@"JPG"] || [arr[i] hasSuffix:@"jpg"]) {
+  
+                KondonPhotoModel *model=[[KondonPhotoModel alloc]init];
+                NSString *nameString=arr[i];
+                
+                NSArray *compansArr=[nameString componentsSeparatedByString:@"$"];
+                model.timeString=compansArr[0];
+                NSString *pathString=[NSString stringWithFormat:@"%@/%@",sanbox,arr[i]];
+                
+                NSURL *url=[NSURL URLWithString:pathString];
+                model.pathUrl=url;
+                NSLog(@"-----%@",url.description);
+                if ([arr[i] hasSuffix:@"mp4"]||[arr[i] hasSuffix:@"MP4"]) {
+                    model.isVideo=YES;
+                    url=[NSURL fileURLWithPath:pathString];
+                    model.pathUrl=url;
+                }
+                 [self.localFileArr addObject:model];
+//                [self.dataArr addObject:model];
+            }
+        }
+//        
+//        if (_localFileArr.count==0) {
+//            return;
+//        }
+        
+        NSString *nowtime=@"ssss";
+        NSMutableArray *mothArr=[NSMutableArray array];
+        for (KondonPhotoModel *model in self.localFileArr) {
+            
+         
+            if (![nowtime isEqualToString:model.timeString]&&![mothArr containsObject:[NSString stringWithFormat:@"%@",nowtime]]) {
+                nowtime=model.timeString;
+                [mothArr addObject:[NSString stringWithFormat:@"%@",nowtime]];
+                NSMutableArray *sectionArr=[NSMutableArray array];
+                [sectionArr addObject:model];
+                [self.dataArr addObject:sectionArr];
+                
+            }else{
+                
+                NSMutableArray *newsecArr=[_dataArr lastObject];
+                [newsecArr addObject:model];
+            }
+        }
+    
+        [self.view addSubview:self.photoCollection];
+        self.photoCollection.delegate=self;
+        self.photoCollection.dataSource=self;
+        
+        [self.view addSubview:_headerView];
+        NSAttributedString *str1=[[NSAttributedString alloc]initWithString:@"SHARE" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        [_sharedButton setAttributedTitle:str1 forState:UIControlStateNormal];
+       
+    }
+}
+
+- (void)requestreadDCIM_PathSuccess:(NSNotification *)noti{
+    
+    if (noti.object==nil){
+        
+        [SVProgressHUD showErrorWithStatus:@"GET FILE ERROR"]; return;
+    };
+    
+    [self performSelector:@selector(getPlist) withObject:nil afterDelay:0.5];
+}
+
+//查找目录下的详细文件信息
+- (void)getPlist{
+    
+    [[CameraTool shareTool] getFilePlist];
+}
+
+#pragma MARK --获取文件列表之后
+-(void)getAllFilePath:(NSNotification *)noti{
+    
+    if (noti.object==nil) {
+        [SVProgressHUD showErrorWithStatus:@"GET FILE ERROR"];
+        
+        return;
+    }
+    
+    [SVProgressHUD dismiss];
+    NSDictionary *dic=noti.object;
+    NSArray *plistArr = dic[@"listing"];
+    
+    _dataArr = [NSMutableArray array];
+   
+    NSString *totalString=@"sssss";
+    NSMutableArray *StringArr=[NSMutableArray array];
+    for ( NSInteger i = plistArr.count-1; i>=0; i-- ) {
+        NSDictionary *currentDic=plistArr[i];
+        NSString *string = [[currentDic allKeys] firstObject];
+        if ([string rangeOfString:@"_thm."].location == NSNotFound&&[string rangeOfString:@".THM"].location == NSNotFound) {
+            
+            NSString *timeString=[[currentDic allValues] firstObject];
+            
+            NSArray *timstringArr=[timeString componentsSeparatedByString:@"-"];
+            NSString *yearString=timstringArr[0];
+            NSString *mothString=timstringArr[1];
+            NSString *newtotalString=[NSString stringWithFormat:@"%@-%@",mothString,yearString];
+            
+            NSMutableArray *lastmothArr;
+            if (![StringArr containsObject:newtotalString]) {
+                totalString=newtotalString;
+                [StringArr addObject:newtotalString];
+                NSMutableArray *mothArr=[NSMutableArray array];
+                
+                [_dataArr addObject:mothArr];
+                
+                lastmothArr=mothArr;
+                
+            }else {
+                NSInteger index=[StringArr indexOfObject:newtotalString];
+                
+                lastmothArr=_dataArr[index];
+                
+            }
+                
+                KondonPhotoModel *model=[[KondonPhotoModel alloc]init];
+                NSString *firstPath = string;
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://192.168.42.1/DCIM/100MEDIA/%@",firstPath]];
+                model.pathUrl=url;
+                if ([firstPath hasSuffix:@"mp4"] || [firstPath hasSuffix:@"MP4"]) {
+                    model.isVideo=YES;
+                }else if ([firstPath hasSuffix:@"jpg"] || [firstPath hasSuffix:@"JPG"]){
+                    model.isVideo=NO;
+                }
+                model.timeString=totalString;
+                [lastmothArr addObject:model];
+ 
+        }
+    }
+    
+    //对数据源数组进行排序
+    NSMutableArray *regionArr=[NSMutableArray array];;
+  
+    for (int i=0; i<_dataArr.count; i++) {
+        
+        NSInteger smallCount = 0; NSInteger nindex = 0;
+
+        for (int j=0; j<_dataArr.count; j++) {
+            NSMutableArray *sectionArr=_dataArr[j];
+            KondonPhotoModel *model=sectionArr[0];
+            
+            NSArray *timstringArr=[model.timeString componentsSeparatedByString:@"-"];
+            
+            NSMutableString *mutbleString=[NSMutableString string];
+            
+            [mutbleString appendString:timstringArr[1]];
+            [mutbleString appendString:timstringArr[0]];
+            NSInteger count1=[mutbleString integerValue];
+            
+            if (count1>smallCount) {
+                smallCount=count1;
+                nindex=j;
+            }
+           
+            
+        }
+        NSMutableArray *sectionArr=_dataArr[nindex];
+        [regionArr addObject:sectionArr];
+        [_dataArr removeObject:sectionArr];
+        
+   
+ 
+    }
+    
+    if (_dataArr.count>0) {
+        
+        [regionArr addObject:_dataArr.lastObject];
+    }
+    _dataArr=nil;
+//
+    _dataArr=[NSMutableArray arrayWithArray:regionArr];
+    
+    
+    
+    self.photoCollection.frame=CGRectMake(0, 64, ScreenW, ScreenH-108);
+    [self.view addSubview:self.photoCollection];
+    self.photoCollection.delegate=self;
+    self.photoCollection.dataSource=self;
+    [self.view addSubview:_headerView];
+    NSLog(@"%@",dic.description);
+    
+}
+
+#pragma mark --- 下载事件
+
+
+
+-(void)downloadbuttonDidClicked{
+    
+    if ([_sharedButton.currentAttributedTitle.string isEqualToString:@"SHARE"]) {
+        //做分享
+        [_selectedArr removeAllObjects];
+        return;
+    }
+    
+//    [SVProgressHUD showWithStatus:@"Downloading"];
+    _sharedButton.enabled=NO;
+    _deleteButton.enabled=NO;
+    
+    
+    [self creatProgressViewWithTitle:@"DOWNLOADING"];
+    
+    
+    for (NSIndexPath *index in _selectedArr) {
+        
+        NSInteger j = [_selectedArr indexOfObject:index];
+        
+    
+        NSMutableArray *sectionArr=_dataArr[index.section];
+        KondonPhotoModel *model=sectionArr[index.row];
+        _selectedmodel=model;
+       
+        
+//        if (model.isVideo==YES) {
+        UIProgressView *progressView=self.progressArr[j];
+            KondorSession *kondorSession=[[KondorSession alloc]init];
+            kondorSession.progressView=progressView;
+        if (model.isVideo==YES) {
+            
+            kondorSession.isVideo=YES;
+        }
+            kondorSession.model=model;
+            NSURLRequest *request = [NSURLRequest requestWithURL:model.pathUrl];
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+            session.sessionDescription=[NSString stringWithFormat:@"%zd",j];
+            
+            kondorSession.sessionDescription=[NSString stringWithFormat:@"%zd",j];
+            self.task = [session downloadTaskWithRequest:request];
+            [self.task resume];
+            kondorSession.session=session;
+        
+            [self.sizeModelArr addObject:kondorSession];
+    }
+//
+    
+//        }else{
+//            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:model.pathUrl options:SDWebImageDownloaderHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+//                
+//                
+////                if (model.size==0) {
+////                    totalItem++;
+////                    model.size=expectedSize;
+////                    totalSize=totalSize+expectedSize;
+////                }
+//                
+////                    CGFloat progress=[[NSNumber numberWithInteger:receivedSize] floatValue]/([[NSNumber numberWithInteger:totalSize] floatValue]);
+////                [SVProgressHUD showProgress:progress status:@"downloading"];
+////                    
+//                
+////
+//                
+//            } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+//                totalItem++;
+//                if (data==nil) return ;
+//               
+//                if (totalItem==_selectedArr.count) {
+//                    [SVProgressHUD dismiss];
+//                    [SVProgressHUD showSuccessWithStatus:@"Download Success"];
+//                    totalSize=0;
+//                    totalItem=0;
+//                    for (NSIndexPath *index in _selectedArr) {
+//                        KondorCollectionCell *cell =(KondorCollectionCell *)[_photoCollection cellForItemAtIndexPath:index];
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            
+//                            cell.hasSelected=NO;
+//                            [cell.MYmaskView removeFromSuperview];
+//                        });
+//                    }
+//                    [self.selectedArr removeAllObjects];
+//                    [self.sharedButton setEnabled:YES];
+//                    [self.deleteButton setEnabled:YES];
+//                    [self.sharedButton setHidden:YES];
+//                    [self.deleteButton setHidden:YES];
+//                    
+//                }
+//
+//                NSString *nameString=[NSString stringWithFormat:@"%@$%@",model.timeString,model.pathUrl.description.lastPathComponent];
+//                
+//                NSString *pathstring=[NSString stringWithFormat:@"%@/%@",sanbox,nameString];
+//                [[NSFileManager defaultManager] removeItemAtPath:pathstring error:nil];
+//                [data writeToFile:pathstring atomically:YES];
+//
+//                    UIImage *dataImg=[UIImage imageWithData:data];
+//                    NSData *jgpdata=UIImageJPEGRepresentation(dataImg, 0.2);
+//                    UIImage* nimage = [UIImage imageWithData:jgpdata];// myImage为自己的图片
+//                    
+//                    NSData* imageData =  UIImagePNGRepresentation(nimage);
+//                    
+//                    UIImage* newImage = [UIImage imageWithData:imageData];
+//                    
+//                    UIImageWriteToSavedPhotosAlbum(newImage, self,@selector(image:didFinishSavingWithError:contextInfo:), nil);
+//                
+//            }];
+//            
+        
+//        }
+        
+      
+//    }
+}
+
+#pragma mark -- 创建进度视图
+-(void)creatProgressViewWithTitle:(NSString *)title{
+    
+    for (UIView *myview in self.progressArrView.subviews) {
+        [myview removeFromSuperview];
+    }
+    
+    [_progressArr removeAllObjects];
+    
+    CGFloat progressheight=0;
+    if (_selectedArr.count>10) {
+        progressheight=2*40+20*10;
+    }else{
+        progressheight=2*40+20*_selectedArr.count;
+    }
+    
+    self.progressArrView.frame=CGRectMake((ScreenW-300)*0.5, (ScreenH-20*_selectedArr.count)*0.5, 300, progressheight);
+    self.progressArrView.backgroundColor=[UIColor darkGrayColor];
+    self.progressArrView.layer.cornerRadius=5;
+    self.progressArrView.layer.masksToBounds=YES;
+    
+    UILabel *loadlabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 300, 40)];
+    loadlabel.textAlignment=NSTextAlignmentCenter;
+    loadlabel.textColor=[UIColor lightGrayColor];
+    loadlabel.font=[UIFont systemFontOfSize:18];
+    
+    
+    loadlabel.text=title;
+    //    self.progressArrView.backgroundColor=RandomColor;
+    [self.view addSubview:self.progressArrView];
+    [self.progressArrView addSubview:loadlabel];
+    
+    UIButton *deleteCancelBtn=[[UIButton alloc]initWithFrame:CGRectMake(0, progressheight-40, 300, 40)];
+    deleteCancelBtn.backgroundColor=[UIColor redColor];
+    [deleteCancelBtn setTitle:@"CANCEL" forState:UIControlStateNormal];
+    
+    if ([title isEqualToString:@"DELETING"]) {
+        
+        [deleteCancelBtn addTarget:self action:@selector(cancelDeletedBtnDidClicked) forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        
+         [deleteCancelBtn addTarget:self action:@selector(cancelDownloadBtnDidClicked) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    [self.progressArrView addSubview:deleteCancelBtn];
+    
+    UIScrollView *proScroller;
+    if (_selectedArr.count>10) {
+        
+        proScroller=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 40, 300, progressheight-80)];
+        [_progressArrView addSubview:proScroller];
+        
+        for (NSIndexPath *index in _selectedArr) {
+            
+            NSInteger j = [_selectedArr indexOfObject:index];
+            
+            UIProgressView *progressView=[[UIProgressView alloc]initWithFrame:CGRectMake(50, j*20, 200, 20)];
+            
+            progressView.transform = CGAffineTransformMakeScale(1.0f,3.0f);
+            progressView.progressTintColor=[UIColor colorWithRed:167/255.0 green:80/255.0 blue:86/255.0 alpha:1];
+            progressView.trackTintColor=[UIColor whiteColor];
+            [proScroller addSubview:progressView];
+            [self.progressArr addObject:progressView];
+            
+        }
+        proScroller.contentSize=CGSizeMake(300, 20*_selectedArr.count);
+        proScroller.scrollEnabled=YES;
+        
+        
+    }else{
+        
+        for (NSIndexPath *index in _selectedArr) {
+            
+            NSInteger j = [_selectedArr indexOfObject:index];
+            
+            UIProgressView *progressView=[[UIProgressView alloc]initWithFrame:CGRectMake(50, 40+j*20, 200, 20)];
+            
+            progressView.transform = CGAffineTransformMakeScale(1.0f,3.0f);
+            progressView.progressTintColor=[UIColor colorWithRed:167/255.0 green:80/255.0 blue:86/255.0 alpha:1];
+            progressView.trackTintColor=[UIColor whiteColor];
+            [self.progressArrView addSubview:progressView];
+            [self.progressArr addObject:progressView];
+        }
+    }
+
+    
+    
+}
+
+#pragma mark --- 取消下载
+-(void)cancelDownloadBtnDidClicked{
+    
+    
+    for (KondorSession *konsession in _sizeModelArr) {
+        if (konsession.session!=nil) {
+            
+            [konsession.session invalidateAndCancel];
+        }
+    }
+    [self.sharedButton setEnabled:YES];
+    [self.deleteButton setEnabled:YES];
+    [self.sharedButton setHidden:YES];
+    [self.deleteButton setHidden:YES];
+
+    [_sizeModelArr removeAllObjects];
+    [_progressArr removeAllObjects];
+    [_progressArrView removeFromSuperview];
+    _progressArrView=nil;
+    
+}
+
+
+
+
+
+#pragma mark -- 下载代理方法
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+didFinishDownloadingToURL:(NSURL *)location{
+    
+
+  
+    NSString *index=session.sessionDescription;
+    NSInteger j=[index integerValue];
+    
+    KondorSession *kondorsession=self.sizeModelArr[j];
+    KondonPhotoModel *model=kondorsession.model;
+    NSData *data = [NSData dataWithContentsOfURL:location];
+    
+    NSDate *date=[NSDate date];
+    NSString *dateFormat=@"hh-mm-ss";
+    NSDateFormatter *dFormate=[[NSDateFormatter alloc] init];
+    dFormate.dateFormat=dateFormat;
+    NSString *currenttimeString=[dFormate stringFromDate:date];
+    
+    
+    
+    if (kondorsession.isVideo==YES) {
+        
+        NSString *nameString=[NSString stringWithFormat:@"%@$%@$%@",model.timeString,currenttimeString,model.pathUrl.description.lastPathComponent];
+        
+        NSString *pathstring=[NSString stringWithFormat:@"%@/%@",sanbox,nameString];
+        NSLog(@"fullPath:%@",pathstring);
+        [data writeToFile:pathstring atomically:YES];
+        
+        UISaveVideoAtPathToSavedPhotosAlbum(pathstring, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+        
+    }else{
+        NSString *nameString=[NSString stringWithFormat:@"%@$%@$%@",model.timeString,currenttimeString,model.pathUrl.description.lastPathComponent];
+        
+                        NSString *pathstring=[NSString stringWithFormat:@"%@/%@",sanbox,nameString];
+                        [[NSFileManager defaultManager] removeItemAtPath:pathstring error:nil];
+                        [data writeToFile:pathstring atomically:YES];
+        
+                            UIImage *dataImg=[UIImage imageWithData:data];
+                            NSData *jgpdata=UIImageJPEGRepresentation(dataImg, 0.2);
+                            UIImage* nimage = [UIImage imageWithData:jgpdata];// myImage为自己的图片
+        
+                            NSData* imageData =  UIImagePNGRepresentation(nimage);
+                            
+                            UIImage* newImage = [UIImage imageWithData:imageData];
+                            
+                            UIImageWriteToSavedPhotosAlbum(newImage, self,@selector(image:didFinishSavingWithError:contextInfo:), nil);
+        
+        
+    }
+    
+    
+    totalItem++;
+    if (totalItem==_selectedArr.count) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [_progressArrView removeFromSuperview];
+            _progressArrView=nil;
+        });
+        
+        [SVProgressHUD showSuccessWithStatus:@"Download Success"];
+        totalItem=0;
+        totalSize=0;
+        
+        for (NSIndexPath *index in _selectedArr) {
+            KondorCollectionCell *cell =(KondorCollectionCell *)[_photoCollection cellForItemAtIndexPath:index];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                cell.hasSelected=NO;
+                [cell.MYmaskView removeFromSuperview];
+            });
+        }
+        [_sizeModelArr removeAllObjects];
+        [self.selectedArr removeAllObjects];
+        [self.sharedButton setEnabled:YES];
+        [self.deleteButton setEnabled:YES];
+        [self.sharedButton setHidden:YES];
+        [self.deleteButton setHidden:YES];
+        
+    }
+    
+    
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+      didWriteData:(int64_t)bytesWritten
+ totalBytesWritten:(int64_t)totalBytesWritten
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
+    
+    CGFloat percent=(totalBytesWritten)/(totalBytesExpectedToWrite*1.00);
+    NSString *index=session.sessionDescription;
+    NSInteger j=[index integerValue];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        UIProgressView *processView=self.progressArr[j];
+        processView.progress=percent;
+    });
+    
+//    [SVProgressHUD showProgress:percent status:@"downloading"];
+    
+    NSLog(@"%.2f",percent);
+    
+}
+
+
+#pragma mark -- 保存视图提示
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError*)error contextInfo:(void *)contextInfo { //
+    
+    if(error!=nil){
+       
+        [SVProgressHUD showErrorWithStatus:@"error of save"];
+    }else{
+      
+//        [SVProgressHUD showErrorWithStatus:@"save success"];
+    }
+    
+    
+}
+-(void)video:(NSData *)image didFinishSavingWithError:(NSError*)error contextInfo:(void *)contextInfo{
+    if(error!=nil){
+        [SVProgressHUD showErrorWithStatus:@"error of save"];
+    }else{
+//        [SVProgressHUD showErrorWithStatus:@"save success"];
+    }
+    
+}
+
+#pragma mark -- 取消下载按钮点击
+-(void)cancelDeletedBtnDidClicked{
+    
+    
+    [self.sharedButton setEnabled:YES];
+    [self.deleteButton setEnabled:YES];
+    [self.sharedButton setHidden:YES];
+    [self.deleteButton setHidden:YES];
+    
+    [_sizeModelArr removeAllObjects];
+    [_progressArrView removeFromSuperview];
+    _progressArrView=nil;
+    //重新加载
+    [self.photoCollection reloadData];
+}
+
+
+
+#pragma mark --- 删除事件响应
+//删除按钮点击事件
+-(void)deleteButtonDidClicked{
+    
+    if (_loadDataFormNet==YES) {
+        
+        totalItem=0;
+        deleteErrorItem=0;
+        [successArr removeAllObjects];
+        successArr=[NSMutableArray array];
+        [self.progressArr removeAllObjects];
+        
+        self.sharedButton.enabled=NO;
+        self.deleteButton.enabled=NO;
+        [[SDWebImageManager sharedManager] cancelAll];
+        
+        [self creatProgressViewWithTitle:@"DELETING"];
+        NSInteger i=0;
+        for (NSIndexPath *index1 in _selectedArr) {
+            i=i+2;
+            NSMutableArray *sectionArr=_dataArr[index1.section];
+            KondonPhotoModel *model=sectionArr[index1.row];
+            
+            
+            NSString *oldstring=model.pathUrl.description.lastPathComponent;
+            
+            NSString*newString=[NSString stringWithFormat:@"%@/%@",@"/tmp/SD0/DCIM/100MEDIA",oldstring];
+            
+            NSLog(@"url =  %@",newString);
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                deletingItem=model;
+                [[CameraTool shareTool] deleteFiles:newString];
+            });
+            
+            
+        }
+   
+    }else{
+        
+        
+        for (NSIndexPath *index in _selectedArr) {
+            
+            NSMutableArray *sectionArr=_dataArr[index.section];
+            KondonPhotoModel *model=sectionArr[index.row];
+        
+            if (model.isVideo==YES) {
+                [[NSFileManager defaultManager] removeItemAtURL:model.pathUrl error:nil];
+            }else{
+                
+                [[NSFileManager defaultManager] removeItemAtPath:model.pathUrl.description error:nil];
+            }
+        }
+        
+        [_selectedArr removeAllObjects];
+        
+        [self loadDateFromNetOrApp];
+        
+    }
+    
+ 
+}
+
+#pragma mark -- 删除通知回调
+-(void)deleteFileCompletion:(NSNotification *)noti{
+    totalItem++;
+
+    if (noti.object!=nil) {
+      deleteErrorItem++;
+        
+        
+    }else{
+//        NSArray *viewArr=self.progressArrView.subviews;
+        UIProgressView *proview=self.progressArr[totalItem-1];
+        proview.progress=1;
+        
+        [successArr addObject:deletingItem];
+    }
+    if (totalItem==_selectedArr.count) {
+        
+        if (deleteErrorItem>0) {
+            NSString *status=[NSString stringWithFormat:@"%zd ITEM ERROR",deleteErrorItem];
+            [SVProgressHUD showErrorWithStatus:status];
+            
+        }else{
+            
+            [SVProgressHUD showSuccessWithStatus:@"DELETE SUCCESS"];
+        }
+        
+        self.sharedButton.enabled=YES;
+        self.deleteButton.enabled=YES;
+        totalItem=0;
+//        for (NSIndexPath *index2 in _selectedArr) {
+//            NSMutableArray *sectionArr=_dataArr[index2.section];
+//            KondonPhotoModel *model=sectionArr[index2.row];
+//            [sectionArr removeObject:model];
+//            if (sectionArr.count==0) {
+//                [_dataArr removeObject:sectionArr];
+//            }
+//            KondorCollectionCell *cell = (KondorCollectionCell *)[self.photoCollection cellForItemAtIndexPath:index2];
+//            cell.hasSelected=NO;
+//        
+//            [cell.MYmaskView removeFromSuperview];
+//            
+//        }
+        NSMutableArray *sucessIndexArr=[NSMutableArray array];
+        for (int i=0; i<_dataArr.count; i++) {
+            NSMutableArray *sectionArr=_dataArr[i];
+            
+            for (int j=0; j<sectionArr.count; j++) {
+                
+                if ([successArr containsObject:sectionArr[j]]) {
+                    NSIndexPath *index3=[NSIndexPath indexPathForItem:j inSection:i];
+                    [sucessIndexArr addObject:index3];
+                }
+                
+            }
+            
+            
+        }
+        NSMutableArray *canDeleArr=[NSMutableArray array];
+        for (int i=0; i<_dataArr.count; i++) {
+            NSMutableArray *sectionArr=[NSMutableArray array];
+            [canDeleArr addObject:sectionArr];
+        }
+        
+      
+        for (NSIndexPath *index in sucessIndexArr) {
+            NSMutableArray *sectionArr=_dataArr[index.section];
+            
+            NSMutableArray *candeleSectionArr=canDeleArr[index.section];
+            [candeleSectionArr addObject:sectionArr[index.row]];
+            
+        }
+    
+        for (int j=0; j<canDeleArr.count; j++) {
+            
+            NSMutableArray *deleArr=canDeleArr[j];
+            NSMutableArray *sectionArr=_dataArr[j];
+            [sectionArr removeObjectsInArray:deleArr];
+        }
+        
+        NSMutableArray *sectionARR=[NSMutableArray array];
+        
+        for (NSMutableArray *sarr in _dataArr) {
+            if (sarr.count==0) {
+                [sectionARR addObject:sarr];
+               
+            }
+        }
+        
+        [_dataArr removeObjectsInArray:sectionARR];
+        
+        if (sectionARR.count>0) {
+             [self cancelDeletedBtnDidClicked];
+            [_selectedArr removeAllObjects];
+            [_cellDic removeAllObjects];
+            return ;
+        }
+        
+        
+        if (_dataArr.count==0) {
+            [_photoCollection removeFromSuperview];
+        }else{
+            
+            NSArray *arr=sucessIndexArr.copy;
+            [_photoCollection deleteItemsAtIndexPaths:arr];
+ 
+            resfreshTimes++;
+            [_selectedArr removeAllObjects];
+            [_cellDic removeAllObjects];
+        }
+        
+//        NSIndexSet *indeset=[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)];
+//        [_photoCollection deleteSections:indeset];
+//           [_photoCollection reloadData];
+//         [self.photoCollection reloadSections:[NSIndexSet indexSetWithIndex:1]];
+        //    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"IMPORTANT TIPS" message:@"MAKE SURE YOUR PHOTOS HAVE ALL DOWNLOAD DONE" delegate:self cancelButtonTitle:@"CANCEL" otherButtonTitles:@"CONFIRM", nil];
+     
+            [self.sharedButton setHidden:YES];
+            [self.deleteButton setHidden:YES];
+        
+        [self.progressArrView removeFromSuperview];
+        _progressArrView=nil;
+        [_sizeModelArr removeAllObjects];
+        
+    }
+    
+    NSLog(@"删除成功啦");
+    
+}
+
+
+-(void)locationButtonDidClicked{
+    [self.view addSubview:self.maskView];
+    self.choseView.frame=CGRectMake((ScreenW-300)*0.5, ScreenH, 300, 140);
+    [self.view addSubview:self.choseView];
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        _choseView.frame=CGRectMake((ScreenW-300)*0.5, (ScreenH-140)*0.5, 300, 140);
+    }];
+    
+    
+}
+// 选择视图的代理方法
+-(void)chooseViewButtonDidClicked:(UIButton *)button{
+    
+    
+    [_choseView removeFromSuperview];
+    if (button.tag==2) {
+        return;
+    }else if(button.tag==1){
+        
+        if (_loadDataFormNet==YES) {
+            return;
+        }else{
+            
+            _titleLabel.text=@"CAMERA LIBRARY";
+            
+            UITabBarItem *item= self.navigationController.tabBarItem;
+            [item setSelectedImage:[UIImage imageNamed:@"EX_App_VIEWER_CAMERA"]];
+            [item setImage:[UIImage imageNamed:@"EX_App_VIEWER_CAMERA"]];
+            
+            self.navigationController.tabBarItem.title=@"CAMERA";
+            _loadDataFormNet=YES;
+            [self loadDateFromNetOrApp];
+        }
+        
+    }else if(button.tag==0){
+        if (_loadDataFormNet==NO) {
+            
+            return;
+        }else{
+            _titleLabel.text=@"DEVICE LIBRARY";
+            UITabBarItem *item= self.navigationController.tabBarItem;
+            [item setSelectedImage:[UIImage imageNamed:@"EX_App_MAIN MENU_VIEWER"]];
+            [item setImage:[UIImage imageNamed:@"EX_App_MAIN MENU_VIEWER"]];
+    
+            self.navigationController.tabBarItem.title=@"LIBRARY";
+            _loadDataFormNet=NO;
+            [self loadDateFromNetOrApp];
+        }
+    }
+
+}
+#pragma mark -- 移除选择视图
+-(void)removeMaskVIewFromView{
+    
+    [_choseView removeFromSuperview];
+    [_maskView removeFromSuperview];
+    
+    
+}
+
+
+-(NSArray *) getFilenamelistOfType:(NSString *)type fromDirPath:(NSString *)dirPath
+{
+    NSArray *fileList = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:dirPath error:nil]
+                         pathsMatchingExtensions:[NSArray arrayWithObject:type]];
+    return fileList;
+}
+
+
+-(UICollectionView *)photoCollection
+{
+    if (_photoCollection==nil) {
+        
+        UICollectionViewFlowLayout *flowlayout=[[UICollectionViewFlowLayout alloc]init];
+        flowlayout.itemSize=CGSizeMake(80, 80);
+        flowlayout.sectionInset=UIEdgeInsetsMake(10, 10, 10, 10);
+        flowlayout.minimumLineSpacing=10;
+        flowlayout.minimumInteritemSpacing=10;
+//        flowlayout.sectionHeadersPinToVisibleBounds=YES;
+        
+        _photoCollection=[[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, ScreenW, ScreenH-108) collectionViewLayout:flowlayout];
+     
+        [_photoCollection registerClass:[KondorSectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+        _photoCollection.contentInset=UIEdgeInsetsMake(44, 0, 0, 0);
+        
+        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, ScreenW, 44)];
+        _headerView.backgroundColor=[UIColor colorWithRed:167/255.0 green:79/255.0 blue:84/255.0 alpha:1];
+        _sharedButton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 44)];
+        [_sharedButton setImage:[UIImage imageNamed:@"EX_App_VIEWER_DOWNLOAD"] forState:UIControlStateNormal];
+        NSAttributedString *str1=[[NSAttributedString alloc]initWithString:@"DOWNLOAD" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        [_sharedButton setAttributedTitle:str1 forState:UIControlStateNormal];
+       
+        [_sharedButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 15, -60)];
+        [_sharedButton setTitleEdgeInsets:UIEdgeInsetsMake(25, 0, 0, 0)];
+        [_sharedButton addTarget:self action:@selector(downloadbuttonDidClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_sharedButton setHidden:YES];
+        
+        
+        _deleteButton=[[UIButton alloc]initWithFrame:CGRectMake(ScreenW-120, 0, 100, 44)];
+        [_deleteButton setImage:[UIImage imageNamed:@"EX_App_VIEWER_DELETE"] forState:UIControlStateNormal];
+  
+        NSAttributedString *str=[[NSAttributedString alloc]initWithString:@"DELETE" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        [_deleteButton setAttributedTitle:str forState:UIControlStateNormal];
+        
+        [_deleteButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 15, -60)];
+         [_deleteButton setTitleEdgeInsets:UIEdgeInsetsMake(25, 0, 0, 0)];
+        [_deleteButton addTarget:self action:@selector(deleteButtonDidClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_deleteButton setHidden:YES];
+        
+        _locationBtn=[[UIButton alloc]initWithFrame:CGRectMake((ScreenW-100)*0.5, 0, 100, 44)];
+        [_locationBtn setImage:[UIImage imageNamed:@"LOCATION_"] forState:UIControlStateNormal];
+        
+        NSAttributedString *loactionstr=[[NSAttributedString alloc]initWithString:@"LOCATION" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        [_locationBtn setAttributedTitle:loactionstr forState:UIControlStateNormal];
+        
+        [_locationBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 15, -65)];
+        [_locationBtn setTitleEdgeInsets:UIEdgeInsetsMake(20, -15, 0, 0)];
+        [_locationBtn addTarget:self action:@selector(locationButtonDidClicked) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        
+        
+        [_headerView addSubview:_sharedButton];
+        [_headerView addSubview:_deleteButton];
+        [_headerView addSubview:_locationBtn];
+        
+        _photoCollection.backgroundColor=[UIColor colorWithRed:180/255.0 green:180/255.0 blue:180/255.0 alpha:1];
+     
+    }
+    return _photoCollection;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+ 
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+  
+//    [[SDWebImageManager sharedManager] ]
+}
+
+
+-(void)firstbuttonDidClick{
+    
+    if (_loadDataFormNet==YES) {
+        
+        return;
+    }
+    
+
+  [self.navigationController pushViewController:self.camerVc animated:YES];
+    
+}
+
+-(NSMutableArray *)dataArr
+{
+    if (_dataArr==nil) {
+        _dataArr=[NSMutableArray array];
+    }
+    return _dataArr;
+}
+
+
+-(NSMutableArray *)selectedArr
+{
+    if (_selectedArr==nil) {
+        _selectedArr=[NSMutableArray array];
+    }
+    return _selectedArr;
+}
+
+-(bigSizeImageView *)bigImgView
+{
+    if (_bigImgView==nil) {
+           _bigImgView=[[bigSizeImageView alloc]initWithFrame:CGRectMake(0, 64+44, ScreenW, ScreenH-110-44)];
+    }
+    return _bigImgView;
+}
+
+-(UIButton *)changeModelbtn
+{
+    if (_changeModelbtn==nil) {
+        _changeModelbtn=[[UIButton alloc]init];
+    }
+    return _changeModelbtn;
+}
+-(KondorViewVC *)camerVc
+{
+    if (_camerVc==nil) {
+        _camerVc=[[KondorViewVC alloc] init];
+        _camerVc.loadDataFormNet=YES;
+    }
+    return _camerVc;
+}
+
+-(NSMutableArray *)localFileArr
+{
+    if (_localFileArr==nil) {
+        _localFileArr=[NSMutableArray array];
+    }
+    
+    return _localFileArr;
+}
+
+-(UIImageView *)tipsView
+{
+    if (_tipsView==nil) {
+        _tipsView=[[UIImageView alloc]init];
+    }
+    return _tipsView;
+}
+-(chooseDeviceView *)choseView{
+    
+    if (_choseView==nil) {
+        _choseView=[[NSBundle mainBundle] loadNibNamed:@"chooseDeviceView" owner:self options:nil].lastObject;
+        _choseView.layer.cornerRadius=10;
+        _choseView.layer.masksToBounds=YES;
+        _choseView.delegate=self;
+    }
+    return _choseView;
+}
+
+-(UIImageView *)maskView
+{
+    if (_maskView==nil) {
+        _maskView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
+        _maskView.userInteractionEnabled=YES;
+        UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeMaskVIewFromView)];
+        [_maskView addGestureRecognizer:tap];
+    }
+    return _maskView;
+}
+-(NSMutableArray *)sizeModelArr
+{
+ 
+    if (_sizeModelArr==nil) {
+        _sizeModelArr=[NSMutableArray array];
+    }
+    return _sizeModelArr;
+}
+-(UIView *)progressArrView
+{
+    if (_progressArrView==nil) {
+        _progressArrView=[[UIView alloc]init];
+    }
+    return _progressArrView;
+}
+-(NSMutableArray *)progressArr
+{
+    if (_progressArr==nil) {
+        _progressArr=[NSMutableArray array];
+    }
+    return _progressArr;
+}
+
+
+-(void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    [SDWebImageManager.sharedManager.imageCache clearMemory];
+    [[SDWebImageManager sharedManager] cancelAll];
+
+    NSLog(@"444444444memory");
+}
+
+
+@end
+
+
+
+
+
+
+
+
+
+

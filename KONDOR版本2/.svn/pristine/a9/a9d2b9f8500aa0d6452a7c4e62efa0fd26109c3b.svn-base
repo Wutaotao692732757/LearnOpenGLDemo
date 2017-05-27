@@ -1,0 +1,122 @@
+//
+//  BottonScrollView.m
+//  EX_appIOS
+//
+//  Created by mac_w on 2016/12/8.
+//  Copyright © 2016年 aee. All rights reserved.
+//
+
+#import "BottonScrollView.h"
+#import "UIImageView+VideoFirstImage.h"
+#import "UIImage+WaterMark.h"
+#import "bigSizeImageView.h"
+
+@implementation BottonScrollView
+-(instancetype)initWithFrame:(CGRect)frame{
+    
+    self=[super initWithFrame:frame];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeBigImage:)];
+    [self addGestureRecognizer:tap];
+    return self;
+}
+
+-(void)changeBigImage:(UITapGestureRecognizer *)tap{
+    
+  
+    
+    
+    CGPoint p=[tap locationInView:self];
+//
+    NSInteger index=p.x/142;
+    
+    KondonPhotoModel *selectedModel=_modelArr[index];
+    
+  
+    bigSizeImageView *bigsizeView=( bigSizeImageView *)[self superview];
+    
+    bigsizeView.selectedmodel=selectedModel;
+//
+//    UIImage *img=self.scaledImgArr[index];
+//    
+//    if (selectedModel.isVideo==YES) {
+//        _bigImage.image=img;
+//        
+//        [_bigImage addSubview:self.playButton];
+//    }else{
+//        [self.playButton removeFromSuperview];
+//        
+////        [_bigImage sd_setImageWithURL:selectedModel.pathUrl placeholderImage:img options:SDWebImageScaleDownLargeImages|SDWebImageCacheMemoryOnly|SDWebImageHighPriority];
+//    }
+//    
+    
+}
+
+
+
+// 768:432
+-(void)setModelArr:(NSMutableArray *)modelArr{
+    
+    for (UIImageView *imgView in self.imgARR) {
+        [imgView removeFromSuperview];
+    }
+    [self.imgARR removeAllObjects];
+    
+    _modelArr=modelArr;
+    for (int i=0; i<modelArr.count; i++) {
+        KondonPhotoModel *model=modelArr[i];
+        
+        UIImageView *imgView=[[UIImageView alloc]initWithFrame:CGRectMake(i*142, 0, 142, 80)];
+        if (model.isVideo==YES) {
+          UIImage *logoimg=[UIImage imageNamed:@"EX_App_MAIN MENU_LOGO"];
+           UIImage *img = [UIImage OriginImage:logoimg scaleToSize:CGSizeMake(100.0, 100.0) withLogoImage:ImgNamed(@"play") scale:4];
+            [imgView setCurrentImage:img withURL:model.pathUrl];
+            
+        }else{
+            if ([model.pathUrl.description hasPrefix:@"http"]) {
+                imgView.image=[UIImage imageNamed:@"EX_App_MAIN MENU_LOGO"];
+                
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                    NSData *data=[NSData dataWithContentsOfURL:model.pathUrl];
+                    
+                    UIImage *dataImg=[UIImage imageWithData:data];
+                    UIImage *img=[UIImage OriginImage:dataImg scaleToSize:CGSizeMake(142, 80)];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (img!=nil) {
+                            imgView.image=img;
+                        }
+                    });
+                    
+                });
+                
+            }else{
+                
+             
+                imgView.image=[UIImage imageNamed:@"EX_App_MAIN MENU_LOGO"];
+                
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                    UIImage *dataImg=[UIImage imageWithContentsOfFile:model.pathUrl.description];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (dataImg!=nil) {
+                            
+                            imgView.image=dataImg;
+                        }
+                    });
+                    
+                });
+                
+            }
+            
+        }
+        [self addSubview:imgView];
+        [self.imgARR addObject:imgView];
+    }
+    [self setContentSize:CGSizeMake(modelArr.count*142, 80)];
+}
+-(NSMutableArray *)imgARR{
+    if (_imgARR==nil) {
+        _imgARR=[NSMutableArray array];
+    }
+    return _imgARR;
+}
+
+@end

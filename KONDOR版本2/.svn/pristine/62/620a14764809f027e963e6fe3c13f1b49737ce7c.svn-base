@@ -1,0 +1,701 @@
+//
+//  WTMoiveObject.m
+//  ffmpegTest
+//
+//  Created by 伍陶陶 on 2016/10/28.
+//  Copyright © 2016年 伍陶陶. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "WTMoiveObject.h"
+#include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libswscale/swscale.h>
+#include <libswresample/swresample.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+#import <GLKit/GLKit.h>
+#import "OpenGLView20.h"
+  OpenGLView20 *glView;
+static id sharedPlayer;
+#define MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
+
+@interface AVPACKObject : NSObject
+@property (nonatomic,assign)AVPacket *pack;
+
+@end
+@implementation AVPACKObject
+
+
+@end
+
+@interface AVFRAMEObect : NSObject
+
+@property (nonatomic,assign)AVFrame *frame;
+@end
+@implementation AVFRAMEObect
+
+
+@end
+
+static  UInt8  *audio_chunk;
+@interface WTMoiveObject ()
+
+@property (nonatomic, copy) NSString *currtenPath;
+@property (nonatomic,assign)BOOL reading;
+
+//视频帧缓存
+@property (atomic,strong)NSMutableArray *picArr;
+//解码缓存
+@property (atomic,strong)NSMutableArray *decodeARR;
+
+@property (nonatomic,strong)UIImage *oneImage;
+@end
+
+
+
+@implementation WTMoiveObject{
+    
+    //输入视频的格式信息
+    AVFormatContext     *WTFormatCtx;
+    //输入视频的编码信息
+    AVCodecContext     *WTCodecCtx;
+    AVFrame             *WTFrame;
+    //保存数据帧的数据结构
+    AVStream            *stream;
+    //解析文件读到的位置
+    AVPacket            packet;
+    AVPicture           picture;
+    
+    int                 videoStream;
+    double              fps;
+    BOOL                isReleaseResources;
+    
+    int                 frameFinished;
+    
+    struct SwsContext * imgConvertCtx;
+    unsigned char *pic;
+  
+    
+    int skipped_frame ;
+    
+    dispatch_queue_t nsqueue;
+    
+    BOOL decoding;
+    
+    NSInteger noFramCount;
+    
+}
+
++ (instancetype)sharedPlayer{
+    if(sharedPlayer==nil){
+        @synchronized (self) {
+       sharedPlayer=[[WTMoiveObject alloc]init];
+        }
+    }
+    return sharedPlayer;
+}
+
+-(void)setVideoPathWithString:(NSString *)moviePath
+{
+//    if (WTFormatCtx!=nil&&_needReConnect==NO) return;
+//    
+//    if (_needReConnect==YES) {
+//      
+//        [self releaseResources];
+//        _needReConnect=NO;
+//    }
+//
+    [self initializeResource:[moviePath UTF8String]];
+    _currtenPath=moviePath;
+    
+    
+}
+
+-(BOOL)initializeResource:(const char *)filePath{
+//    if (_reading==YES) return NO;
+//    _reading=YES;
+ 
+    AeePlayer_SetUrl(filePath);
+    
+   
+    
+    return NO;
+    
+//    isReleaseResources = NO;
+//    AVCodec *pCodec;
+//    //注册所有解码器
+//    avcodec_register_all();
+//    av_register_all();
+//    avformat_network_init();
+//    //打开视频文件
+//    if (avformat_open_input(&WTFormatCtx, filePath, NULL, NULL) != 0) {
+//        
+//        goto initError;
+//    }
+//    
+//    if (avformat_find_stream_info(WTFormatCtx, NULL) <0 ) {
+//        
+//        goto initError;
+//    }
+//    
+//    if ((videoStream = av_find_best_stream(WTFormatCtx, AVMEDIA_TYPE_VIDEO, -1, -1, &pCodec, 0))<0) {
+//        goto initError;
+//    }
+//    
+//    //获取视频流的编解码上下文的指针
+//    stream = WTFormatCtx->streams[videoStream];
+//    //        WTCodecCtx = stream->codec;
+//    WTCodecCtx=avcodec_alloc_context3(NULL);
+//    avcodec_parameters_to_context(WTCodecCtx, stream->codecpar);
+//    
+//    //        WTParameters = stream->codecpar;
+//    //打印视频流的详细信息
+//    av_dump_format(WTFormatCtx, videoStream, filePath, 0);
+//    
+//    if (stream->avg_frame_rate.den && stream->avg_frame_rate.num) {
+//        fps = av_q2d(stream->avg_frame_rate);
+//    } else {
+//        fps = 30;
+//    }
+//    
+//    //查找解码器
+//    pCodec = avcodec_find_decoder(WTCodecCtx->codec_id);
+//    
+//    if (pCodec==NULL) {
+//        NSLog(@"没有找到解码器");
+//        goto initError;
+//    }
+//    // 打开解码器
+//    
+//    if (  avcodec_open2(WTCodecCtx, pCodec, NULL) <0) {
+//        NSLog(@"打开解码器失败");
+//        goto initError;
+//    }
+//    //分配视频帧
+//    WTFrame = av_frame_alloc();
+//    
+//    _outputWidth = WTCodecCtx->width;
+//    _outputHeight = WTCodecCtx->height;
+////    pic=(unsigned char *)malloc(_outputHeight*_outputWidth);
+//    _reading=NO;
+//    return YES;
+//    
+//initError:
+//    _reading=NO;
+//    return NO;
+    
+}
+-(BOOL)stepFrame {
+    
+    frameFinished =0;
+    
+    
+    if (WTFormatCtx==NULL)return 0;
+
+        
+//        return 0;
+    
+    //    if  av_read_frame(WTFormatCtx, &packet) >=0
+
+    if (av_read_frame(WTFormatCtx, &packet) >=0) {
+        noFramCount=0;
+//        avcodec_send_packet(WTCodecCtx, &packet);
+//                if (packet.stream_index==videoStream) {
+//        
+//        avcodec_receive_frame(WTCodecCtx, WTFrame);
+        avcodec_decode_video2(WTCodecCtx, WTFrame, &frameFinished, &packet);
+        
+        NSLog(@"----解码到第%zd桢",WTFrame->coded_picture_number);
+        
+    }else{
+           noFramCount++;
+        if (noFramCount>2000) {
+            [self getOutStream];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self connectToNewStream];
+            });
+            
+//            noFramCount=0;
+//            //            [self StopPlay];
+//            [self getOutStream];
+//            [[CameraTool shareTool] stopVF];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                
+//                [[CameraTool shareTool] resetVF];
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    
+//                    decoding=YES;
+//                      [self connectToNewStream];
+//                    
+//                    NSLog(@"需要重新连接----");
+//                    
+//                });
+//                
+//            });
+        }
+    }
+//                }    }
+    av_packet_unref(&packet);
+    
+    //    if (frameFinished==0&&isReleaseResources==NO) {
+    //        [self releaseResources];
+    //
+    //    }
+//    NSLog(@"------%f",[self duration]);
+    return frameFinished !=0;
+}
+
+
+//开始播放方法
+- (void)playWithImageView:(UIImageView *)imageView{
+    _sourceImageView=imageView;
+    //    dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    //
+    //    dispatch_async(que, ^{
+    //
+    //        [self stepFrame];
+    //
+    //    });
+    //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    //
+    //        [self stepFrame];
+    //
+    //    });
+    
+//    __weak typeof(self) weakSelf = self;
+//        decoding=NO;
+////         [self readFrameWithQueue];
+//        //初始化
+        [glView removeFromSuperview];
+        glView = [[OpenGLView20 alloc] initWithFrame:_sourceImageView.bounds];
+        [imageView addSubview:glView];
+        //设置视频原始尺寸
+        [glView setVideoSize:_outputWidth height:_outputHeight];
+    //0.01
+        [_timer invalidate];
+        _timer=nil;
+        _timer = [weakTimer scheduledTimerWithTimeInterval:0.03 target:self selector:@selector(displayNextFrame:) userInfo:nil repeats:YES];
+    
+  //  [_playlinker invalidate];
+    
+   // _playlinker=[CADisplayLink displayLinkWithTarget:self selector:@selector(displayNextFrame:)];
+    
+  //  [_playlinker addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+}
+
+void displayYUV(VideoFrame* frame){
+    
+    NSLog(@"-----------渲染YUV");
+    
+    if (frame->data==nil) return;
+    
+    OpenGLView20 *nglView=glView;
+    [nglView displayYUV420pData:frame->data width:frame->width height:frame->height];
+    
+}
+
+-(void)disPlayerGLView{
+    
+//    [glView displayYUV420pData:frame.data width:_outputWidth height:_outputHeight];
+    
+}
+
+
+
+//做缓存的方法
+-(void)readFrameWithQueue{
+    
+        nsqueue=nil;
+        nsqueue=dispatch_queue_create("com.SerialQueue", NULL);
+        
+        dispatch_async(nsqueue, ^{
+            int succescount;
+            while (!decoding) {
+                [NSThread sleepForTimeInterval:0.02];
+                
+                
+                if (av_read_frame(WTFormatCtx, &packet)>=0)
+                {
+                    
+                    noFramCount=0;
+                    // AVFrame *newFrame=av_frame_alloc();
+                    avcodec_decode_video2(WTCodecCtx, WTFrame, &frameFinished, &packet);
+                    if (frameFinished>0) {
+                        
+                        AVFRAMEObect *objec=[[AVFRAMEObect alloc]init];
+                        objec.frame=av_frame_clone(WTFrame);
+                        
+                        
+                        if (self.picArr.count>10) {
+                            AVFRAMEObect *object0=self.picArr.firstObject;
+                            @synchronized (self.picArr) {
+                                
+                                [self.picArr removeObject:object0];
+                            }
+                        }
+                        
+                        @synchronized (self.picArr) {
+                            
+                            [self.picArr addObject:objec];
+                        }
+                        
+                        
+                        succescount++;
+                        NSLog(@"成功的帧----%zd",succescount);
+                        
+                    }else{
+                        
+                        
+                        skipped_frame++;
+                        NSLog(@"丢失的帧----%zd",skipped_frame);
+                    }
+                    
+                    
+                    //                    skipped_frame=0;
+                    av_packet_unref(&packet);
+                    
+                    
+                    
+                }else{
+                    
+                    
+                    noFramCount++;
+                    
+                    if (noFramCount>8000) {
+                        noFramCount=0;
+                        //            [self StopPlay];
+                        [self getOutStream];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            
+                            [[CameraTool shareTool] resetVF];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                
+                                decoding=YES;
+//                                [self connectToNewStream];
+                                
+                                NSLog(@"需要重新连接----");
+                                
+                            });
+                            
+                        });
+                    }
+                    
+                    
+                    
+                }
+                
+                
+            }
+        });
+        
+        
+        
+   
+    
+   
+}
+
+
+
+-(void)displayNextFrame:(weakTimer *)timer {
+    
+     AeePlayer_RenderFrame();
+    //    dispatch_async(dispatch_get_main_queue(), ^{
+    //
+    //    });
+    
+//    if (_needReConnect==YES) {
+//        _needReConnect=NO;
+//        [self getOutStream];
+//        [self connectToNewStream];
+//    }
+    
+    
+//    [self stepFrame];
+    
+    //将352,288换成你自己的
+//    [self imageFromAVPicture];
+//        [_sourceImageView addSubview:glView];
+//    UIImage *currentImage=self.currentImage;
+//    if (currentImage!=nil) {
+//        _sourceImageView.image = currentImage;
+//    }
+}
+unsigned char temp; unsigned char *pic;  char firstObject;
+
+- (UIImage *)imageFromAVPicture
+{
+    //亮度减半
+    
+ //
+    
+//    NSLog(@"xuyao zhangshi");
+//          unsigned char *pic22= WTFrame->data[0];
+//        if (pic[0]!=pic22[0]) {
+//    
+//            for(int j=0;j<_outputWidth*_outputHeight;j++){
+//    
+//                temp=pic22[j]/2;
+//                //            printf("%d,\n",temp);
+//                pic22[j]=temp;
+//            }
+//    
+//        }
+//         pic=memcpy(pic, WTFrame->data[0], _outputWidth*_outputHeight);
+//     NSLog(@"------shuzu ge shu----%zd",_picArr.count);
+    //
+    //  渲染yuv
+//    if (self.picArr.count>0) {
+//        
+//        NSLog(@"------shuzu ge shu----%zd",_picArr.count);
+//        AVFRAMEObect *object=self.picArr.firstObject;
+//        
+//        AVFrame *pframe=object.frame;
+//        
+//        if(pframe->data[0]==nil) return nil;
+//        
+//        [glView displayYUV420pData:pframe width:_outputWidth height:_outputHeight];
+//       
+//        av_frame_free(&pframe);
+//        @synchronized (self.picArr) {
+//            
+//            [self.picArr removeObject:object];
+//        }
+// 
+//    }else{
+//     
+//        
+//    }
+    if (WTFormatCtx==nil) return nil;
+    
+    if (WTFrame->data[0]==nil) return nil;
+
+    
+        [glView displayYUV420pData:WTFrame width:_outputWidth height:_outputHeight];
+    
+    
+//    avpicture_free(&picture);  //AV_PIX_FMT_RGB24
+//    avpicture_alloc(&picture, AV_PIX_FMT_RGB24, _outputWidth, _outputHeight);
+//    ////    SWS_BICUBIC
+//    ////    struct SwsContext * imgConvertCtx =
+//    
+//    imgConvertCtx = sws_getContext(WTFrame->width,
+//                                   WTFrame->height,
+//                                   AV_PIX_FMT_YUV420P,
+//                                   _outputWidth,
+//                                   _outputHeight,
+//                                   AV_PIX_FMT_RGB24,
+//                                   SWS_X,
+//                                   NULL,
+//                                   NULL,
+//                                   NULL);
+//    
+//    if(imgConvertCtx == nil) return nil;
+//    //     picture.data,
+//    
+//    if (WTFrame->data[0]==nil) return nil;
+//    
+//    if (WTFrame->data[0]==NULL||WTFrame->data[0]==0) return nil;
+//    
+//    const uint8_t *const *srcSlice = (const uint8_t *const *) WTFrame->data;
+//    
+//    if (srcSlice == 0) return nil;
+//    
+//    sws_scale(imgConvertCtx,
+//              srcSlice,
+//              WTFrame->linesize,
+//              0,
+//              WTFrame->height,
+//              picture.data,
+//              picture.linesize);
+//    sws_freeContext(imgConvertCtx);
+//    
+//    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
+//    CFDataRef data = CFDataCreate(kCFAllocatorDefault,
+//                                  picture.data[0],
+//                                  picture.linesize[0] * _outputHeight);
+//    
+//    CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);
+//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();  // 8  ,  24
+//    CGImageRef cgImage = CGImageCreate(_outputWidth,
+//                                       _outputHeight,
+//                                       8,
+//                                       24,
+//                                       picture.linesize[0],
+//                                       colorSpace,
+//                                       bitmapInfo,
+//                                       provider,
+//                                       NULL,
+//                                       NO,
+//                                       kCGRenderingIntentDefault);
+//    UIImage *image = [UIImage imageWithCGImage:cgImage];
+//    CGImageRelease(cgImage);
+//    CGColorSpaceRelease(colorSpace);
+//    CGDataProviderRelease(provider);
+//    CFRelease(data);
+    
+    return self.oneImage;
+}
+
+#pragma mark -------------------------------------------------
+//结束播放方法
+-(void)StopPlay{
+//    decoding=YES;
+//    dispatch_suspend(nsqueue);
+//    nsqueue=nil;
+    [_timer setFireDate:[NSDate distantFuture]];
+  //  [_playlinker setPaused:YES];
+ 
+ 
+}
+-(void)PlayerContinue{
+//    decoding=NO;
+  //  _timer=nil;
+//    [self playWithImageView:_sourceImageView];
+//    dispatch_resume(nsqueue);
+  //  [_playlinker setPaused:NO];
+    
+    [_timer setFireDate:[NSDate distantPast]];
+}
+/*退出流模式----重新连接流信息之前必须*/
+-(void)getOutStream{
+//    dispatch_suspend(nsqueue);
+//    decoding=YES;
+  [_timer setFireDate:[NSDate distantFuture]];
+//    AeePlayer_Destroy();
+//    [self releaseResources];
+    
+}
+//对相机操作之后-重新连接到新的预览
+-(void)connectToNewStream{
+     [_timer setFireDate:[NSDate distantPast]];
+//    decoding=YES;
+//    //    dispatch_suspend(nsqueue);
+//    nsqueue=nil;
+//    [self initializeResource:[_currtenPath UTF8String]];
+//    [self playWithImageView:_sourceImageView];
+  
+}
+#pragma mark - 释放资源
+- (void)releaseResources {
+    //    SJLog(@"释放资源");
+    //    SJLogFunc
+    isReleaseResources = YES;
+    // 释放RGB
+    avpicture_free(&picture);
+    // 释放frame
+    av_packet_unref(&packet);
+    // 释放YUV frame
+    av_free(WTFrame);
+    // 关闭解码器
+    if (WTCodecCtx) avcodec_close(WTCodecCtx);
+    // 关闭文件
+    if (WTFormatCtx) avformat_close_input(&WTFormatCtx);
+    avformat_network_deinit();
+    
+    WTFormatCtx=nil;
+    WTCodecCtx=nil;
+    WTFrame=nil;
+    stream=nil;
+    
+}
+
+- (void)replaceTheResources:(NSString *)moviePath {
+    if (!isReleaseResources) {
+        [self releaseResources];
+    }
+    self.currtenPath = [moviePath copy];
+    [self initializeResource:[moviePath UTF8String]];
+}
+
+- (void)redialPaly {
+    [self initializeResource:[self.currtenPath UTF8String]];
+}
+
+-(void)setOutputWidth:(int)newValue {
+    if (_outputWidth == newValue) return;
+    _outputWidth = newValue;
+}
+-(void)setOutputHeight:(int)newValue {
+    if (_outputHeight == newValue) return;
+    _outputHeight = newValue;
+}
+-(UIImage *)currentImage {
+    
+    
+    if (WTFrame==nil) return nil;
+    
+    if (!WTFrame->data[0]) return nil;
+    return [self imageFromAVPicture];
+}
+-(double)duration {
+    return (double)WTFormatCtx->duration / AV_TIME_BASE;
+}
+
+- (int)sourceWidth {
+    return WTCodecCtx->width;
+}
+- (int)sourceHeight {
+    return WTCodecCtx->height;
+}
+- (double)fps {
+    return fps;
+}
+
+-(NSMutableArray *)decodeARR{
+    if (_decodeARR==nil) {
+        _decodeARR=[NSMutableArray array];
+    }
+    return _decodeARR;
+}
+
+-(NSMutableArray *)picArr
+{
+    if (_picArr==nil) {
+        _picArr=[NSMutableArray array];
+    }
+    return _picArr;
+}
+
+-(UIImage *)oneImage
+{
+    if (_oneImage==nil) {
+        _oneImage=[[UIImage alloc]init];
+    }
+    return _oneImage;
+}
+
+
+
+-(void)dealloc
+{
+    [glView clearFrame];
+    [_timer setFireDate:[NSDate distantFuture]];
+    [_voiceTimer setFireDate:[NSDate distantFuture]];
+    [_timer invalidate];
+    [_voiceTimer invalidate];
+    
+    self.timer=nil;
+}
+@end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

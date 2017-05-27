@@ -1,0 +1,695 @@
+//
+//  KondorSettingVC.m
+//  EX_appIOS
+//
+//  Created by mac_w on 2016/11/8.
+//  Copyright © 2016年 aee. All rights reserved.
+//
+
+#import "KondorSettingVC.h"
+#import "settingControllerCell.h"
+#import "settingHeaderView.h"
+#import "CameraTool.h"
+#import "CameraInfoTwelve.h"
+#import "settingCellmodel.h"
+
+
+@interface KondorSettingVC ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
+
+@property(nonatomic,strong)UITableView *tableView;
+
+@property(nonatomic,strong) NSMutableArray *dataArr;
+
+
+@property(nonatomic,strong) NSMutableArray *sectionArr;
+@property(nonatomic,strong) NSMutableArray *sectionImgArr;
+
+@property(nonatomic,strong)  CameraInfoTwelve *twelveInfo ;
+
+//可选项数组
+@property(nonatomic,strong) NSArray *paramArr;
+
+@property(nonatomic,strong) UIScrollView *selectView;
+
+@property(nonatomic,copy) settingCellmodel *selectedModel;
+
+//z遮挡视图
+@property(nonatomic,strong) UIView *SmaskView;
+
+@property(nonatomic,strong) UIView *WifiView;
+
+@property(nonatomic,strong) UITextField *wifiNamefied;
+@property(nonatomic,strong) UITextField *wifiPassWordfied;
+
+@end
+
+@implementation KondorSettingVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.navigationController.automaticallyAdjustsScrollViewInsets=NO;
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    
+    self.view.backgroundColor=[UIColor grayColor];
+    
+    UILabel *titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 44)];
+    titleLabel.text=@"SETTINGS";
+    titleLabel.font=[UIFont fontWithName:@"DINOffc-Medi" size:20];
+    titleLabel.textColor=[UIColor whiteColor];
+    titleLabel.textAlignment=NSTextAlignmentCenter;
+    self.navigationItem.titleView = titleLabel;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkIsCameraAllInfo:) name:@"GetAllCameraInfo" object:nil];
+    [SVProgressHUD show];
+    if (![[CameraTool shareTool] isConnecting]) {
+        [[CameraTool shareTool] connectingOperate];
+    }
+ 
+    [self addNotification];
+  
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        if([[CameraTool shareTool] isConnecting]==NO){
+            
+            [SVProgressHUD showErrorWithStatus:@"NEED CONNECT"];
+        }else{
+            
+            if (_dataArr==nil) {
+                [SVProgressHUD showWithStatus:@"loading"];
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[CameraTool shareTool] getAllOptions];
+                });
+            }
+            
+        }
+    });
+    
+    
+}
+
+-(void)checkIsCameraAllInfo:(NSNotification *)noti{
+    
+    [SVProgressHUD dismiss];
+    
+    _tableView=nil;
+    _dataArr=nil;
+    _paramArr=nil;
+    
+    _twelveInfo=noti.object;
+    
+    [self.view addSubview:self.tableView];
+
+}
+
+
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    
+    return self.dataArr.count;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSMutableArray *sectionArr=self.dataArr[section];
+    
+    return sectionArr.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 60;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    settingHeaderView *headerview=[[settingHeaderView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 60)];
+    
+    headerview.iconView.image=[UIImage imageNamed:self.sectionImgArr[section]];
+    
+    headerview.nameLabel.text=self.sectionArr[section];
+    
+    
+    return headerview;
+}
+
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    settingControllerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"setting"];
+    if (cell==nil) {
+        cell=[[NSBundle mainBundle] loadNibNamed:@"settingControllerCell" owner:self options:nil].lastObject;
+    }
+    NSMutableArray *sectionArr=self.dataArr[indexPath.section];
+    settingCellmodel *mode=sectionArr[indexPath.row];
+    cell.namelabel.text=mode.nameString;
+    cell.infoLabel.text=mode.infoString;
+    
+    
+    if ([mode.typeString isEqualToString:@"photo_selftimer"]){
+        NSInteger astring=[[CameraTool shareTool] timerCount];
+
+        NSString *string=[NSString stringWithFormat:@"%2d",astring];
+        cell.infoLabel.text=string;
+ 
+    }
+    
+  
+    return cell;
+}
+
+#pragma mark --- cell被选中的方法
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    NSMutableArray *sectionArr=_dataArr[indexPath.section];
+    settingCellmodel *model=sectionArr[indexPath.row];
+   
+    _selectedModel=model;
+//    [[CameraTool shareTool] getSingleWithOption:model.typeString];
+    
+    [SVProgressHUD show];
+    if ([model.typeString isEqualToString:@"photo_size"]) {
+        
+        [[CameraTool shareTool] getSingleWithOption:model.typeString];
+    
+    }else if ([model.typeString isEqualToString:@"photo_stamp"]){
+       [[CameraTool shareTool] getSingleWithOption:model.typeString];
+    }else if ([model.typeString isEqualToString:@"video_quality"]){
+      [[CameraTool shareTool] getSingleWithOption:model.typeString];
+        
+    }else if ([model.typeString isEqualToString:@"video_resolution"]){
+       [[CameraTool shareTool] getSingleWithOption:model.typeString];
+        
+    }else if ([model.typeString isEqualToString:@"video_loop_back"]){
+        [[CameraTool shareTool] getSingleWithOption:model.typeString];
+        
+    }else if ([model.typeString isEqualToString:@"video_stamp"]){
+         [[CameraTool shareTool] getSingleWithOption:model.typeString];
+        
+    }else if ([model.typeString isEqualToString:@"photo_shot_mode"]){
+         [[CameraTool shareTool] getSingleWithOption:model.typeString];
+        
+    }else if ([model.typeString isEqualToString:@"photo_selftimer"]){
+        
+         [[CameraTool shareTool] getSingleWithOption:model.typeString];
+    }else if ([model.typeString isEqualToString:@"key_tone"]){
+        
+         [[CameraTool shareTool] getSingleWithOption:model.typeString];
+    }else if ([model.typeString isEqualToString:@"setup_selflamp"]){
+         [[CameraTool shareTool] getSingleWithOption:model.typeString];
+        
+    }else if ([model.typeString isEqualToString:@"video_standard"]){
+         [[CameraTool shareTool] getSingleWithOption:model.typeString];
+        
+    }else if ([model.typeString isEqualToString:@"language"]){
+        [[CameraTool shareTool] getSingleWithOption:model.typeString];
+    }else if ([model.typeString isEqualToString:@"WIFI"]){
+        [SVProgressHUD dismiss];
+        [self.view addSubview:self.SmaskView];
+        [self.view addSubview:self.WifiView];
+        
+    }else if ([model.typeString isEqualToString:@"DATE/TIME"]){
+          [[CameraTool shareTool] setOptionsMode:model.infoString Type:@"camera_clock"];
+        
+        
+    }else if ([model.typeString isEqualToString:@"FORMAT"]){
+        
+        UIAlertView  *aletView=[[UIAlertView alloc]initWithTitle:nil message:@"ARE YOU SURE FORMAT YOUR SDCard" delegate:self cancelButtonTitle:@"CANCEL" otherButtonTitles:@"SURE", nil];
+        [aletView show];
+        
+        
+    }else if ([model.typeString isEqualToString:@"RESTORE DEFAULT"]){
+        
+        UIAlertView  *aletView=[[UIAlertView alloc]initWithTitle:nil message:@"ARE YOU SURE RESTORE DEFAULT" delegate:self cancelButtonTitle:@"CANCEL" otherButtonTitles:@"SURE", nil];
+        [aletView show];
+       
+    }else if ([model.typeString isEqualToString:@"USER AGREEMENT"]){
+        
+        return;
+    }
+    
+    
+    
+    
+}
+#pragma mark --- 确认视图代理方法
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1) {
+        
+        if ([_selectedModel.typeString isEqualToString:@"FORMAT"]) {
+            [[CameraTool shareTool] formatSDCard];
+            
+        }else{
+             [[CameraTool shareTool] initDefaultSetting];
+        }
+        
+        
+    }
+    
+
+}
+
+
+
+#pragma mark -- 注册通知及回调方法
+//添加通知
+- (void)addNotification{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getSingleSetting:) name:@"getSingleOptions" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setSingleSetting:) name:@"setSingleOptions" object:nil];
+}
+-(void)getSingleSetting:(NSNotification *)noti{
+    [SVProgressHUD dismiss];
+    NSDictionary *dic = noti.object;
+    self.paramArr = dic[@"options"];
+   
+    [self creatSelectionView];
+    
+    
+}
+
+
+-(void)setSingleSetting:(NSNotification *)noti{
+    [SVProgressHUD dismiss];
+   
+    [WTMoiveObject sharedPlayer].needReConnect=YES;
+    
+    [_SmaskView removeFromSuperview];
+    [_selectView removeFromSuperview];
+    [SVProgressHUD showSuccessWithStatus:@"SETTING SUCCESS"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([[CameraTool shareTool] isConnecting]) {
+            [SVProgressHUD show];
+            [[CameraTool shareTool] getAllOptions];
+            
+        }
+        
+    });
+   
+    NSLog(@"设置成功");
+}
+
+#pragma mark -- 创建显示VIew方法
+-(void)creatSelectionView{
+    
+    if (self.selectView!=nil) {
+        [self.selectView removeFromSuperview];
+    }
+    
+    [self.view addSubview:self.SmaskView];
+    
+    CGFloat height=0.0;
+    if (44*(self.paramArr.count+1)>400) {
+        height=400;
+    }else{
+        height=44*(self.paramArr.count+1);
+    }
+    self.selectView=[[UIScrollView alloc]initWithFrame:CGRectMake((ScreenW-300)*0.5, (ScreenH-height)*0.5, 300, height)];
+    self.selectView.backgroundColor=[UIColor lightGrayColor];
+    [self.view  addSubview:self.SmaskView];
+    [self.view addSubview:self.selectView];
+    
+    self.selectView.layer.cornerRadius=15;
+    self.selectView.layer.masksToBounds=YES;
+    self.selectView.layer.borderColor=[UIColor redColor].CGColor;
+    
+    UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
+    tipLabel.textAlignment=NSTextAlignmentCenter;
+    tipLabel.font=[UIFont systemFontOfSize:18];
+    tipLabel.textColor=[UIColor whiteColor];
+    tipLabel.text=_selectedModel.nameString;
+    [self.selectView addSubview:tipLabel];
+    
+    for (int i=0; i<self.paramArr.count; i++) {
+        
+        UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(0, (i+1)*44, 300, 44)];
+        btn.tag=i;
+        [btn addTarget:self action:@selector(setPropertyBtnDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+        btn.backgroundColor=[UIColor grayColor];
+        [btn setTitle:_paramArr[i] forState:UIControlStateNormal];
+        [self.selectView addSubview:btn];
+    }
+    self.selectView.contentSize=CGSizeMake(300, 44*(self.paramArr.count+1));
+    self.selectView.scrollEnabled=YES;
+    [SVProgressHUD dismiss];
+    
+}
+
+
+
+//各个选项点击事件--设置属性事件
+-(void)setPropertyBtnDidClicked:(UIButton *)btn{
+    [SVProgressHUD show];
+    
+    if ([_selectedModel.typeString isEqualToString:@"photo_selftimer"]){
+        
+        NSInteger count;
+        switch (btn.tag) {
+            case 0:
+                 count=3;
+                break;
+            case 1:
+                 count=5;
+                break;
+            case 2:
+                 count=10;
+                break;
+            case 3:
+                count=0;
+                break;
+            default:
+                break;
+        }
+         [[CameraTool shareTool] setTimerCount:count];
+    
+    }
+    
+  
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [[CameraTool shareTool] setOptionsMode:btn.currentTitle Type:_selectedModel.typeString];
+    });
+    
+    
+}
+
+-(void)settingBtnDIdClicked{
+    
+    
+    if (_wifiNamefied.text==nil||[_wifiNamefied.text isEqualToString:@""]||_wifiPassWordfied.text==nil||[_wifiPassWordfied.text isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"NAME OR PASSWORD IS EMPTY"];
+        return;
+    }else{
+        
+        [_WifiView removeFromSuperview];
+        NSString*nameAndPss= [NSString stringWithFormat:@"%@$%@",_wifiNamefied.text,_wifiPassWordfied.text];
+        [[CameraTool shareTool] setWiFiInfoWithNewNameAndPassword:nameAndPss];
+        [SVProgressHUD showSuccessWithStatus:@"SETTING SUCCESS"];
+    }
+    
+}
+
+#pragma mark --- 生命周期方法
+
+-(void)viewDidAppear:(BOOL)animated
+{
+      [super viewDidAppear:animated];
+      [[CameraTool shareTool] stopVF];
+      [self addNotification];
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[CameraTool shareTool] resetVF];
+    
+ 
+    [SVProgressHUD dismiss];
+   [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+}
+
+
+
+//懒加载
+-(UITableView *)tableView
+{
+    if (_tableView==nil) {
+        _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 64, ScreenW, ScreenH-64-44)];
+        _tableView.delegate=self;
+        _tableView.dataSource=self;
+        
+        _tableView.backgroundColor=[UIColor lightGrayColor];
+        _tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
+        
+//        _tableView.autoresizesSubviews=NO;
+//        _tableView.
+    }
+    return _tableView;
+}
+
+-(NSMutableArray *)dataArr
+{
+
+    if (_dataArr==nil) {
+        
+        //第一组
+        settingCellmodel *mode1=[[settingCellmodel alloc]init];
+        mode1.nameString=@"IMAGE SIZE";
+        mode1.infoString=_twelveInfo.photo_size;
+        mode1.typeString=@"photo_size";
+        
+        settingCellmodel *mode2=[[settingCellmodel alloc]init];
+        mode2.nameString=@"TIME STAMP";
+        NSArray *strArr0= [_twelveInfo.photo_stamp componentsSeparatedByString:@"_"];
+
+        mode2.infoString=strArr0.lastObject;
+        mode2.typeString=@"photo_stamp";
+        
+        //第二组
+        settingCellmodel *mode3=[[settingCellmodel alloc]init];
+        mode3.nameString=@"VIDEO QUALITY";
+        mode3.infoString=_twelveInfo.video_quality;
+        mode3.typeString=@"video_quality";
+        
+        settingCellmodel *mode4=[[settingCellmodel alloc]init];
+        mode4.nameString=@"VIDEO SIZE";
+        mode4.infoString=_twelveInfo.video_resolution;
+        
+        //如果是1080P的图片，让中间的视图添加标示图片
+//        NSString *firstSizeString=[mode4.infoString substringWithRange:NSMakeRange(0, 4)];
+//        NSInteger firstSize=[firstSizeString integerValue];
+//        if (firstSize==1920) {
+//            
+//            UITabBarController *tabbarVC=self.tabBarController;
+//            UINavigationController *navController=tabbarVC.childViewControllers[1];
+//            
+//            KondorMenuVC *menuVC=navController.childViewControllers[0];
+//            [menuVC.view addSubview:menuVC.cameraTipView];
+//            
+//        }else if(firstSize==3840){
+//            
+//            UITabBarController *tabbarVC=self.tabBarController;
+//            UINavigationController *navController=tabbarVC.childViewControllers[1];
+//            
+//            KondorMenuVC *menuVC=navController.childViewControllers[0];
+//            [menuVC.view addSubview:menuVC.cameraTipView];
+//
+//        }else{
+//            UITabBarController *tabbarVC=self.tabBarController;
+//            UINavigationController *navController=tabbarVC.childViewControllers[1];
+//            
+//            KondorMenuVC *menuVC=navController.childViewControllers[0];
+//            [menuVC.cameraTipView removeFromSuperview];
+//        }
+        
+        mode4.typeString=@"video_resolution";
+        
+        settingCellmodel *mode5=[[settingCellmodel alloc]init];
+        mode5.nameString=@"LOOP OVERWRITE";
+        NSArray *strArr= [_twelveInfo.video_loop_back componentsSeparatedByString:@"_"];
+        mode5.infoString=strArr.lastObject;
+        mode5.typeString=@"video_loop_back";
+        
+        settingCellmodel *mode6=[[settingCellmodel alloc]init];
+        mode6.nameString=@"TIME STAMP";
+        mode6.infoString=_twelveInfo.video_stamp;
+        mode6.typeString=@"video_stamp";
+        //第三组
+        settingCellmodel *mode7=[[settingCellmodel alloc]init];
+        mode7.nameString=@"IMAGE SIZE";
+        mode7.infoString=_twelveInfo.photo_size;
+        mode7.typeString=@"photo_size";
+        
+        settingCellmodel *mode8=[[settingCellmodel alloc]init];
+        mode8.nameString=@"SHOOTING MODE";
+        NSArray *str2=[_twelveInfo.photo_shot_mode componentsSeparatedByString:@"_"];
+        mode8.infoString=[NSString stringWithFormat:@"%@photos/s",str2.lastObject];
+        mode8.typeString=@"photo_shot_mode";
+        
+        //第四组
+        settingCellmodel *mode9=[[settingCellmodel alloc]init];
+        mode9.nameString=@"IMAGE SIZE";
+        mode9.infoString=_twelveInfo.photo_size;
+        mode9.typeString=@"photo_size";
+        
+        settingCellmodel *mode10=[[settingCellmodel alloc]init];
+        mode10.nameString=@"SHOOTING MODE";
+        NSArray *strArr3=[_twelveInfo.photo_shot_mode componentsSeparatedByString:@"_"];
+        mode10.infoString=strArr3.lastObject;
+        mode10.typeString=@"photo_selftimer";
+        
+        //第五组
+        settingCellmodel *mode11=[[settingCellmodel alloc]init];
+        mode11.nameString=@"WI-FI";
+        mode11.infoString=@"     ";
+        mode11.typeString=@"WIFI";
+        
+        settingCellmodel *mode12=[[settingCellmodel alloc]init];
+        mode12.nameString=@"WARNING TONE";
+//        NSArray *strArr4=[_twelveInfo.key_tone componentsSeparatedByString:@"_"];
+        mode12.infoString=@"Standard";
+        mode12.typeString=@"key_tone";
+        
+        settingCellmodel *mode13=[[settingCellmodel alloc]init];
+        NSArray *strArr5=[_twelveInfo.setup_selflamp componentsSeparatedByString:@"_"];
+        mode13.infoString=strArr5[strArr5.count-2];
+        mode13.nameString=@"STATUS INDICATOR";
+        mode13.typeString=@"setup_selflamp";
+//        mode13.infoString=_twelveInfo.setup_selflamp;
+        settingCellmodel *mode14=[[settingCellmodel alloc]init];
+        mode14.nameString=@"TV OUTPUT";
+        mode14.infoString=_twelveInfo.video_standard;
+        mode14.typeString=@"video_standard";
+        
+        settingCellmodel *mode15=[[settingCellmodel alloc]init];
+        mode15.nameString=@"DV LANGUAGE";
+        mode15.infoString=_twelveInfo.language;
+        mode15.typeString=@"language";
+        
+        settingCellmodel *mode16=[[settingCellmodel alloc]init];
+        mode16.nameString=@"DATE/TIME";
+        NSDateFormatter *format=[[NSDateFormatter alloc]init];
+        [format setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
+        NSString *dateString=[format stringFromDate:[NSDate date]];
+        mode16.infoString=dateString;
+        
+        mode16.typeString=@"DATE/TIME";
+        
+        settingCellmodel *mode17=[[settingCellmodel alloc]init];
+        mode17.nameString=@"FORMAT";
+        mode17.infoString=@"   "; //格式化
+        mode17.typeString=@"FORMAT";
+        
+        settingCellmodel *mode18=[[settingCellmodel alloc]init];
+        mode18.nameString=@"RESTORE DEFAULT";//恢复出厂设置
+        mode18.infoString=@"  ";
+        mode18.typeString=@"RESTORE DEFAULT";
+        
+        settingCellmodel *mode19=[[settingCellmodel alloc]init];
+        mode19.nameString=@"USER AGREEMENT";
+        mode19.infoString=@"   ";//无操作
+        mode19.typeString=@"USER AGREEMENT";
+
+        NSMutableArray *da1=[NSMutableArray arrayWithObjects:mode1,mode2, nil];
+        NSMutableArray *da2=[NSMutableArray arrayWithObjects:mode3,mode4,mode5,mode6, nil];
+        NSMutableArray *da3=[NSMutableArray arrayWithObjects:mode7,mode8, nil];
+        NSMutableArray *da4=[NSMutableArray arrayWithObjects:mode9,mode10, nil];
+        NSMutableArray *da5=[NSMutableArray arrayWithObjects:mode11,mode12,mode13,mode14,mode15,mode16, mode17, mode18,mode19, nil];
+        
+        _dataArr=[NSMutableArray arrayWithObjects:da1,da2,da3,da4,da5,nil];
+    }
+    return _dataArr;
+}
+
+
+
+-(void)removeMaskFromSuper{
+    if (_wifiNamefied.isFirstResponder==YES||_wifiPassWordfied.isFirstResponder==YES) {
+        [_wifiPassWordfied resignFirstResponder];
+        [_wifiNamefied resignFirstResponder];
+        return;
+    }
+    
+    
+    [self.WifiView removeFromSuperview];
+    [self.selectView removeFromSuperview];
+    [self.SmaskView removeFromSuperview];
+}
+
+
+-(NSMutableArray *)sectionArr
+{
+    if (_sectionArr==nil) {
+        _sectionArr=[NSMutableArray arrayWithObjects:@"CAMERA",@"VIDEO",@"BURST",@"TIMER" ,@"GENERAL",nil];
+    }
+    return _sectionArr;
+}
+
+-(NSMutableArray *)sectionImgArr
+{
+    if (_sectionImgArr==nil) {
+//        EX_App_MAIN MENU_SETTINGS    EX_App_CAMERA_1     EX_App_MAIN MENU_VIEWER
+//        EX_App_CAMERA_VIDEO    EX_App_CAMERA_BURST    EX_App_CAMERA_TIMER
+        
+        _sectionImgArr=[NSMutableArray arrayWithObjects:@"EX_App_CAMERA_1",@"EX_App_CAMERA_VIDEO",@"EX_App_CAMERA_BURST",@"EX_App_CAMERA_TIMER",@"EX_App_MAIN MENU_SETTINGS", nil];
+    }
+    return _sectionImgArr;
+}
+-(UIView *)SmaskView
+{
+    if (_SmaskView==nil) {
+        _SmaskView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
+        
+        UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeMaskFromSuper)];
+        [_SmaskView addGestureRecognizer:tap];
+        
+    }
+    return _SmaskView;
+}
+-(UIView *)WifiView
+{
+    if (_WifiView==nil) {
+        _WifiView=[[UIView alloc] initWithFrame:CGRectMake((ScreenW-300)*0.5, (ScreenH-44*4)*0.5, 300, 44*4)];
+        _WifiView.backgroundColor=[UIColor colorWithRed:163/255.0 green:163/255.0 blue:164/255.0 alpha:1];
+        UILabel *TipLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
+        TipLabel.font=[UIFont fontWithName:@"DINOffc-Medi" size:25];;
+        TipLabel.textColor=[UIColor colorWithRed:167/255.0 green:79/255.0 blue:84/255.0 alpha:1];
+        TipLabel.text=@"WIFI SETTING";
+        TipLabel.textAlignment=NSTextAlignmentCenter;
+        [_WifiView addSubview:TipLabel];
+        UILabel *nameLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 44, 120, 44)];
+        nameLabel.font=[UIFont fontWithName:@"DINOffc-Medi" size:15];
+        nameLabel.textColor=[UIColor whiteColor];
+        nameLabel.text=@"WIFI NAME";
+        nameLabel.textAlignment=NSTextAlignmentCenter;
+        [_WifiView addSubview:nameLabel];
+        
+        UILabel *passWordLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 44*2, 120, 44)];
+        passWordLabel.font=[UIFont fontWithName:@"DINOffc-Medi" size:15];
+        passWordLabel.textColor=[UIColor whiteColor];
+        passWordLabel.text=@"WIFI PASSWORD";
+        passWordLabel.textAlignment=NSTextAlignmentCenter;
+        [_WifiView addSubview:passWordLabel];
+        
+        UITextField *nameFild=[[UITextField alloc]initWithFrame:CGRectMake(120, 44+5, 180, 44-10)];
+        [_WifiView addSubview:nameFild];
+        nameFild.borderStyle=UITextBorderStyleRoundedRect;
+         UITextField *passWordFild=[[UITextField alloc]initWithFrame:CGRectMake(120, 44*2+5, 180, 44-10)];
+        _wifiNamefied=nameFild;
+        _wifiPassWordfied=passWordFild;
+        
+        [_WifiView addSubview:passWordFild];
+        passWordFild.borderStyle=UITextBorderStyleRoundedRect;
+        
+        UIButton *wifiSettingBtn=[[UIButton alloc]initWithFrame:CGRectMake(0, 44*3, 300, 44)];
+        [wifiSettingBtn setTitle:@"SET" forState:UIControlStateNormal];
+        [wifiSettingBtn setBackgroundColor:[UIColor redColor]];
+        [wifiSettingBtn addTarget:self action:@selector(settingBtnDIdClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_WifiView addSubview:wifiSettingBtn];
+        _WifiView.layer.cornerRadius=15;
+        _WifiView.layer.borderColor=[UIColor colorWithRed:167/255.0 green:79/255.0 blue:84/255.0 alpha:1].CGColor;
+        _WifiView.layer.masksToBounds=YES;
+
+    }
+    return _WifiView;
+    
+}
+-(void)dealloc{
+    
+}
+
+
+@end

@@ -1,0 +1,40 @@
+//
+//  KondorNavigationVC.m
+//  EX_appIOS
+//
+//  Created by mac_w on 2016/11/8.
+//  Copyright © 2016年 aee. All rights reserved.
+//
+
+#import "KondorNavigationVC.h"
+
+@interface KondorNavigationVC ()
+
+@end
+
+@implementation KondorNavigationVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationBar.backgroundColor=[UIColor colorWithRed:107/255.0 green:107/255.0 blue:107/255.0 alpha:1];
+    
+    UIImageView *imgView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"EX_App_MAIN MENU_三角形"]];
+    imgView.frame=CGRectMake(0, 0, 35, 35);
+    
+}
+-(void)back{
+    [self popViewControllerAnimated:YES];
+    
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    
+}
+
+
+
+
+
+@end

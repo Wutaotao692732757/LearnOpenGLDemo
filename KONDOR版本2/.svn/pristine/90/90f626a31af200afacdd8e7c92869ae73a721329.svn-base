@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="VET-R7-2hB" customClass="chooseDeviceView">
+            <rect key="frame" x="0.0" y="0.0" width="295" height="136"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9q-Ic-Kl5">
+                    <rect key="frame" x="0.0" y="0.0" width="295" height="44"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="rvc-CE-Ien"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <inset key="titleEdgeInsets" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="DEVICE LIBRARY" image="DEVICE LIBRARY_">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="choseViewButtonDidClicked:" destination="VET-R7-2hB" eventType="touchUpInside" id="4Uy-Hv-0iX"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m34-yx-pZH">
+                    <rect key="frame" x="0.0" y="44" width="295" height="44"/>
+                    <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="A4G-sp-ZbQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="titleEdgeInsets" minX="52" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="CAMERA LIBRARY" image="CAMERA_">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="choseViewButtonDidClicked:" destination="VET-R7-2hB" eventType="touchUpInside" id="QXy-r1-jzP"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QtZ-Uj-6YV">
+                    <rect key="frame" x="5" y="43" width="285" height="2"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="y2J-mj-w5c"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ll3-oe-XUJ">
+                    <rect key="frame" x="0.0" y="88" width="295" height="48"/>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="CLOSE">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="choseViewButtonDidClicked:" destination="VET-R7-2hB" eventType="touchUpInside" id="Fff-oA-Vcd"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="m34-yx-pZH" firstAttribute="top" secondItem="U9q-Ic-Kl5" secondAttribute="bottom" id="48Y-mm-LbC"/>
+                <constraint firstItem="ll3-oe-XUJ" firstAttribute="top" secondItem="m34-yx-pZH" secondAttribute="bottom" id="BFV-6J-C4O"/>
+                <constraint firstAttribute="trailing" secondItem="ll3-oe-XUJ" secondAttribute="trailing" id="Ea0-xv-bYr"/>
+                <constraint firstItem="U9q-Ic-Kl5" firstAttribute="top" secondItem="VET-R7-2hB" secondAttribute="top" id="Lk7-JV-hWl"/>
+                <constraint firstAttribute="trailing" secondItem="m34-yx-pZH" secondAttribute="trailing" id="NjS-0h-0BO"/>
+                <constraint firstItem="QtZ-Uj-6YV" firstAttribute="top" secondItem="U9q-Ic-Kl5" secondAttribute="bottom" constant="-1" id="RS5-za-LPy"/>
+                <constraint firstAttribute="trailing" secondItem="QtZ-Uj-6YV" secondAttribute="trailing" constant="5" id="UiK-as-nUR"/>
+                <constraint firstItem="m34-yx-pZH" firstAttribute="leading" secondItem="VET-R7-2hB" secondAttribute="leading" id="YrO-wM-gdl"/>
+                <constraint firstAttribute="bottom" secondItem="ll3-oe-XUJ" secondAttribute="bottom" id="fL4-AO-awy"/>
+                <constraint firstItem="QtZ-Uj-6YV" firstAttribute="leading" secondItem="VET-R7-2hB" secondAttribute="leading" constant="5" id="kz6-W1-C8p"/>
+                <constraint firstItem="ll3-oe-XUJ" firstAttribute="leading" secondItem="VET-R7-2hB" secondAttribute="leading" id="pJK-HF-omB"/>
+                <constraint firstAttribute="trailing" secondItem="U9q-Ic-Kl5" secondAttribute="trailing" id="wi0-5B-t0y"/>
+                <constraint firstItem="U9q-Ic-Kl5" firstAttribute="leading" secondItem="VET-R7-2hB" secondAttribute="leading" id="yzb-KT-w7L"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-158.5" y="-119"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="CAMERA_" width="30" height="23"/>
+        <image name="DEVICE LIBRARY_" width="20" height="30"/>
+    </resources>
+</document>

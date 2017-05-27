@@ -1,0 +1,33 @@
+//
+//  settingHeaderView.m
+//  EX_appIOS
+//
+//  Created by mac_w on 2016/11/9.
+//  Copyright © 2016年 aee. All rights reserved.
+//
+
+#import "settingHeaderView.h"
+
+@implementation settingHeaderView
+
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    self=[super initWithFrame:frame];
+    
+    _iconView=[[UIImageView alloc]initWithFrame:CGRectMake(30,(frame.size.height-18)*0.5 , 24, 18)];
+    
+    [self addSubview:_iconView];
+    
+    _nameLabel=[[UILabel alloc]initWithFrame:CGRectMake((ScreenW-100)*0.5, 0, 100, 60)];
+    _nameLabel.textColor=[UIColor whiteColor];
+    _nameLabel.font=[UIFont fontWithName:@"DINOffc-Medi" size:20];
+    _nameLabel.textAlignment=NSTextAlignmentCenter;
+    self.backgroundColor=[UIColor colorWithRed:180/255.0 green:180/255.0 blue:179/255.0 alpha:1];
+    [self addSubview:_nameLabel];
+    
+    return self;
+}
+
+
+
+@end

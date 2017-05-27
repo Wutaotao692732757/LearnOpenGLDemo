@@ -1,0 +1,36 @@
+//
+//  KondorSectionHeaderView.m
+//  EX_appIOS
+//
+//  Created by mac_w on 2016/11/8.
+//  Copyright © 2016年 aee. All rights reserved.
+//
+
+#import "KondorSectionHeaderView.h"
+
+@implementation KondorSectionHeaderView
+
+
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    self=[super initWithFrame:frame];
+    _tipsLabel=[[UILabel alloc]init];
+    
+    _tipsLabel.font=[UIFont fontWithName:@"DINOffc-Medi" size:20];
+    _tipsLabel.textColor=[UIColor whiteColor];
+    _tipsLabel.textAlignment=NSTextAlignmentCenter;
+    _tipsLabel.frame=CGRectMake((ScreenW-100)*0.5, 0, 100, frame.size.height);
+    [self addSubview:_tipsLabel];
+    return self;
+}
+
+
+
+-(void)setTips:(NSString *)tips
+{
+    _tipsLabel.text=tips;
+    
+    
+}
+
+@end

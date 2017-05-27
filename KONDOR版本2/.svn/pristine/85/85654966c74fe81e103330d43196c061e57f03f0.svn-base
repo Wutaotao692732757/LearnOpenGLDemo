@@ -1,0 +1,112 @@
+//
+//  KondorPch.pch
+//  EX_appIOS
+//
+//  Created by mac_w on 2016/11/8.
+//  Copyright © 2016年 aee. All rights reserved.
+//
+
+
+#ifndef KondorPch_pch
+#define KondorPch_pch
+
+#define  ImgNamed(_imgname)  [UIImage imageNamed:_imgname]
+#ifdef __OBJC__
+#import "SVProgressHUD.h"
+#import "UIImageView+WebCache.h"
+#import "WTMoiveObject.h"
+#endif
+#pragma mark - 模块定义
+
+enum  ProjectType{
+    ProjectType_DRONES = 0,
+    ProjectType_HANDGIMBALS = 1,
+    ProjectType_CAMS = 2,
+};
+
+#pragma mark - Setting
+enum  SettingType{
+    SettingsType_AutoSync = 0,
+    SettingsType_ClaerApp_Cache = 1,
+    SettingsType_ClaerMap_Cache = 2,
+    SettingsType_WelcomePage = 3,
+    SettingsType_FeedBack = 4,
+};
+
+#pragma mark - Support
+enum  supportType{
+    supportType_Drone = 0,
+    supportType_Action_Camera = 1,
+    supportType_Handheld_Gimbal = 2,
+    supportType_Mobile_App = 3,
+    supportType_Register = 4,
+    supportType_Contact_US = 5,
+};
+
+#pragma mark - Library
+enum LibrarySouceType{
+    LibrarySouceType_Image = 0,
+    LibrarySouceType_Video = 1,
+    LibrarySouceType_Sound = 2,
+};
+
+#pragma mark - 横竖屏
+enum DeviceOrientationType{
+    DeviceOrientationType_Unknow = 0,
+    DeviceOrientationType_Portrait = 1,
+    DeviceOrientationType_Landscape = 2,
+};
+
+#pragma mark - 相机相册与本地相册
+enum LibraryPathType{
+    LibraryPathType_Camera = 0,
+    LibraryPathType_App = 1,
+};
+
+
+
+// 分享平台 类型
+enum UMShareType  {
+    UMShareType_WeiXinFriend = 0,
+    UMShareType_WeiXin = 1,
+    UMShareType_WeiBo = 2,
+    UMShareType_FaceBook = 3,
+    UMShareType_Twitter = 4,
+    UMShareType_Instrument = 5,
+    UMShareType_Message = 6,
+};
+
+
+// 修改Wifi密码类型
+
+enum ModifyWifi_Type{
+    
+    ModifyWifi_Type_Air = 0,//飞机
+    ModifyWifi_Type_remoter = 1,//遥控器
+    
+};
+
+
+//App修改A20参数协议 类型
+enum AP_VAR_TYPE {
+    AP_PARAM_NONE    = 0,
+    AP_PARAM_INT8    = 1,
+    AP_PARAM_INT16   = 2,
+    AP_PARAM_INT32   = 3,
+    AP_PARAM_FLOAT   = 4,
+    AP_PARAM_VECTOR3F = 5,
+    AP_PARAM_VECTOR6F = 6,
+    AP_PARAM_MATRIX3F = 7,
+    AP_PARAM_GROUP    = 8
+};
+
+
+
+
+#define ScreenW [UIScreen mainScreen].bounds.size.width
+
+#define ScreenH [UIScreen mainScreen].bounds.size.height
+
+#define RandomColor [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1]
+
+#endif /* KondorPch_pch */

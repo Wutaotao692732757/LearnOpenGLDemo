@@ -1,0 +1,44 @@
+//
+//  KondorTabbarVC.m
+//  EX_appIOS
+//
+//  Created by mac_w on 2016/11/8.
+//  Copyright © 2016年 aee. All rights reserved.
+//
+
+#import "KondorTabbarVC.h"
+
+@interface KondorTabbarVC ()
+
+@end
+
+@implementation KondorTabbarVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+//    self.tabBarController.view.backgroundColor=[UIColor colorWithRed:167/255.0 green:79/255.0 blue:84/255.0 alpha:1];
+    
+    
+    
+    [self.tabBar setBackgroundColor:[UIColor colorWithRed:167/255.0 green:79/255.0 blue:84/255.0 alpha:1]];
+    [self.tabBar setBackgroundImage:[UIImage new]];
+    [self.tabBar setTintColor:[UIColor whiteColor]];
+    
+  
+
+}
+
+-(void)addChildViewCOntrollerWithController:(UIViewController *)controller WithName:(NSString *)titleName AndImageName:(NSString *)imageName WithTag:(NSInteger)tag{
+    
+    [self addChildViewController:controller];
+    controller.tabBarItem=[[UITabBarItem alloc]initWithTitle:titleName image:[UIImage imageNamed:imageName] tag:0];
+
+    
+}
+
+
+
+
+
+@end

@@ -1,0 +1,45 @@
+//
+//  UIImageView+VideoFirstImage.m
+//  EX_appIOS
+//
+//  Created by mac_w on 2016/12/8.
+//  Copyright © 2016年 aee. All rights reserved.
+//
+
+#import "UIImageView+VideoFirstImage.h"
+#import <AVFoundation/AVFoundation.h>
+#import "UIImage+WaterMark.h"
+
+@implementation UIImageView (VideoFirstImage)
+//获取视频URL第一张图片
+- (void)setCurrentImage:(UIImage*)holdimage withURL:(NSURL*)url{
+    
+    self.image=holdimage;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        AVURLAsset *urlSet = [[AVURLAsset alloc]initWithURL:url options:nil];
+        
+        
+        
+        AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc]initWithAsset:urlSet];
+        generator.appliesPreferredTrackTransform = YES;
+//        [self.generatorArr addObject:generator];
+        CMTime time = CMTimeMake(0.1, 1.0);
+        AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
+            UIImage *thumbImg = [UIImage imageWithCGImage:image];
+            if (result == AVAssetImageGeneratorSucceeded) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIImage *img = [UIImage OriginImage:thumbImg scaleToSize:CGSizeMake(100.0, 100.0) withLogoImage:ImgNamed(@"play") scale:3.5];
+                    [self setImage:img];
+                });
+            }
+        };
+        generator.maximumSize = CGSizeMake(200, 200);
+        [generator generateCGImagesAsynchronouslyForTimes:
+         [NSArray arrayWithObject:[NSValue valueWithCMTime:time]] completionHandler:handler];
+    });
+    
+    
+}
+@end
