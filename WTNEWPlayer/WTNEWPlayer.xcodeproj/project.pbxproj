@@ -1,0 +1,541 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6E034C711EE50838008425DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E034C701EE50838008425DA /* main.m */; };
+		6E034C741EE50838008425DA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E034C731EE50838008425DA /* AppDelegate.m */; };
+		6E034C771EE50838008425DA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E034C761EE50838008425DA /* ViewController.m */; };
+		6E034C7A1EE50838008425DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E034C781EE50838008425DA /* Main.storyboard */; };
+		6E034C7C1EE50838008425DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E034C7B1EE50838008425DA /* Assets.xcassets */; };
+		6E034C7F1EE50838008425DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E034C7D1EE50838008425DA /* LaunchScreen.storyboard */; };
+		6E034C8A1EE50838008425DA /* WTNEWPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E034C891EE50838008425DA /* WTNEWPlayerTests.m */; };
+		6E034C951EE50838008425DA /* WTNEWPlayerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E034C941EE50838008425DA /* WTNEWPlayerUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6E034C861EE50838008425DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E034C641EE50838008425DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E034C6B1EE50838008425DA;
+			remoteInfo = WTNEWPlayer;
+		};
+		6E034C911EE50838008425DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E034C641EE50838008425DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E034C6B1EE50838008425DA;
+			remoteInfo = WTNEWPlayer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6E034C6C1EE50838008425DA /* WTNEWPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WTNEWPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E034C701EE50838008425DA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6E034C721EE50838008425DA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6E034C731EE50838008425DA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6E034C751EE50838008425DA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		6E034C761EE50838008425DA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6E034C791EE50838008425DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6E034C7B1EE50838008425DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6E034C7E1EE50838008425DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6E034C801EE50838008425DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E034C851EE50838008425DA /* WTNEWPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WTNEWPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E034C891EE50838008425DA /* WTNEWPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WTNEWPlayerTests.m; sourceTree = "<group>"; };
+		6E034C8B1EE50838008425DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E034C901EE50838008425DA /* WTNEWPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WTNEWPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E034C941EE50838008425DA /* WTNEWPlayerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WTNEWPlayerUITests.m; sourceTree = "<group>"; };
+		6E034C961EE50838008425DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6E034C691EE50838008425DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E034C821EE50838008425DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E034C8D1EE50838008425DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6E034C631EE50838008425DA = {
+			isa = PBXGroup;
+			children = (
+				6E034C6E1EE50838008425DA /* WTNEWPlayer */,
+				6E034C881EE50838008425DA /* WTNEWPlayerTests */,
+				6E034C931EE50838008425DA /* WTNEWPlayerUITests */,
+				6E034C6D1EE50838008425DA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6E034C6D1EE50838008425DA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6E034C6C1EE50838008425DA /* WTNEWPlayer.app */,
+				6E034C851EE50838008425DA /* WTNEWPlayerTests.xctest */,
+				6E034C901EE50838008425DA /* WTNEWPlayerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6E034C6E1EE50838008425DA /* WTNEWPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				6E034C721EE50838008425DA /* AppDelegate.h */,
+				6E034C731EE50838008425DA /* AppDelegate.m */,
+				6E034C751EE50838008425DA /* ViewController.h */,
+				6E034C761EE50838008425DA /* ViewController.m */,
+				6E034C781EE50838008425DA /* Main.storyboard */,
+				6E034C7B1EE50838008425DA /* Assets.xcassets */,
+				6E034C7D1EE50838008425DA /* LaunchScreen.storyboard */,
+				6E034C801EE50838008425DA /* Info.plist */,
+				6E034C6F1EE50838008425DA /* Supporting Files */,
+			);
+			path = WTNEWPlayer;
+			sourceTree = "<group>";
+		};
+		6E034C6F1EE50838008425DA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6E034C701EE50838008425DA /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6E034C881EE50838008425DA /* WTNEWPlayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				6E034C891EE50838008425DA /* WTNEWPlayerTests.m */,
+				6E034C8B1EE50838008425DA /* Info.plist */,
+			);
+			path = WTNEWPlayerTests;
+			sourceTree = "<group>";
+		};
+		6E034C931EE50838008425DA /* WTNEWPlayerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6E034C941EE50838008425DA /* WTNEWPlayerUITests.m */,
+				6E034C961EE50838008425DA /* Info.plist */,
+			);
+			path = WTNEWPlayerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6E034C6B1EE50838008425DA /* WTNEWPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E034C991EE50838008425DA /* Build configuration list for PBXNativeTarget "WTNEWPlayer" */;
+			buildPhases = (
+				6E034C681EE50838008425DA /* Sources */,
+				6E034C691EE50838008425DA /* Frameworks */,
+				6E034C6A1EE50838008425DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WTNEWPlayer;
+			productName = WTNEWPlayer;
+			productReference = 6E034C6C1EE50838008425DA /* WTNEWPlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6E034C841EE50838008425DA /* WTNEWPlayerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E034C9C1EE50838008425DA /* Build configuration list for PBXNativeTarget "WTNEWPlayerTests" */;
+			buildPhases = (
+				6E034C811EE50838008425DA /* Sources */,
+				6E034C821EE50838008425DA /* Frameworks */,
+				6E034C831EE50838008425DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6E034C871EE50838008425DA /* PBXTargetDependency */,
+			);
+			name = WTNEWPlayerTests;
+			productName = WTNEWPlayerTests;
+			productReference = 6E034C851EE50838008425DA /* WTNEWPlayerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6E034C8F1EE50838008425DA /* WTNEWPlayerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E034C9F1EE50838008425DA /* Build configuration list for PBXNativeTarget "WTNEWPlayerUITests" */;
+			buildPhases = (
+				6E034C8C1EE50838008425DA /* Sources */,
+				6E034C8D1EE50838008425DA /* Frameworks */,
+				6E034C8E1EE50838008425DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6E034C921EE50838008425DA /* PBXTargetDependency */,
+			);
+			name = WTNEWPlayerUITests;
+			productName = WTNEWPlayerUITests;
+			productReference = 6E034C901EE50838008425DA /* WTNEWPlayerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6E034C641EE50838008425DA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = wutaotao;
+				TargetAttributes = {
+					6E034C6B1EE50838008425DA = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = VQ5GJ97852;
+						ProvisioningStyle = Automatic;
+					};
+					6E034C841EE50838008425DA = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = VQ5GJ97852;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6E034C6B1EE50838008425DA;
+					};
+					6E034C8F1EE50838008425DA = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = VQ5GJ97852;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6E034C6B1EE50838008425DA;
+					};
+				};
+			};
+			buildConfigurationList = 6E034C671EE50838008425DA /* Build configuration list for PBXProject "WTNEWPlayer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6E034C631EE50838008425DA;
+			productRefGroup = 6E034C6D1EE50838008425DA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6E034C6B1EE50838008425DA /* WTNEWPlayer */,
+				6E034C841EE50838008425DA /* WTNEWPlayerTests */,
+				6E034C8F1EE50838008425DA /* WTNEWPlayerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6E034C6A1EE50838008425DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E034C7F1EE50838008425DA /* LaunchScreen.storyboard in Resources */,
+				6E034C7C1EE50838008425DA /* Assets.xcassets in Resources */,
+				6E034C7A1EE50838008425DA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E034C831EE50838008425DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E034C8E1EE50838008425DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6E034C681EE50838008425DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E034C771EE50838008425DA /* ViewController.m in Sources */,
+				6E034C741EE50838008425DA /* AppDelegate.m in Sources */,
+				6E034C711EE50838008425DA /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E034C811EE50838008425DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E034C8A1EE50838008425DA /* WTNEWPlayerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E034C8C1EE50838008425DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E034C951EE50838008425DA /* WTNEWPlayerUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6E034C871EE50838008425DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E034C6B1EE50838008425DA /* WTNEWPlayer */;
+			targetProxy = 6E034C861EE50838008425DA /* PBXContainerItemProxy */;
+		};
+		6E034C921EE50838008425DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E034C6B1EE50838008425DA /* WTNEWPlayer */;
+			targetProxy = 6E034C911EE50838008425DA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6E034C781EE50838008425DA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6E034C791EE50838008425DA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6E034C7D1EE50838008425DA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6E034C7E1EE50838008425DA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6E034C971EE50838008425DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6E034C981EE50838008425DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6E034C9A1EE50838008425DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = VQ5GJ97852;
+				INFOPLIST_FILE = WTNEWPlayer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = s.WTNEWPlayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6E034C9B1EE50838008425DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = VQ5GJ97852;
+				INFOPLIST_FILE = WTNEWPlayer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = s.WTNEWPlayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		6E034C9D1EE50838008425DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = VQ5GJ97852;
+				INFOPLIST_FILE = WTNEWPlayerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = s.WTNEWPlayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WTNEWPlayer.app/WTNEWPlayer";
+			};
+			name = Debug;
+		};
+		6E034C9E1EE50838008425DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = VQ5GJ97852;
+				INFOPLIST_FILE = WTNEWPlayerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = s.WTNEWPlayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WTNEWPlayer.app/WTNEWPlayer";
+			};
+			name = Release;
+		};
+		6E034CA01EE50838008425DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = VQ5GJ97852;
+				INFOPLIST_FILE = WTNEWPlayerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = s.WTNEWPlayerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = WTNEWPlayer;
+			};
+			name = Debug;
+		};
+		6E034CA11EE50838008425DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = VQ5GJ97852;
+				INFOPLIST_FILE = WTNEWPlayerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = s.WTNEWPlayerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = WTNEWPlayer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6E034C671EE50838008425DA /* Build configuration list for PBXProject "WTNEWPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E034C971EE50838008425DA /* Debug */,
+				6E034C981EE50838008425DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6E034C991EE50838008425DA /* Build configuration list for PBXNativeTarget "WTNEWPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E034C9A1EE50838008425DA /* Debug */,
+				6E034C9B1EE50838008425DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6E034C9C1EE50838008425DA /* Build configuration list for PBXNativeTarget "WTNEWPlayerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E034C9D1EE50838008425DA /* Debug */,
+				6E034C9E1EE50838008425DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6E034C9F1EE50838008425DA /* Build configuration list for PBXNativeTarget "WTNEWPlayerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E034CA01EE50838008425DA /* Debug */,
+				6E034CA11EE50838008425DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6E034C641EE50838008425DA /* Project object */;
+}
