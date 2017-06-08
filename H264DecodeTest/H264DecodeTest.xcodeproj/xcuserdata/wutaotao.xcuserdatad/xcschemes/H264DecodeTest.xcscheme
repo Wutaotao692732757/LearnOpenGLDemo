@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E034C6B1EE50838008425DA"
-               BuildableName = "WTNEWPlayer.app"
-               BlueprintName = "WTNEWPlayer"
-               ReferencedContainer = "container:WTNEWPlayer.xcodeproj">
+               BlueprintIdentifier = "6E84226F1EE795E600E8266B"
+               BuildableName = "H264DecodeTest.app"
+               BlueprintName = "H264DecodeTest"
+               ReferencedContainer = "container:H264DecodeTest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,30 +32,30 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E034C841EE50838008425DA"
-               BuildableName = "WTNEWPlayerTests.xctest"
-               BlueprintName = "WTNEWPlayerTests"
-               ReferencedContainer = "container:WTNEWPlayer.xcodeproj">
+               BlueprintIdentifier = "6E8422881EE795E700E8266B"
+               BuildableName = "H264DecodeTestTests.xctest"
+               BlueprintName = "H264DecodeTestTests"
+               ReferencedContainer = "container:H264DecodeTest.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E034C8F1EE50838008425DA"
-               BuildableName = "WTNEWPlayerUITests.xctest"
-               BlueprintName = "WTNEWPlayerUITests"
-               ReferencedContainer = "container:WTNEWPlayer.xcodeproj">
+               BlueprintIdentifier = "6E8422931EE795E700E8266B"
+               BuildableName = "H264DecodeTestUITests.xctest"
+               BlueprintName = "H264DecodeTestUITests"
+               ReferencedContainer = "container:H264DecodeTest.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E034C6B1EE50838008425DA"
-            BuildableName = "WTNEWPlayer.app"
-            BlueprintName = "WTNEWPlayer"
-            ReferencedContainer = "container:WTNEWPlayer.xcodeproj">
+            BlueprintIdentifier = "6E84226F1EE795E600E8266B"
+            BuildableName = "H264DecodeTest.app"
+            BlueprintName = "H264DecodeTest"
+            ReferencedContainer = "container:H264DecodeTest.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -75,10 +75,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E034C6B1EE50838008425DA"
-            BuildableName = "WTNEWPlayer.app"
-            BlueprintName = "WTNEWPlayer"
-            ReferencedContainer = "container:WTNEWPlayer.xcodeproj">
+            BlueprintIdentifier = "6E84226F1EE795E600E8266B"
+            BuildableName = "H264DecodeTest.app"
+            BlueprintName = "H264DecodeTest"
+            ReferencedContainer = "container:H264DecodeTest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,10 +94,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E034C6B1EE50838008425DA"
-            BuildableName = "WTNEWPlayer.app"
-            BlueprintName = "WTNEWPlayer"
-            ReferencedContainer = "container:WTNEWPlayer.xcodeproj">
+            BlueprintIdentifier = "6E84226F1EE795E600E8266B"
+            BuildableName = "H264DecodeTest.app"
+            BlueprintName = "H264DecodeTest"
+            ReferencedContainer = "container:H264DecodeTest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

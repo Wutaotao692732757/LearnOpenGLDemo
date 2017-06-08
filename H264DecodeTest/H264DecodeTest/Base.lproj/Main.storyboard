@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,32 +21,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rTh-0y-I9D">
-                                <rect key="frame" x="0.0" y="20" width="375" height="200"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="26u-XJ-4zp"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGq-nw-d6S">
-                                <rect key="frame" x="172" y="264" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77K-BO-72p">
+                                <rect key="frame" x="172.5" y="593" width="30" height="30"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
-                                    <action selector="videoplayBtnDidClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gpN-4d-u4h"/>
+                                    <action selector="playVideo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="grM-g0-vnX"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="rTh-0y-I9D" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="58a-AG-jCF"/>
-                            <constraint firstItem="rTh-0y-I9D" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="BXE-Ks-mVX"/>
-                            <constraint firstItem="WGq-nw-d6S" firstAttribute="centerX" secondItem="rTh-0y-I9D" secondAttribute="centerX" id="F9Q-bO-EBj"/>
-                            <constraint firstItem="WGq-nw-d6S" firstAttribute="top" secondItem="rTh-0y-I9D" secondAttribute="bottom" constant="44" id="ZEe-9Y-lkt"/>
-                            <constraint firstAttribute="trailing" secondItem="rTh-0y-I9D" secondAttribute="trailing" id="cpM-4D-ekN"/>
+                            <constraint firstItem="77K-BO-72p" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BcW-6q-46g"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="77K-BO-72p" secondAttribute="bottom" constant="44" id="Cdw-7T-kFz"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="videoImage" destination="rTh-0y-I9D" id="bfr-HM-ogk"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

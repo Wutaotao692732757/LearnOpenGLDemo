@@ -1,8 +1,8 @@
 //
 //  main.m
-//  WTNEWPlayer
+//  H264DecodeTest
 //
-//  Created by wutaotao on 2017/6/5.
+//  Created by wutaotao on 2017/6/7.
 //  Copyright © 2017年 wutaotao. All rights reserved.
 //
 
@@ -13,6 +13,4 @@ int main(int argc, char * argv[]) {
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
-    
-    
 }

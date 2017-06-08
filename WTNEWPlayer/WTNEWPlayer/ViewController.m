@@ -7,8 +7,14 @@
 //
 
 #import "ViewController.h"
+#import "WTVIDEOPLAYER.h"
+ 
 
 @interface ViewController ()
+@property(nonatomic,strong) WTVIDEOPLAYER *player;
+//
+@property (weak, nonatomic) IBOutlet UIImageView *videoImage;
+
 
 @end
 
@@ -16,13 +22,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+  _player =  [[WTVIDEOPLAYER alloc]initWithVideo:@"rtsp://192.168.42.1/live"];
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//void addBlockToArray(NSMutableArray *array) {
+//   
+//    char b = 'b';
+//    [array addObject:^{
+//        printf("%cCC\n",b);
+//    }];
+//    
+//    
+//}
+//
+//void exampleA(){
+//    NSMutableArray *array = [NSMutableArray array];
+//    
+//    addBlockToArray(array);
+//    void(^block)() = [array objectAtIndex:0];
+//    
+//    block();
+//    
+//}
+- (IBAction)videoplayBtnDidClicked:(id)sender {
+    
+    [_player decodeFrame];
+    
 }
 
 

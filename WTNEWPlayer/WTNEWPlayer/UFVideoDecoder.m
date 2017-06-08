@@ -7,6 +7,8 @@
 //
 
 #import "UFVideoDecoder.h"
+#import <VideoToolbox/VideoToolbox.h>
+#import <VideoToolbox/VTBase.h>
 
 // 利用FFMPEG的解码器，获取到sps和pps，IDR数据
 // SPS和PPS数据在codec中的extradata中
@@ -84,6 +86,8 @@
         _status = CMVideoFormatDescriptionCreateFromH264ParameterSets(kCFAllocatorDefault, 2, parameterSetPointers, parameterSetSizes, 4, &_formatDescriptionRef);
         if (_status != noErr) NSLog(@"\n\nFormat Description ERROR: %d", (int)_status);
     }
+  
+    
     
     if (_status == noErr && _decompressionSessionRef == NULL) [self createDecompressionSession];
 }
@@ -108,15 +112,16 @@
 
 // 回调函数
 void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon, void *sourceFrameRefCon, OSStatus status, VTDecodeInfoFlags infoFlags, CVImageBufferRef imageBuffer, CMTime presentationTimestamp, CMTime presentationDuration) {
+    NSLog(@"进入回调函数");
     UFVideoDecoder *decoder = (__bridge UFVideoDecoder*)decompressionOutputRefCon;
     if (status != noErr) {
         NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
         NSLog(@"Decompressed error: %@", error);
     } else {
         // 回传图像
+        NSLog(@"开始回传图像");
         [decoder.delegate getDecodeImageData:imageBuffer];
     }
-    
 }
 
 // 解析IDR或no-IDR数据

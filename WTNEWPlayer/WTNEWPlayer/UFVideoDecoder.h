@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <VideoToolbox/VideoToolbox.h>
-#import "WTMoiveObject.h"
+ 
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
