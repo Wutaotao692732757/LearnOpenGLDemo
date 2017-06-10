@@ -36,7 +36,7 @@
 @implementation UFVideoDecoder
 
 - (void)decodeWithCodec:(AVCodecContext *)codec packet:(AVPacket)packet {
-    
+  
     [self findSPSAndPPSInCodec:codec];
     [self decodePacket:packet];
 }
@@ -86,10 +86,9 @@
         _status = CMVideoFormatDescriptionCreateFromH264ParameterSets(kCFAllocatorDefault, 2, parameterSetPointers, parameterSetSizes, 4, &_formatDescriptionRef);
         if (_status != noErr) NSLog(@"\n\nFormat Description ERROR: %d", (int)_status);
     }
-  
-    
-    
+ 
     if (_status == noErr && _decompressionSessionRef == NULL) [self createDecompressionSession];
+  
 }
 
 // 创建session
@@ -132,7 +131,7 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon, vo
     int startIndex = 4; // 数据都从第5位开始
     int nalu_type = ((uint8_t)frame[startIndex] & 0x1F);
     // 1为IDR，5为no-IDR
-    if (nalu_type == 1 || nalu_type == 5) {
+//    if (nalu_type == 1 || nalu_type == 5) {
         // 创建CMBlockBuffer
         CMBlockBufferRef blockBufferRef = NULL;
         _status = CMBlockBufferCreateWithMemoryBlock(NULL, frame, size, kCFAllocatorNull, NULL, 0, size, 0, &blockBufferRef);
@@ -157,7 +156,7 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon, vo
         VTDecodeInfoFlags flagOut;
         _status = VTDecompressionSessionDecodeFrame(_decompressionSessionRef, sbRef, flags, &sbRef, &flagOut);
         CFRelease(sbRef);
-    }
+//    }
 }
 
 @end

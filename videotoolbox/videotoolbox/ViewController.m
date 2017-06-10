@@ -158,8 +158,11 @@
 //        EncodingSession = NULL;
 //        return ;
 //    }
-    NSLog(@"H264: VTCompressionsession");
     
+    
+    
+    
+    NSLog(@"H264: VTCompressionsession");
 }
 
 void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStatus status, VTEncodeInfoFlags infoFlags, CMSampleBufferRef samplebuffer){
