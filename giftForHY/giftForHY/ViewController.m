@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#define VideoWidth  96*30
+#define VideoWidth  72*30
 #define VideoHeight 128*15
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *resultimage;
@@ -28,13 +28,17 @@
 -(UIImage*)drawImageForHy{
     
     
-    UIGraphicsBeginImageContextWithOptions (CGSizeMake(VideoWidth, VideoHeight), NO , 0.0 );
+    UIGraphicsBeginImageContextWithOptions (CGSizeMake(VideoWidth, VideoHeight+300), NO , 0.0 );
   
 //    CGContextRef context = UIGraphicsGetCurrentContext();
-    for (int i = 0 ; i<344; i++) {
+    for (int i = 0 ; i<450; i++) {
         
-        UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"IMG_%zd.JPG",5143+i]];
-        [img drawInRect:CGRectMake((i%30)*96, (i/30)*128, 96, 128) blendMode:kCGBlendModeNormal alpha:0.8];
+        int j =(i+1)%124;
+        if (j==0) {
+            j=1;
+        }
+        UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"精彩 (%zd).JPG",j]];
+        [img drawInRect:CGRectMake((i%30)*72, (i/30)*128, 72, 128) blendMode:kCGBlendModeNormal alpha:0.6];
 //        [img drawInRect:CGRectMake((i%20)*400, (i/20)*400, 400, 400)];
     }
     
@@ -43,13 +47,13 @@
     
     
     
-    UIImage *bigImg = [self imageBlackToTransparent:[UIImage imageNamed:@"bigPic.JPG"]];
+    UIImage *bigImg = [self imageBlackToTransparent:[UIImage imageNamed:@"精彩 (60).JPG"]];
 //    [UIImage imageNamed:@"big.png"];
-    [bigImg drawInRect:CGRectMake( 0, 0, VideoWidth, VideoHeight) blendMode:kCGBlendModeNormal alpha:0.9];
+    [bigImg drawInRect:CGRectMake( 250+VideoWidth-(96.0/128.0)*VideoHeight, 0, (96.0/128.0)*VideoHeight, VideoHeight) blendMode:kCGBlendModeNormal alpha:1.0];
     
-    UIImage * nameImg = [UIImage imageNamed:@"1655"];
+    UIImage * nameImg = [UIImage imageNamed:@"1640"];
     
-    [nameImg drawInRect:CGRectMake(0, VideoHeight-500, 800, 500) blendMode:kCGBlendModeNormal alpha:1.0];
+    [nameImg drawInRect:CGRectMake(0, VideoHeight, 800, 300) blendMode:kCGBlendModeNormal alpha:1.0];
  
 //    CGContextDrawPath (context, kCGPathStroke );
 //    
@@ -135,7 +139,7 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
         
          uint8_t* ptr = (uint8_t*)pCurPtr;
        
-        int scale = (i % imageWidth )*(255*1.0/imageWidth);
+        int scale = (i % imageWidth +150)*(255*1.0/imageWidth);
   
               ptr[0] = scale;
 //        if (imageWidth*0.1>(i % imageWidth )>imageWidth*0.2){

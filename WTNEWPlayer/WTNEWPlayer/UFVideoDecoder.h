@@ -13,7 +13,7 @@
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 #include <libswresample/swresample.h>
-
+#import "LYOpenGLView.h"
 @protocol WTDecoderDelegate <NSObject>
 
 @optional
@@ -25,7 +25,7 @@
 
 @interface UFVideoDecoder : NSObject
 - (void)decodeWithCodec:(AVCodecContext *)codec packet:(AVPacket)packet;
-
+@property (nonatomic , strong) LYOpenGLView *lyOpenGLView;
 @property(nonatomic,weak)id<WTDecoderDelegate>delegate;
 
 @end

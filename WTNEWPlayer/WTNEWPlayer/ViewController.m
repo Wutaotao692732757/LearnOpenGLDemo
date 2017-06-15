@@ -8,13 +8,14 @@
 
 #import "ViewController.h"
 #import "WTVIDEOPLAYER.h"
- 
+
 
 @interface ViewController ()
 @property(nonatomic,strong) WTVIDEOPLAYER *player;
 //
-@property (weak, nonatomic) IBOutlet UIImageView *videoImage;
-
+@property (weak, nonatomic) IBOutlet LYOpenGLView *openglView;
+ 
+@property (nonatomic , strong) LYOpenGLView *mOpenGLView;
 
 @end
 
@@ -22,7 +23,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.openglView setupGL];
   _player =  [[WTVIDEOPLAYER alloc]initWithVideo:@"rtsp://192.168.42.1/live"];
+    _player.lyOpenGLView = self.openglView;
 }
 
 

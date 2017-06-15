@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LYOpenGLView.h"
 @interface ViewController : UIViewController
 
 

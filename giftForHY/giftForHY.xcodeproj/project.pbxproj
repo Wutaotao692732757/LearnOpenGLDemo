@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E759D341EEC1A57006714F2 /* 1640.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E759D331EEC1A57006714F2 /* 1640.png */; };
 		6EBCAEB11EEA7A2B00E2FDEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBCAEB01EEA7A2B00E2FDEA /* main.m */; };
 		6EBCAEB41EEA7A2B00E2FDEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBCAEB31EEA7A2B00E2FDEA /* AppDelegate.m */; };
 		6EBCAEB71EEA7A2B00E2FDEA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBCAEB61EEA7A2B00E2FDEA /* ViewController.m */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E759D331EEC1A57006714F2 /* 1640.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1640.png; sourceTree = "<group>"; };
 		6EBCAEAC1EEA7A2B00E2FDEA /* giftForHY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = giftForHY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EBCAEB01EEA7A2B00E2FDEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6EBCAEB21EEA7A2B00E2FDEA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		6EBCAEAE1EEA7A2B00E2FDEA /* giftForHY */ = {
 			isa = PBXGroup;
 			children = (
+				6E759D331EEC1A57006714F2 /* 1640.png */,
 				6EBCAEB21EEA7A2B00E2FDEA /* AppDelegate.h */,
 				6EBCAEB31EEA7A2B00E2FDEA /* AppDelegate.m */,
 				6EBCAEB51EEA7A2B00E2FDEA /* ViewController.h */,
@@ -250,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EBCAEBF1EEA7A2B00E2FDEA /* LaunchScreen.storyboard in Resources */,
+				6E759D341EEC1A57006714F2 /* 1640.png in Resources */,
 				6EBCAEBC1EEA7A2B00E2FDEA /* Assets.xcassets in Resources */,
 				6EBCAEBA1EEA7A2B00E2FDEA /* Main.storyboard in Resources */,
 			);

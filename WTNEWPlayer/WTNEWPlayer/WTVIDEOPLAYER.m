@@ -131,14 +131,33 @@ initError:
 {
     NSLog(@"获取到了图像!!");
 }
-
+NSMutableData *readdata;
 -(void)decodeFrame{
+    
+    readdata = [NSMutableData data];
    [NSTimer scheduledTimerWithTimeInterval:0.03 repeats:YES block:^(NSTimer * _Nonnull timer) {
 //         WTCodecCtx = WTFormatCtx->streams[videoStream]->codec;
         if (av_read_frame(WTFormatCtx, &packet) >=0) {
-//            if (packet.stream_index == videoStream) {
-                [self.videoDecoder decodeWithCodec:WTCodecCtx packet:packet];
-//            }
+            if (packet.stream_index == videoStream) {
+            [self.videoDecoder decodeWithCodec:WTCodecCtx packet:packet];
+   
+//            NSData *data = [NSData dataWithBytes:packet.data length:packet.size];
+//            
+//            [readdata appendData:data];
+//                
+//                if (readdata.length>=1024*1024) {
+//                    
+//                    NSString *path_sandox = NSHomeDirectory();
+//                    //设置一个图片的存储路径
+//                    NSString *dataPath = [path_sandox stringByAppendingString:@"/Documents/test.h264"];
+//                    
+//                    [readdata writeToFile:dataPath atomically:YES];
+//                    readdata.length=0;
+//                }
+                //            NSLog(@"路径-- %@",dataPath);
+//            NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//            NSLog(@"%@", data);
+            }
         }
     }];
 }
@@ -148,6 +167,8 @@ initError:
     if (_videoDecoder==nil) {
         _videoDecoder=[[UFVideoDecoder alloc]init];
         _videoDecoder.delegate=self;
+        _videoDecoder.lyOpenGLView = self.lyOpenGLView;
+     
     }
     return _videoDecoder;
 }

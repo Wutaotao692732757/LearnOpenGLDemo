@@ -38,6 +38,9 @@
 		6E034D3F1EE50AFD008425DA /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E034D3E1EE50AFD008425DA /* libbz2.tbd */; };
 		6E034D411EE50B05008425DA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E034D401EE50B05008425DA /* libz.tbd */; };
 		6E034D441EE50D46008425DA /* UFVideoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E034D431EE50D46008425DA /* UFVideoDecoder.m */; };
+		6E4655751EF12714008076DB /* LYOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4655741EF12714008076DB /* LYOpenGLView.m */; };
+		6E4655781EF12B79008076DB /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 6E4655761EF12B79008076DB /* Shader.fsh */; };
+		6E4655791EF12B79008076DB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 6E4655771EF12B79008076DB /* Shader.vsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +205,10 @@
 		6E034D401EE50B05008425DA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		6E034D421EE50D46008425DA /* UFVideoDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UFVideoDecoder.h; sourceTree = "<group>"; };
 		6E034D431EE50D46008425DA /* UFVideoDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UFVideoDecoder.m; sourceTree = "<group>"; };
+		6E4655731EF12714008076DB /* LYOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYOpenGLView.h; sourceTree = "<group>"; };
+		6E4655741EF12714008076DB /* LYOpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYOpenGLView.m; sourceTree = "<group>"; };
+		6E4655761EF12B79008076DB /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
+		6E4655771EF12B79008076DB /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +281,8 @@
 		6E034C6E1EE50838008425DA /* WTNEWPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				6E4655761EF12B79008076DB /* Shader.fsh */,
+				6E4655771EF12B79008076DB /* Shader.vsh */,
 				6E034CA21EE5085A008425DA /* FFmpeg-iOS */,
 				6E034C721EE50838008425DA /* AppDelegate.h */,
 				6E034C731EE50838008425DA /* AppDelegate.m */,
@@ -281,6 +290,8 @@
 				6E034D3A1EE5097E008425DA /* WTVIDEOPLAYER.m */,
 				6E034D421EE50D46008425DA /* UFVideoDecoder.h */,
 				6E034D431EE50D46008425DA /* UFVideoDecoder.m */,
+				6E4655731EF12714008076DB /* LYOpenGLView.h */,
+				6E4655741EF12714008076DB /* LYOpenGLView.m */,
 				6E034C751EE50838008425DA /* ViewController.h */,
 				6E034C761EE50838008425DA /* ViewController.m */,
 				6E034C781EE50838008425DA /* Main.storyboard */,
@@ -645,9 +656,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E4655781EF12B79008076DB /* Shader.fsh in Resources */,
 				6E034C7F1EE50838008425DA /* LaunchScreen.storyboard in Resources */,
 				6E034C7C1EE50838008425DA /* Assets.xcassets in Resources */,
 				6E034C7A1EE50838008425DA /* Main.storyboard in Resources */,
+				6E4655791EF12B79008076DB /* Shader.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,6 +687,7 @@
 			files = (
 				6E034C771EE50838008425DA /* ViewController.m in Sources */,
 				6E034D441EE50D46008425DA /* UFVideoDecoder.m in Sources */,
+				6E4655751EF12714008076DB /* LYOpenGLView.m in Sources */,
 				6E034D3B1EE5097E008425DA /* WTVIDEOPLAYER.m in Sources */,
 				6E034C741EE50838008425DA /* AppDelegate.m in Sources */,
 				6E034C711EE50838008425DA /* main.m in Sources */,
