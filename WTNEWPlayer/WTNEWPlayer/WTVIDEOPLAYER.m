@@ -140,7 +140,7 @@ NSMutableData *readdata;
         if (av_read_frame(WTFormatCtx, &packet) >=0) {
             if (packet.stream_index == videoStream) {
             [self.videoDecoder decodeWithCodec:WTCodecCtx packet:packet];
-   
+            
 //            NSData *data = [NSData dataWithBytes:packet.data length:packet.size];
 //            
 //            [readdata appendData:data];

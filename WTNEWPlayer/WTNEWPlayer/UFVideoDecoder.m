@@ -63,55 +63,6 @@
     
 }
 
-#pragma mark - Private Methods
-// 找寻SPS和PPS数据
-- (void)findSPSAndPPSInCodec:(AVCodecContext *)codec {
-    // 将用不上的字节替换掉，在SPS和PPS前添加开始码
-    // 假设extradata数据为 0x01 64 00 0A FF E1 00 19 67 64 00 00...其中67开始为SPS数据
-    //  则替换后为0x00 00 00 01 67 64...
-    
-    // 使用FFMPEG提供的方法。
-    // 我一开始以为FFMPEG的这个方法会直接获取到SPS和PPS，谁知道只是替换掉开始码。
-    // 要注意的是，这段代码会一直报**Packet header is not contained in global extradata, corrupted stream or invalid MP4/AVCC bitstream**。可是貌似对数据获取没什么影响。我就直接忽略了
-    uint8_t *dummy = NULL;
-    int dummy_size;
-    AVBitStreamFilterContext* bsfc =  av_bitstream_filter_init("h264_mp4toannexb");
-    av_bitstream_filter_filter(bsfc, codec, NULL, &dummy, &dummy_size, NULL, 0, 0);
-    av_bitstream_filter_close(bsfc);
-    
-    // 获取SPS和PPS的数据和长度
-    int startCodeSPSIndex = 0;
-    int startCodePPSIndex = 0;
-    uint8_t *extradata = codec->extradata;
-    for (int i = 3; i < codec->extradata_size; i++) {
-        if (extradata[i] == 0x01 && extradata[i-1] == 0x00 && extradata[i-2] == 0x00 && extradata[i-3] == 0x00) {
-            if (startCodeSPSIndex == 0) startCodeSPSIndex = i + 1;
-            if (i > startCodeSPSIndex) {
-                startCodePPSIndex = i + 1;
-                break;
-            }
-        }
-    }
-    
-    // 这里减4是因为需要减去PPS的开始码的4个字节
-    int spsLength = startCodePPSIndex - 4 - startCodeSPSIndex;
-    int ppsLength = codec->extradata_size - startCodePPSIndex;
-    
-    _spsData = [NSData dataWithBytes:&extradata[startCodeSPSIndex] length:spsLength];
-    _ppsData = [NSData dataWithBytes:&extradata[startCodePPSIndex] length:ppsLength];
-    
-    if (_spsData != nil && _ppsData != nil) {
-        // Set H.264 parameters
-        const uint8_t* parameterSetPointers[2] = { (uint8_t *)[_spsData bytes], (uint8_t *)[_ppsData bytes] };
-        const size_t parameterSetSizes[2] = { [_spsData length], [_ppsData length] };
-        // 创建CMVideoFormatDesc
-        _status = CMVideoFormatDescriptionCreateFromH264ParameterSets(kCFAllocatorDefault, 2, parameterSetPointers, parameterSetSizes, 4, &_formatDescriptionRef);
-        if (_status != noErr) NSLog(@"\n\nFormat Description ERROR: %d", (int)_status);
-    }
- 
-    if (_status == noErr && _decompressionSessionRef == NULL) [self createDecompressionSession];
-  
-}
 
 // 创建session
 - (void)createDecompressionSession {
@@ -149,7 +100,7 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon, vo
 -(void)decodePacketWithSomeThingNew:(AVPacket)packet{
     
     if (mDecodeQueue==nil) {
-        mDecodeQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        mDecodeQueue = dispatch_queue_create(DISPATCH_QUEUE_PRIORITY_DEFAULT, DISPATCH_QUEUE_SERIAL);
     }
    
     dispatch_async(mDecodeQueue, ^{
@@ -166,10 +117,10 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon, vo
         }
         inputSize = packet.size;
         inputBuffer =malloc(inputSize);
-        inputBuffer = packet.data;
+        memcpy(inputBuffer, packet.data, inputSize);
         
         long zerocount = 0; NSMutableArray * indexArr = [NSMutableArray array];
-        
+        [indexArr removeAllObjects];
         for (int i=0; i<inputSize; ++i) {
             
             if ((inputBuffer[i]&0xFF)==0) {
@@ -198,11 +149,11 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon, vo
                 packetBuffer = malloc(packetSize);
                 memcpy(packetBuffer, inputBuffer+begin, end-begin);
             }else{
-                NSNumber *endnum = indexArr[i];
-                int end = [endnum intValue];
-                packetSize = inputSize - end;
+                NSNumber *lastendnum = indexArr[i];
+                int lastend = [lastendnum intValue];
+                packetSize = inputSize - lastend;
                 packetBuffer = malloc(packetSize);
-                memcpy(packetBuffer, inputBuffer+end, inputSize-end);
+                memcpy(packetBuffer, inputBuffer+lastend, packetSize);
                
             }
             
@@ -238,7 +189,7 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon, vo
                     pixelBuffer = [self decode];
                     break;
             }
-            
+         
             if(pixelBuffer) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                  [self.lyOpenGLView displayPixelBuffer:pixelBuffer];
@@ -252,7 +203,7 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon, vo
             
             
         }
-        
+       av_packet_unref(&packet);
     });
    
 }
