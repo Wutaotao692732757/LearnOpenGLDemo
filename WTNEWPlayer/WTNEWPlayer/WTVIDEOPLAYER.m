@@ -142,19 +142,15 @@ NSMutableData *readdata;
             [self.videoDecoder decodeWithCodec:WTCodecCtx packet:packet];
             
 //            NSData *data = [NSData dataWithBytes:packet.data length:packet.size];
-//            
 //            [readdata appendData:data];
-//                
-//                if (readdata.length>=1024*1024) {
-//                    
+//            if (readdata.length>=1024*1024) {
 //                    NSString *path_sandox = NSHomeDirectory();
 //                    //设置一个图片的存储路径
 //                    NSString *dataPath = [path_sandox stringByAppendingString:@"/Documents/test.h264"];
-//                    
 //                    [readdata writeToFile:dataPath atomically:YES];
 //                    readdata.length=0;
 //                }
-                //            NSLog(@"路径-- %@",dataPath);
+//            NSLog(@"路径-- %@",dataPath);
 //            NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 //            NSLog(@"%@", data);
             }
@@ -168,7 +164,6 @@ NSMutableData *readdata;
         _videoDecoder=[[UFVideoDecoder alloc]init];
         _videoDecoder.delegate=self;
         _videoDecoder.lyOpenGLView = self.lyOpenGLView;
-     
     }
     return _videoDecoder;
 }
