@@ -19,6 +19,9 @@
 
 
 @implementation AGLKVertexAttribArrayBuffer
+@synthesize name;
+@synthesize bufferSizeBytes;
+@synthesize stride;
 
 -(id)initWithAttribStride:(GLsizeiptr)aStride numberOfVertices:(GLsizei)count bytes:(const GLvoid *)dataPtr usage:(GLenum)usage
 {
