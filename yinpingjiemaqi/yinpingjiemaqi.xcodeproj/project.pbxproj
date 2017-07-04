@@ -37,7 +37,7 @@
 		6E4FF0191F04D9F400E487F1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E4FF0181F04D9F400E487F1 /* QuartzCore.framework */; };
 		6E4FF01B1F04D9FD00E487F1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E4FF01A1F04D9FD00E487F1 /* OpenGLES.framework */; };
 		6E4FF01D1F04DA1100E487F1 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E4FF01C1F04DA1100E487F1 /* CoreAudio.framework */; };
-		6E4FF01F1F04E4D000E487F1 /* test.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 6E4FF01E1F04E4D000E487F1 /* test.pcm */; };
+		6E4FF0221F04EB8000E487F1 /* PCMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4FF0211F04EB8000E487F1 /* PCMPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,7 +200,8 @@
 		6E4FF0181F04D9F400E487F1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6E4FF01A1F04D9FD00E487F1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		6E4FF01C1F04DA1100E487F1 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		6E4FF01E1F04E4D000E487F1 /* test.pcm */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.pcm; sourceTree = "<group>"; };
+		6E4FF0201F04EB8000E487F1 /* PCMPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCMPlayer.h; sourceTree = "<group>"; };
+		6E4FF0211F04EB8000E487F1 /* PCMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCMPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,7 +277,8 @@
 				6E4FEF7F1F04D8FE00E487F1 /* FFmpeg-iOS */,
 				6E4FEF4F1F04D8B300E487F1 /* AppDelegate.h */,
 				6E4FEF501F04D8B300E487F1 /* AppDelegate.m */,
-				6E4FF01E1F04E4D000E487F1 /* test.pcm */,
+				6E4FF0201F04EB8000E487F1 /* PCMPlayer.h */,
+				6E4FF0211F04EB8000E487F1 /* PCMPlayer.m */,
 				6E4FEF521F04D8B300E487F1 /* ViewController.h */,
 				6E4FEF531F04D8B300E487F1 /* ViewController.m */,
 				6E4FEF551F04D8B300E487F1 /* Main.storyboard */,
@@ -637,7 +639,6 @@
 			files = (
 				6E4FEF5C1F04D8B300E487F1 /* LaunchScreen.storyboard in Resources */,
 				6E4FEF591F04D8B300E487F1 /* Assets.xcassets in Resources */,
-				6E4FF01F1F04E4D000E487F1 /* test.pcm in Resources */,
 				6E4FEF571F04D8B300E487F1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,6 +664,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E4FF0221F04EB8000E487F1 /* PCMPlayer.m in Sources */,
 				6E4FF0001F04D8FE00E487F1 /* WTMoiveObject.m in Sources */,
 				6E4FEF541F04D8B300E487F1 /* ViewController.m in Sources */,
 				6E4FEF511F04D8B300E487F1 /* AppDelegate.m in Sources */,
@@ -920,6 +922,7 @@
 				6E4FEF781F04D8B300E487F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E4FEF791F04D8B300E487F1 /* Build configuration list for PBXNativeTarget "yinpingjiemaqiTests" */ = {
 			isa = XCConfigurationList;
@@ -928,6 +931,7 @@
 				6E4FEF7B1F04D8B300E487F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E4FEF7C1F04D8B300E487F1 /* Build configuration list for PBXNativeTarget "yinpingjiemaqiUITests" */ = {
 			isa = XCConfigurationList;
@@ -936,6 +940,7 @@
 				6E4FEF7E1F04D8B300E487F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

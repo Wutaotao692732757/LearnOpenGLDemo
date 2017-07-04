@@ -10,8 +10,9 @@
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libswresample/swresample.h>
+#import "PCMPlayer.h"
 @interface ViewController ()
-
+@property(nonatomic,strong)PCMPlayer *pcmPlayer;
 @end
 #define MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
 @implementation ViewController
@@ -106,7 +107,26 @@
     au_convert_ctx=swr_alloc_set_opts(au_convert_ctx,out_channel_layout, out_sample_fmt, out_sample_rate,
                                       in_channel_layout,pCodecCtx->sample_fmt , pCodecCtx->sample_rate,0, NULL);
     swr_init(au_convert_ctx);
+       swr_free(&au_convert_ctx);
     
+//    fclose(pFile);
+//    
+//    av_free(out_buffer);
+//    // Close the codec
+//    avcodec_close(pCodecCtx);
+//    // Close the video file  
+//    avformat_close_input(&pFormatCtx);
+//
+
+
+}
+
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    _pcmPlayer = [[PCMPlayer alloc] init];
+    [_pcmPlayer start];
     while(av_read_frame(pFormatCtx, packet)>=0){
         if(packet->stream_index==audioStream){
             
@@ -120,11 +140,9 @@
                 
                 printf("index:%5d\t pts:%lld\t packet size:%d\n",index,packet->pts,packet->size);
                 //Write PCM
-//                fwrite(out_buffer, 1, out_buffer_size, pFile);
-                
-                
-                
-                
+                //                fwrite(out_buffer, 1, out_buffer_size, pFile);
+                NSData *data = [NSData dataWithBytes:out_buffer length:out_buffer_size];
+                [_pcmPlayer play:data];
                 
                 
                 index++;
@@ -133,21 +151,7 @@
         av_free_packet(packet);
     }
     
-    swr_free(&au_convert_ctx);
-    
-    fclose(pFile);
-    
-    av_free(out_buffer);
-    // Close the codec
-    avcodec_close(pCodecCtx);
-    // Close the video file  
-    avformat_close_input(&pFormatCtx);
-
-
 
 }
-
-
-
 
 @end
