@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HALuanchViewController">
+            <connections>
+                <outlet property="hotelRegistBtn" destination="69k-M6-9gB" id="o1p-LQ-Tjb"/>
+                <outlet property="personRegistBtn" destination="Kbk-7Q-O0I" id="nr1-Fn-4gm"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="登录注册背景图" translatesAutoresizingMaskIntoConstraints="NO" id="VDN-ij-VqD">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgH-BX-tru">
+                    <rect key="frame" x="10" y="10" width="42" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJa-Ov-KyF">
+                    <rect key="frame" x="130.5" y="613" width="114" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="注册酒店账号须知&gt;&gt;">
+                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K13-58-tFh">
+                    <rect key="frame" x="40" y="179" width="125" height="125"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="125" id="Nw0-4u-24T"/>
+                        <constraint firstAttribute="width" constant="125" id="QA4-St-eYP"/>
+                    </constraints>
+                    <state key="normal" image="酒店icon"/>
+                    <connections>
+                        <action selector="hotelLoginBtnDidClicked:" destination="-1" eventType="touchUpInside" id="bQ1-UL-xMe"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="酒店登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Stg-dh-OTE">
+                    <rect key="frame" x="73.5" y="264" width="57.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qnn-qc-PA2">
+                    <rect key="frame" x="210" y="179" width="125" height="125"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="125" id="Kwh-2F-7Ne"/>
+                        <constraint firstAttribute="width" constant="125" id="Orm-Qy-g50"/>
+                    </constraints>
+                    <state key="normal" image="个人登录-ICON"/>
+                    <connections>
+                        <action selector="personLogin:" destination="-1" eventType="touchUpInside" id="2IA-hw-r7t"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="个人登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoQ-Dd-rm0">
+                    <rect key="frame" x="243.5" y="264" width="57.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69k-M6-9gB">
+                    <rect key="frame" x="40" y="325" width="125" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="125" id="Bdg-am-cUY"/>
+                        <constraint firstAttribute="height" constant="40" id="gkO-Y0-OkW"/>
+                    </constraints>
+                    <state key="normal" title="酒店注册">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="hotelRegistBtnDidClicked:" destination="-1" eventType="touchUpInside" id="gu9-s6-zy4"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbk-7Q-O0I">
+                    <rect key="frame" x="210" y="325" width="125" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="125" id="2Rk-pm-CnN"/>
+                        <constraint firstAttribute="height" constant="40" id="CM8-Ji-dX8"/>
+                    </constraints>
+                    <state key="normal" title="个人注册">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="personRegisterBtnDidClicked:" destination="-1" eventType="touchUpInside" id="IY4-dy-BcY"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="aoQ-Dd-rm0" firstAttribute="centerX" secondItem="Qnn-qc-PA2" secondAttribute="centerX" id="4aG-um-ukG"/>
+                <constraint firstItem="sJa-Ov-KyF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="6eV-ME-qgx"/>
+                <constraint firstItem="K13-58-tFh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="179" id="7hO-Gq-3hd"/>
+                <constraint firstItem="Kbk-7Q-O0I" firstAttribute="top" secondItem="Qnn-qc-PA2" secondAttribute="bottom" constant="21" id="Aie-H4-a47"/>
+                <constraint firstItem="Qnn-qc-PA2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="179" id="GGb-lP-r2X"/>
+                <constraint firstAttribute="trailing" secondItem="VDN-ij-VqD" secondAttribute="trailing" id="JJ5-Gq-kJl"/>
+                <constraint firstItem="VDN-ij-VqD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PDi-JN-35U"/>
+                <constraint firstItem="69k-M6-9gB" firstAttribute="top" secondItem="K13-58-tFh" secondAttribute="bottom" constant="21" id="QJD-7n-BH8"/>
+                <constraint firstItem="K13-58-tFh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="UkT-Tp-igx"/>
+                <constraint firstItem="VDN-ij-VqD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VfZ-7e-e2P"/>
+                <constraint firstAttribute="trailing" secondItem="Qnn-qc-PA2" secondAttribute="trailing" constant="40" id="bIh-Fd-4MI"/>
+                <constraint firstItem="Stg-dh-OTE" firstAttribute="centerX" secondItem="K13-58-tFh" secondAttribute="centerX" id="bbO-91-ldl"/>
+                <constraint firstAttribute="bottom" secondItem="VDN-ij-VqD" secondAttribute="bottom" id="cSZ-t9-Hup"/>
+                <constraint firstAttribute="bottom" secondItem="sJa-Ov-KyF" secondAttribute="bottom" constant="27" id="fQG-bV-gFT"/>
+                <constraint firstItem="aoQ-Dd-rm0" firstAttribute="top" secondItem="Qnn-qc-PA2" secondAttribute="bottom" constant="-40" id="ffA-zo-Z8T"/>
+                <constraint firstItem="Stg-dh-OTE" firstAttribute="top" secondItem="K13-58-tFh" secondAttribute="bottom" constant="-40" id="hbW-IA-YQf"/>
+                <constraint firstAttribute="trailing" secondItem="Kbk-7Q-O0I" secondAttribute="trailing" constant="40" id="ptZ-q3-or1"/>
+                <constraint firstItem="69k-M6-9gB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="uzl-rj-M0j"/>
+            </constraints>
+            <point key="canvasLocation" x="26.5" y="52.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="个人登录-ICON" width="16" height="16"/>
+        <image name="登录注册背景图" width="16" height="16"/>
+        <image name="酒店icon" width="16" height="16"/>
+    </resources>
+</document>
