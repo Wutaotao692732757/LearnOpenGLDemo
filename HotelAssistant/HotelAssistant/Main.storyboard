@@ -12,7 +12,7 @@
         <!--订单-->
         <scene sceneID="Fpr-pK-w6v">
             <objects>
-                <viewController id="58X-om-znS" sceneMemberID="viewController">
+                <viewController id="58X-om-znS" customClass="HANavigationController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DUq-CS-qGe"/>
                         <viewControllerLayoutGuide type="bottom" id="pw6-AJ-8Bs"/>
@@ -31,7 +31,7 @@
         <!--首页-酒店-->
         <scene sceneID="Gea-eL-cRq">
             <objects>
-                <viewController id="uT8-I3-LnP" sceneMemberID="viewController">
+                <viewController id="uT8-I3-LnP" customClass="HANavigationController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yPl-77-EYR"/>
                         <viewControllerLayoutGuide type="bottom" id="tlB-1t-ydF"/>
@@ -135,7 +135,7 @@
         <!--首页-->
         <scene sceneID="AeV-VW-jcF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Kgy-3U-9NI" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Kgy-3U-9NI" customClass="HANavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="首页" id="C20-zd-PYT"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ec2-xx-gj5">
@@ -154,7 +154,7 @@
         <!--订单-->
         <scene sceneID="xve-Uy-eN4">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3G0-aI-BF1" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3G0-aI-BF1" customClass="HANavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="订单" id="Rfw-du-0XP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f6e-nC-gpb">
@@ -173,7 +173,7 @@
         <!--酒店中心-->
         <scene sceneID="gTh-jZ-AHW">
             <objects>
-                <navigationController id="5wc-ej-la2" sceneMemberID="viewController">
+                <navigationController id="5wc-ej-la2" customClass="HANavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="酒店中心" id="up9-ru-2tJ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="s6o-PO-cRK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -219,7 +219,7 @@
                                         <color key="trackTintColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v35" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KL9-iC-8KE">
-                                        <rect key="frame" x="272.5" y="150" width="21.5" height="14.5"/>
+                                        <rect key="frame" x="272.5" y="151" width="21.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>

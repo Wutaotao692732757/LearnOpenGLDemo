@@ -8,6 +8,7 @@
 
 #import "HAHotelCenterVC.h"
 #import "HAHotelCenterTableViewCell.h"
+#import "HAAccountInfoVC.h"
 @interface HAHotelCenterVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
@@ -42,7 +43,15 @@
     return cell;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section==0&&indexPath.row==0) {
+        HAAccountInfoVC *infoVC = [[HAAccountInfoVC alloc]init];
+        [self.navigationController pushViewController:infoVC animated:YES];
+    }
+    
+    return;
+}
 
 
 
