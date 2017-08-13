@@ -20,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    BOOL hasLogin = YES;  BOOL isHotel = NO;
+    BOOL hasLogin = YES;  BOOL isHotel = YES;
     
     if (hasLogin) {
         

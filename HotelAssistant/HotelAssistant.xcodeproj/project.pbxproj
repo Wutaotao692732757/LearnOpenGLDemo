@@ -183,6 +183,9 @@
 		6E11CFB51F37078D00DEF3CB /* HAupdatePersonInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E11CFB31F37078D00DEF3CB /* HAupdatePersonInfoVC.m */; };
 		6E11CFB61F37078D00DEF3CB /* HAupdatePersonInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E11CFB41F37078D00DEF3CB /* HAupdatePersonInfoVC.xib */; };
 		6E11CFB91F370F0F00DEF3CB /* HAInfoScrollerViewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E11CFB81F370F0F00DEF3CB /* HAInfoScrollerViewView.m */; };
+		6E6DE1531F3FFC2F00694AFC /* HAHotelCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6DE1521F3FFC2F00694AFC /* HAHotelCenterVC.m */; };
+		6E6DE1571F3FFE7B00694AFC /* HAHotelCenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6DE1551F3FFE7B00694AFC /* HAHotelCenterTableViewCell.m */; };
+		6E6DE1581F3FFE7B00694AFC /* HAHotelCenterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E6DE1561F3FFE7B00694AFC /* HAHotelCenterTableViewCell.xib */; };
 		EA9108521F1C7E1E00251146 /* HATheOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9108511F1C7E1E00251146 /* HATheOrderVC.m */; };
 /* End PBXBuildFile section */
 
@@ -411,6 +414,11 @@
 		6E11CFB41F37078D00DEF3CB /* HAupdatePersonInfoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HAupdatePersonInfoVC.xib; sourceTree = "<group>"; };
 		6E11CFB71F370F0F00DEF3CB /* HAInfoScrollerViewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HAInfoScrollerViewView.h; sourceTree = "<group>"; };
 		6E11CFB81F370F0F00DEF3CB /* HAInfoScrollerViewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HAInfoScrollerViewView.m; sourceTree = "<group>"; };
+		6E6DE1511F3FFC2F00694AFC /* HAHotelCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HAHotelCenterVC.h; sourceTree = "<group>"; };
+		6E6DE1521F3FFC2F00694AFC /* HAHotelCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HAHotelCenterVC.m; sourceTree = "<group>"; };
+		6E6DE1541F3FFE7B00694AFC /* HAHotelCenterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HAHotelCenterTableViewCell.h; sourceTree = "<group>"; };
+		6E6DE1551F3FFE7B00694AFC /* HAHotelCenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HAHotelCenterTableViewCell.m; sourceTree = "<group>"; };
+		6E6DE1561F3FFE7B00694AFC /* HAHotelCenterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HAHotelCenterTableViewCell.xib; sourceTree = "<group>"; };
 		EA9108501F1C7E1E00251146 /* HATheOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HATheOrderVC.h; sourceTree = "<group>"; };
 		EA9108511F1C7E1E00251146 /* HATheOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HATheOrderVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1009,6 +1017,11 @@
 		EA91084F1F1C7D5100251146 /* 酒店中心 */ = {
 			isa = PBXGroup;
 			children = (
+				6E6DE1511F3FFC2F00694AFC /* HAHotelCenterVC.h */,
+				6E6DE1521F3FFC2F00694AFC /* HAHotelCenterVC.m */,
+				6E6DE1541F3FFE7B00694AFC /* HAHotelCenterTableViewCell.h */,
+				6E6DE1551F3FFE7B00694AFC /* HAHotelCenterTableViewCell.m */,
+				6E6DE1561F3FFE7B00694AFC /* HAHotelCenterTableViewCell.xib */,
 			);
 			name = "酒店中心";
 			path = ..;
@@ -1202,6 +1215,7 @@
 				6E11CF6C1F36DFF100DEF3CB /* 酒店-icon@2x.png in Resources */,
 				00CE99861F35883A0056C257 /* 进行中详情-小箭头@2x.png in Resources */,
 				00723B201F276CC900FDE262 /* 手机icon@3x.png in Resources */,
+				6E6DE1581F3FFE7B00694AFC /* HAHotelCenterTableViewCell.xib in Resources */,
 				00CE997D1F35883A0056C257 /* 派单中头像@2x.png in Resources */,
 				00723B1F1F276CC900FDE262 /* 客户登录banner@3x.png in Resources */,
 				00E436291F1CEF19007A90D5 /* HALuanchViewController.xib in Resources */,
@@ -1301,6 +1315,7 @@
 				6E11CFB91F370F0F00DEF3CB /* HAInfoScrollerViewView.m in Sources */,
 				182E9C491F0B0DC700FDC107 /* HANavigationController.m in Sources */,
 				184D94D71F15A4AB00C92463 /* HAHotelHomePageVC.m in Sources */,
+				6E6DE1531F3FFC2F00694AFC /* HAHotelCenterVC.m in Sources */,
 				000974331F2DCA920017730A /* HAHotelMessageVC.m in Sources */,
 				00CE99471F3583340056C257 /* HAMessageCell.m in Sources */,
 				182E9C521F0B10DE00FDC107 /* HARegistrationInfoVC.m in Sources */,
@@ -1314,6 +1329,7 @@
 				6E11CF081F36BB2900DEF3CB /* HAPersonCenterVC.m in Sources */,
 				6E11CF7C1F36E1DC00DEF3CB /* HAMyOrderVC.m in Sources */,
 				6E11CF171F36BE5900DEF3CB /* HAPersonCenterCell.m in Sources */,
+				6E6DE1571F3FFE7B00694AFC /* HAHotelCenterTableViewCell.m in Sources */,
 				187CB6AD1F070BA40086732F /* main.m in Sources */,
 				6E11CF951F36F9D200DEF3CB /* HAPersonGetMonkeyVC.m in Sources */,
 				6E11CFB51F37078D00DEF3CB /* HAupdatePersonInfoVC.m in Sources */,
