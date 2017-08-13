@@ -17,6 +17,7 @@
 		00723B1C1F276CB300FDE262 /* 手机icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00723B1A1F276CB300FDE262 /* 手机icon@2x.png */; };
 		00723B1F1F276CC900FDE262 /* 客户登录banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00723B1D1F276CC900FDE262 /* 客户登录banner@3x.png */; };
 		00723B201F276CC900FDE262 /* 手机icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00723B1E1F276CC900FDE262 /* 手机icon@3x.png */; };
+		0078E44C1F402FEB009520FF /* HAHotelCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0078E44B1F402FEB009520FF /* HAHotelCenterVC.m */; };
 		00CB38891F1F9662003288A9 /* HotelLoginInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 00CB38871F1F9662003288A9 /* HotelLoginInVC.m */; };
 		00CB388A1F1F9662003288A9 /* HotelLoginInVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00CB38881F1F9662003288A9 /* HotelLoginInVC.xib */; };
 		00CB388D1F1F97C6003288A9 /* 登录用户名、电话邮箱icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00CB388C1F1F97C6003288A9 /* 登录用户名、电话邮箱icon@2x.png */; };
@@ -228,6 +229,8 @@
 		00723B1A1F276CB300FDE262 /* 手机icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "手机icon@2x.png"; sourceTree = "<group>"; };
 		00723B1D1F276CC900FDE262 /* 客户登录banner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "客户登录banner@3x.png"; sourceTree = "<group>"; };
 		00723B1E1F276CC900FDE262 /* 手机icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "手机icon@3x.png"; sourceTree = "<group>"; };
+		0078E44A1F402FEB009520FF /* HAHotelCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HAHotelCenterVC.h; sourceTree = "<group>"; };
+		0078E44B1F402FEB009520FF /* HAHotelCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HAHotelCenterVC.m; sourceTree = "<group>"; };
 		00CB38861F1F9662003288A9 /* HotelLoginInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelLoginInVC.h; sourceTree = "<group>"; };
 		00CB38871F1F9662003288A9 /* HotelLoginInVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelLoginInVC.m; sourceTree = "<group>"; };
 		00CB38881F1F9662003288A9 /* HotelLoginInVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelLoginInVC.xib; sourceTree = "<group>"; };
@@ -1039,6 +1042,8 @@
 			children = (
 				6E6DE1511F3FFC2F00694AFC /* HAHotelCenterVC.h */,
 				6E6DE1521F3FFC2F00694AFC /* HAHotelCenterVC.m */,
+				0078E44A1F402FEB009520FF /* HAHotelCenterVC.h */,
+				0078E44B1F402FEB009520FF /* HAHotelCenterVC.m */,
 				6E6DE1541F3FFE7B00694AFC /* HAHotelCenterTableViewCell.h */,
 				6E6DE1551F3FFE7B00694AFC /* HAHotelCenterTableViewCell.m */,
 				6E6DE1561F3FFE7B00694AFC /* HAHotelCenterTableViewCell.xib */,
@@ -1357,6 +1362,7 @@
 				00CE99471F3583340056C257 /* HAMessageCell.m in Sources */,
 				182E9C521F0B10DE00FDC107 /* HARegistrationInfoVC.m in Sources */,
 				6E11CF3E1F36C95000DEF3CB /* HAPersonInfoVC.m in Sources */,
+				0078E44C1F402FEB009520FF /* HAHotelCenterVC.m in Sources */,
 				187CB6B31F070BA40086732F /* ViewController.m in Sources */,
 				187CB6B01F070BA40086732F /* AppDelegate.m in Sources */,
 				00E5DD7E1F2C9580009BCB55 /* HAHotelRegistVC.m in Sources */,
