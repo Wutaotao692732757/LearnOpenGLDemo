@@ -192,6 +192,8 @@
 		6E6DE1741F40150E00694AFC /* HAAccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E6DE1721F40150E00694AFC /* HAAccountTableViewCell.xib */; };
 		6E6DE1781F4020F000694AFC /* HASubbranchAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6DE1761F4020F000694AFC /* HASubbranchAccountVC.m */; };
 		6E6DE1791F4020F000694AFC /* HASubbranchAccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E6DE1771F4020F000694AFC /* HASubbranchAccountVC.xib */; };
+		6E6DE17D1F4021DE00694AFC /* HASubbranchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6DE17B1F4021DE00694AFC /* HASubbranchTableViewCell.m */; };
+		6E6DE17E1F4021DE00694AFC /* HASubbranchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E6DE17C1F4021DE00694AFC /* HASubbranchTableViewCell.xib */; };
 		EA9108521F1C7E1E00251146 /* HATheOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9108511F1C7E1E00251146 /* HATheOrderVC.m */; };
 /* End PBXBuildFile section */
 
@@ -434,6 +436,9 @@
 		6E6DE1751F4020F000694AFC /* HASubbranchAccountVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HASubbranchAccountVC.h; sourceTree = "<group>"; };
 		6E6DE1761F4020F000694AFC /* HASubbranchAccountVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HASubbranchAccountVC.m; sourceTree = "<group>"; };
 		6E6DE1771F4020F000694AFC /* HASubbranchAccountVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HASubbranchAccountVC.xib; sourceTree = "<group>"; };
+		6E6DE17A1F4021DE00694AFC /* HASubbranchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HASubbranchTableViewCell.h; sourceTree = "<group>"; };
+		6E6DE17B1F4021DE00694AFC /* HASubbranchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HASubbranchTableViewCell.m; sourceTree = "<group>"; };
+		6E6DE17C1F4021DE00694AFC /* HASubbranchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HASubbranchTableViewCell.xib; sourceTree = "<group>"; };
 		EA9108501F1C7E1E00251146 /* HATheOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HATheOrderVC.h; sourceTree = "<group>"; };
 		EA9108511F1C7E1E00251146 /* HATheOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HATheOrderVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1046,6 +1051,9 @@
 				6E6DE1751F4020F000694AFC /* HASubbranchAccountVC.h */,
 				6E6DE1761F4020F000694AFC /* HASubbranchAccountVC.m */,
 				6E6DE1771F4020F000694AFC /* HASubbranchAccountVC.xib */,
+				6E6DE17A1F4021DE00694AFC /* HASubbranchTableViewCell.h */,
+				6E6DE17B1F4021DE00694AFC /* HASubbranchTableViewCell.m */,
+				6E6DE17C1F4021DE00694AFC /* HASubbranchTableViewCell.xib */,
 			);
 			name = "酒店中心";
 			path = ..;
@@ -1275,6 +1283,7 @@
 				00CE997A1F35883A0056C257 /* 房型icon@2x.png in Resources */,
 				00CE99851F35883A0056C257 /* 评分标准框@2x.png in Resources */,
 				6E11CF701F36DFF100DEF3CB /* 头像ICON@3x.png in Resources */,
+				6E6DE17E1F4021DE00694AFC /* HASubbranchTableViewCell.xib in Resources */,
 				000974361F2DCCAB0017730A /* PersonMain.storyboard in Resources */,
 				6E11CF661F36DFF100DEF3CB /* 头像ICON@2x.png in Resources */,
 				00CB388A1F1F9662003288A9 /* HotelLoginInVC.xib in Resources */,
@@ -1367,6 +1376,7 @@
 				00CE999F1F3594300056C257 /* HAOtherMessageCell.m in Sources */,
 				6E11CF9A1F36FE0A00DEF3CB /* HAChangeCardVC.m in Sources */,
 				6E11CF861F36F3F800DEF3CB /* HAMyMoneyVC.m in Sources */,
+				6E6DE17D1F4021DE00694AFC /* HASubbranchTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

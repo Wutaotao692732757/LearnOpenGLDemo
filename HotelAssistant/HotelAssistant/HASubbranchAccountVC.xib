@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HASubbranchAccountVC">
             <connections>
+                <outlet property="myTbaleView" destination="hIa-Bo-eDg" id="wvT-yb-5u4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

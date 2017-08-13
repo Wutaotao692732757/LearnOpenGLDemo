@@ -1,5 +1,5 @@
 //
-//  HASubbranchAccountVC.h
+//  HASubbranchTableViewCell.h
 //  HotelAssistant
 //
 //  Created by wutaotao on 2017/8/13.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HASubbranchAccountVC : UIViewController
-@property (weak, nonatomic) IBOutlet UITableView *myTbaleView;
+@interface HASubbranchTableViewCell : UITableViewCell
 
 @end
